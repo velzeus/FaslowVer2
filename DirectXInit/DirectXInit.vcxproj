@@ -138,6 +138,7 @@
     <ClCompile Include="SceneFolder\Scene.cpp" />
     <ClCompile Include="SceneFolder\SceneManager.cpp" />
     <ClCompile Include="SceneFolder\Scenes\TitleScene.cpp" />
+    <ClCompile Include="SceneFolder\Scenes\WorldSelectScene.cpp" />
     <ClCompile Include="sound.cpp" />
     <ClCompile Include="WICTextureLoader.cpp" />
   </ItemGroup>
@@ -172,6 +173,7 @@
     <ClInclude Include="SceneFolder\Scene.h" />
     <ClInclude Include="SceneFolder\SceneManager.h" />
     <ClInclude Include="SceneFolder\Scenes\TitleScene.h" />
+    <ClInclude Include="SceneFolder\Scenes\WorldSelectScene.h" />
     <ClInclude Include="sound.h" />
     <ClInclude Include="WICTextureLoader.h" />
   </ItemGroup>

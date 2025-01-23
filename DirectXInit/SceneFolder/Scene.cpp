@@ -2,7 +2,7 @@
 
 
 //コンストラクタ
-Scene::Scene(){
+Scene::Scene(const SCENENAME _sceneName):sceneName(_sceneName){
 	//初期化
 	//Start();
 

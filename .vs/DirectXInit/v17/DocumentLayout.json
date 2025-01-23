@@ -3,20 +3,12 @@
   "WorkspaceRootPath": "C:\\Users\\galep\\Desktop\\AssignmentFolder\\Second grade\\\u30C1\u30FC\u30E0\u5236\u4F5C\u8349\u6848\\Faslow\\FaslowVer2\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A0F139BE-5E5D-493E-9C17-A1B0E1D56073}|DirectXInit\\DirectXInit.vcxproj|C:\\Users\\galep\\Desktop\\AssignmentFolder\\Second grade\\\u30C1\u30FC\u30E0\u5236\u4F5C\u8349\u6848\\Faslow\\FaslowVer2\\DirectXInit\\SceneFolder\\Scenes\\TitleScene.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{A0F139BE-5E5D-493E-9C17-A1B0E1D56073}|DirectXInit\\DirectXInit.vcxproj|solutionrelative:DirectXInit\\SceneFolder\\Scenes\\TitleScene.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{A0F139BE-5E5D-493E-9C17-A1B0E1D56073}|DirectXInit\\DirectXInit.vcxproj|C:\\Users\\galep\\Desktop\\AssignmentFolder\\Second grade\\\u30C1\u30FC\u30E0\u5236\u4F5C\u8349\u6848\\Faslow\\FaslowVer2\\DirectXInit\\SceneFolder\\Scenes\\WorldSelectScene.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A0F139BE-5E5D-493E-9C17-A1B0E1D56073}|DirectXInit\\DirectXInit.vcxproj|solutionrelative:DirectXInit\\SceneFolder\\Scenes\\WorldSelectScene.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A0F139BE-5E5D-493E-9C17-A1B0E1D56073}|DirectXInit\\DirectXInit.vcxproj|C:\\Users\\galep\\Desktop\\AssignmentFolder\\Second grade\\\u30C1\u30FC\u30E0\u5236\u4F5C\u8349\u6848\\Faslow\\FaslowVer2\\DirectXInit\\SceneFolder\\Scenes\\TitleScene.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{A0F139BE-5E5D-493E-9C17-A1B0E1D56073}|DirectXInit\\DirectXInit.vcxproj|solutionrelative:DirectXInit\\SceneFolder\\Scenes\\TitleScene.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A0F139BE-5E5D-493E-9C17-A1B0E1D56073}|DirectXInit\\DirectXInit.vcxproj|C:\\USERS\\GALEP\\DESKTOP\\ASSIGNMENTFOLDER\\SECOND GRADE\\\u30C1\u30FC\u30E0\u5236\u4F5C\u8349\u6848\\FASLOW\\FASLOWVER2\\DIRECTXINIT\\OBJECT.H||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{A0F139BE-5E5D-493E-9C17-A1B0E1D56073}|DirectXInit\\DirectXInit.vcxproj|solutionrelative:DIRECTXINIT\\OBJECT.H||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A0F139BE-5E5D-493E-9C17-A1B0E1D56073}|DirectXInit\\DirectXInit.vcxproj|C:\\Users\\galep\\Desktop\\AssignmentFolder\\Second grade\\\u30C1\u30FC\u30E0\u5236\u4F5C\u8349\u6848\\Faslow\\FaslowVer2\\DirectXInit\\SceneFolder\\SceneManager.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{A0F139BE-5E5D-493E-9C17-A1B0E1D56073}|DirectXInit\\DirectXInit.vcxproj|solutionrelative:DirectXInit\\SceneFolder\\SceneManager.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{A0F139BE-5E5D-493E-9C17-A1B0E1D56073}|DirectXInit\\DirectXInit.vcxproj|C:\\Users\\galep\\Desktop\\AssignmentFolder\\Second grade\\\u30C1\u30FC\u30E0\u5236\u4F5C\u8349\u6848\\Faslow\\FaslowVer2\\DirectXInit\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A0F139BE-5E5D-493E-9C17-A1B0E1D56073}|DirectXInit\\DirectXInit.vcxproj|solutionrelative:DirectXInit\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A0F139BE-5E5D-493E-9C17-A1B0E1D56073}|DirectXInit\\DirectXInit.vcxproj|C:\\Users\\galep\\Desktop\\AssignmentFolder\\Second grade\\\u30C1\u30FC\u30E0\u5236\u4F5C\u8349\u6848\\Faslow\\FaslowVer2\\DirectXInit\\SceneFolder\\SceneManager.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
@@ -27,8 +19,24 @@
       "RelativeMoniker": "D:0:0:{A0F139BE-5E5D-493E-9C17-A1B0E1D56073}|DirectXInit\\DirectXInit.vcxproj|solutionrelative:DirectXInit\\SceneFolder\\Scene.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{A0F139BE-5E5D-493E-9C17-A1B0E1D56073}|DirectXInit\\DirectXInit.vcxproj|C:\\Users\\galep\\Desktop\\AssignmentFolder\\Second grade\\\u30C1\u30FC\u30E0\u5236\u4F5C\u8349\u6848\\Faslow\\FaslowVer2\\DirectXInit\\SceneFolder\\Scenes\\TitleScene.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A0F139BE-5E5D-493E-9C17-A1B0E1D56073}|DirectXInit\\DirectXInit.vcxproj|solutionrelative:DirectXInit\\SceneFolder\\Scenes\\TitleScene.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A0F139BE-5E5D-493E-9C17-A1B0E1D56073}|DirectXInit\\DirectXInit.vcxproj|C:\\Users\\galep\\Desktop\\AssignmentFolder\\Second grade\\\u30C1\u30FC\u30E0\u5236\u4F5C\u8349\u6848\\Faslow\\FaslowVer2\\DirectXInit\\SceneFolder\\Scenes\\TitleScene.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A0F139BE-5E5D-493E-9C17-A1B0E1D56073}|DirectXInit\\DirectXInit.vcxproj|solutionrelative:DirectXInit\\SceneFolder\\Scenes\\TitleScene.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{A0F139BE-5E5D-493E-9C17-A1B0E1D56073}|DirectXInit\\DirectXInit.vcxproj|C:\\Users\\galep\\Desktop\\AssignmentFolder\\Second grade\\\u30C1\u30FC\u30E0\u5236\u4F5C\u8349\u6848\\Faslow\\FaslowVer2\\DirectXInit\\SceneFolder\\Scene.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{A0F139BE-5E5D-493E-9C17-A1B0E1D56073}|DirectXInit\\DirectXInit.vcxproj|solutionrelative:DirectXInit\\SceneFolder\\Scene.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A0F139BE-5E5D-493E-9C17-A1B0E1D56073}|DirectXInit\\DirectXInit.vcxproj|C:\\Users\\galep\\Desktop\\AssignmentFolder\\Second grade\\\u30C1\u30FC\u30E0\u5236\u4F5C\u8349\u6848\\Faslow\\FaslowVer2\\DirectXInit\\SceneFolder\\SceneManager.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A0F139BE-5E5D-493E-9C17-A1B0E1D56073}|DirectXInit\\DirectXInit.vcxproj|solutionrelative:DirectXInit\\SceneFolder\\SceneManager.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\galep\\Desktop\\AssignmentFolder\\Second grade\\\u30C1\u30FC\u30E0\u5236\u4F5C\u8349\u6848\\Faslow\\FaslowVer2\\DirectXInit\\Object.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:DirectXInit\\Object.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
   "DocumentGroupContainers": [
@@ -52,16 +60,28 @@
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
+              "Title": "main.cpp",
+              "DocumentMoniker": "C:\\Users\\galep\\Desktop\\AssignmentFolder\\Second grade\\\u30C1\u30FC\u30E0\u5236\u4F5C\u8349\u6848\\Faslow\\FaslowVer2\\DirectXInit\\main.cpp",
+              "RelativeDocumentMoniker": "DirectXInit\\main.cpp",
+              "ToolTip": "C:\\Users\\galep\\Desktop\\AssignmentFolder\\Second grade\\\u30C1\u30FC\u30E0\u5236\u4F5C\u8349\u6848\\Faslow\\FaslowVer2\\DirectXInit\\main.cpp",
+              "RelativeToolTip": "DirectXInit\\main.cpp",
+              "ViewState": "AQIAADoAAAAAAAAAAAAQwEkAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-01-23T11:41:15.71Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
               "Title": "TitleScene.cpp",
               "DocumentMoniker": "C:\\Users\\galep\\Desktop\\AssignmentFolder\\Second grade\\\u30C1\u30FC\u30E0\u5236\u4F5C\u8349\u6848\\Faslow\\FaslowVer2\\DirectXInit\\SceneFolder\\Scenes\\TitleScene.cpp",
               "RelativeDocumentMoniker": "DirectXInit\\SceneFolder\\Scenes\\TitleScene.cpp",
               "ToolTip": "C:\\Users\\galep\\Desktop\\AssignmentFolder\\Second grade\\\u30C1\u30FC\u30E0\u5236\u4F5C\u8349\u6848\\Faslow\\FaslowVer2\\DirectXInit\\SceneFolder\\Scenes\\TitleScene.cpp",
               "RelativeToolTip": "DirectXInit\\SceneFolder\\Scenes\\TitleScene.cpp",
-              "ViewState": "AQIAAAMAAAAAAAAAAAAQwBkAAAATAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAIAAAAvAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-01-23T10:14:16.127Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-23T10:14:16.127Z"
             },
             {
               "$type": "Document",
@@ -71,81 +91,89 @@
               "RelativeDocumentMoniker": "DirectXInit\\SceneFolder\\Scene.cpp",
               "ToolTip": "C:\\Users\\galep\\Desktop\\AssignmentFolder\\Second grade\\\u30C1\u30FC\u30E0\u5236\u4F5C\u8349\u6848\\Faslow\\FaslowVer2\\DirectXInit\\SceneFolder\\Scene.cpp",
               "RelativeToolTip": "DirectXInit\\SceneFolder\\Scene.cpp",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAAAOAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAAAMAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-01-23T10:11:18.216Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-23T10:11:18.216Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "SceneManager.cpp",
+              "DocumentMoniker": "C:\\Users\\galep\\Desktop\\AssignmentFolder\\Second grade\\\u30C1\u30FC\u30E0\u5236\u4F5C\u8349\u6848\\Faslow\\FaslowVer2\\DirectXInit\\SceneFolder\\SceneManager.cpp",
+              "RelativeDocumentMoniker": "DirectXInit\\SceneFolder\\SceneManager.cpp",
+              "ToolTip": "C:\\Users\\galep\\Desktop\\AssignmentFolder\\Second grade\\\u30C1\u30FC\u30E0\u5236\u4F5C\u8349\u6848\\Faslow\\FaslowVer2\\DirectXInit\\SceneFolder\\SceneManager.cpp",
+              "RelativeToolTip": "DirectXInit\\SceneFolder\\SceneManager.cpp",
+              "ViewState": "AQIAABUAAAAAAAAAAAAQwCUAAAAbAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-01-23T10:17:26.985Z"
             }
           ]
         },
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 0,
+              "Title": "WorldSelectScene.h",
+              "DocumentMoniker": "C:\\Users\\galep\\Desktop\\AssignmentFolder\\Second grade\\\u30C1\u30FC\u30E0\u5236\u4F5C\u8349\u6848\\Faslow\\FaslowVer2\\DirectXInit\\SceneFolder\\Scenes\\WorldSelectScene.h",
+              "RelativeDocumentMoniker": "DirectXInit\\SceneFolder\\Scenes\\WorldSelectScene.h",
+              "ToolTip": "C:\\Users\\galep\\Desktop\\AssignmentFolder\\Second grade\\\u30C1\u30FC\u30E0\u5236\u4F5C\u8349\u6848\\Faslow\\FaslowVer2\\DirectXInit\\SceneFolder\\Scenes\\WorldSelectScene.h",
+              "RelativeToolTip": "DirectXInit\\SceneFolder\\Scenes\\WorldSelectScene.h",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAAAHAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-01-23T12:22:23.08Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
               "Title": "Object.h",
               "DocumentMoniker": "C:\\Users\\galep\\Desktop\\AssignmentFolder\\Second grade\\\u30C1\u30FC\u30E0\u5236\u4F5C\u8349\u6848\\Faslow\\FaslowVer2\\DirectXInit\\Object.h",
               "RelativeDocumentMoniker": "DirectXInit\\Object.h",
               "ToolTip": "C:\\Users\\galep\\Desktop\\AssignmentFolder\\Second grade\\\u30C1\u30FC\u30E0\u5236\u4F5C\u8349\u6848\\Faslow\\FaslowVer2\\DirectXInit\\Object.h",
               "RelativeToolTip": "DirectXInit\\Object.h",
-              "ViewState": "AQIAAAoAAAAAAAAAAAAQwDUAAAAYAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2025-01-23T10:18:25.189Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "SceneManager.cpp",
-              "DocumentMoniker": "C:\\Users\\galep\\Desktop\\AssignmentFolder\\Second grade\\\u30C1\u30FC\u30E0\u5236\u4F5C\u8349\u6848\\Faslow\\FaslowVer2\\DirectXInit\\SceneFolder\\SceneManager.cpp",
-              "RelativeDocumentMoniker": "DirectXInit\\SceneFolder\\SceneManager.cpp",
-              "ToolTip": "C:\\Users\\galep\\Desktop\\AssignmentFolder\\Second grade\\\u30C1\u30FC\u30E0\u5236\u4F5C\u8349\u6848\\Faslow\\FaslowVer2\\DirectXInit\\SceneFolder\\SceneManager.cpp",
-              "RelativeToolTip": "DirectXInit\\SceneFolder\\SceneManager.cpp",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-01-23T10:17:26.985Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 2,
               "Title": "SceneManager.h",
               "DocumentMoniker": "C:\\Users\\galep\\Desktop\\AssignmentFolder\\Second grade\\\u30C1\u30FC\u30E0\u5236\u4F5C\u8349\u6848\\Faslow\\FaslowVer2\\DirectXInit\\SceneFolder\\SceneManager.h",
               "RelativeDocumentMoniker": "DirectXInit\\SceneFolder\\SceneManager.h",
               "ToolTip": "C:\\Users\\galep\\Desktop\\AssignmentFolder\\Second grade\\\u30C1\u30FC\u30E0\u5236\u4F5C\u8349\u6848\\Faslow\\FaslowVer2\\DirectXInit\\SceneFolder\\SceneManager.h",
               "RelativeToolTip": "DirectXInit\\SceneFolder\\SceneManager.h",
-              "ViewState": "AQIAAAMAAAAAAAAAAAAAABoAAAAIAAAA",
+              "ViewState": "AQIAAAYAAAAAAAAAAAAAAAsAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-01-23T10:17:15.15Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-23T10:17:15.15Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 5,
               "Title": "TitleScene.h",
               "DocumentMoniker": "C:\\Users\\galep\\Desktop\\AssignmentFolder\\Second grade\\\u30C1\u30FC\u30E0\u5236\u4F5C\u8349\u6848\\Faslow\\FaslowVer2\\DirectXInit\\SceneFolder\\Scenes\\TitleScene.h",
               "RelativeDocumentMoniker": "DirectXInit\\SceneFolder\\Scenes\\TitleScene.h",
               "ToolTip": "C:\\Users\\galep\\Desktop\\AssignmentFolder\\Second grade\\\u30C1\u30FC\u30E0\u5236\u4F5C\u8349\u6848\\Faslow\\FaslowVer2\\DirectXInit\\SceneFolder\\Scenes\\TitleScene.h",
               "RelativeToolTip": "DirectXInit\\SceneFolder\\Scenes\\TitleScene.h",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABQAAAAIAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAAOAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-01-23T10:09:21.041Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-23T10:09:21.041Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 3,
               "Title": "Scene.h",
               "DocumentMoniker": "C:\\Users\\galep\\Desktop\\AssignmentFolder\\Second grade\\\u30C1\u30FC\u30E0\u5236\u4F5C\u8349\u6848\\Faslow\\FaslowVer2\\DirectXInit\\SceneFolder\\Scene.h",
               "RelativeDocumentMoniker": "DirectXInit\\SceneFolder\\Scene.h",
               "ToolTip": "C:\\Users\\galep\\Desktop\\AssignmentFolder\\Second grade\\\u30C1\u30FC\u30E0\u5236\u4F5C\u8349\u6848\\Faslow\\FaslowVer2\\DirectXInit\\SceneFolder\\Scene.h",
               "RelativeToolTip": "DirectXInit\\SceneFolder\\Scene.h",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABIAAAAJAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABcAAAABAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-01-23T10:10:14.513Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-23T10:10:14.513Z"
             }
           ]
         }

@@ -28,6 +28,12 @@ SceneManager* SceneManager::GetInstance()
 	return instance;
 }
 
+SceneManager::~SceneManager()
+{
+	delete instance;	// ”jŠü
+	instance = nullptr;	// memory
+}
+
 //ƒV[ƒ“‚ğ’Ç‰Á
 void SceneManager::AddScene(Scene* _scene)
 {

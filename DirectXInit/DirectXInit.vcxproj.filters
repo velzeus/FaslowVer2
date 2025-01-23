@@ -51,6 +51,9 @@
     <ClCompile Include="SceneFolder\Scenes\TitleScene.cpp">
       <Filter>Scenes\Scenes</Filter>
     </ClCompile>
+    <ClCompile Include="SceneFolder\Scenes\WorldSelectScene.cpp">
+      <Filter>Scenes\Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="PixelShader.hlsl" />
@@ -79,6 +82,9 @@
       <Filter>Scenes</Filter>
     </ClInclude>
     <ClInclude Include="SceneFolder\Scenes\TitleScene.h">
+      <Filter>Scenes\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneFolder\Scenes\WorldSelectScene.h">
       <Filter>Scenes\Scenes</Filter>
     </ClInclude>
   </ItemGroup>

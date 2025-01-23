@@ -9,16 +9,18 @@ class NodeManager;
 
 class Scene
 {
-public:
-
+private:
+	const SCENENAME sceneName;
 public:
 	//コンストラクタ、デストラクタ
-	Scene();
+	Scene(const SCENENAME _sceneName);
 	virtual ~Scene();
 
 	virtual int Start();
 	virtual int Update();
 	virtual int Draw();
 	virtual int End();
+
+	
 };
 

@@ -37,6 +37,7 @@ public:
 
 	//インスタンスを取得
 	static SceneManager* GetInstance();
+	~SceneManager();
 
 	//シーンを追加
 	void AddScene(Scene* _scene);
