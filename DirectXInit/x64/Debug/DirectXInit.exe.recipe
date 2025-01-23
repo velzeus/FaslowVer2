@@ -2,15 +2,15 @@
 <Project>
   <ProjectOutputs>
     <ProjectOutput>
-      <FullPath>C:\Users\kkout\OneDrive - nkz.ac.jp\デスクトップ\DX21\DirectXInit\x64\Debug\DirectXInit.exe</FullPath>
+      <FullPath>C:\Users\galep\Desktop\AssignmentFolder\Second grade\チーム制作草案\Faslow\FaslowVer2\x64\Debug\DirectXInit.exe</FullPath>
     </ProjectOutput>
   </ProjectOutputs>
   <ContentFiles>
     <ContentFile>
-      <FullPath>C:\Users\kkout\OneDrive - nkz.ac.jp\デスクトップ\DX21\DirectXInit\x64\Debug\PixelShader.cso</FullPath>
+      <FullPath>C:\Users\galep\Desktop\AssignmentFolder\Second grade\チーム制作草案\Faslow\FaslowVer2\x64\Debug\PixelShader.cso</FullPath>
     </ContentFile>
     <ContentFile>
-      <FullPath>C:\Users\kkout\OneDrive - nkz.ac.jp\デスクトップ\DX21\DirectXInit\x64\Debug\VertexShader.cso</FullPath>
+      <FullPath>C:\Users\galep\Desktop\AssignmentFolder\Second grade\チーム制作草案\Faslow\FaslowVer2\x64\Debug\VertexShader.cso</FullPath>
     </ContentFile>
   </ContentFiles>
   <SatelliteDlls />
