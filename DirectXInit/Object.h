@@ -49,7 +49,7 @@ public:
 	float numV = 0;
 	int anim_flg = 0;
 	int anim_cnt = 0;
-	Direction direction = right;
+	//Direction direction = right;
 
 	void Init(const wchar_t* imgname, int sx = 1, int sy = 1);//‰Šú‰»
 	void Draw();                                        //•`‰æ

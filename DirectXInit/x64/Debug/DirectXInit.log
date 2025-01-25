@@ -1,5 +1,1 @@
-﻿  Game.cpp
-C:\Users\kkout\OneDrive - nkz.ac.jp\デスクトップ\DX21\DirectXInit\DirectXInit\Game.cpp(27,67): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\kkout\OneDrive - nkz.ac.jp\デスクトップ\DX21\DirectXInit\DirectXInit\Game.cpp(27,35): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\kkout\OneDrive - nkz.ac.jp\デスクトップ\DX21\DirectXInit\DirectXInit\Game.cpp(551,53): warning C4244: '=': 'int' から 'float' への変換です。データが失われる可能性があります。
-  DirectXInit.vcxproj -> C:\Users\kkout\OneDrive - nkz.ac.jp\デスクトップ\DX21\DirectXInit\x64\Debug\DirectXInit.exe
+﻿  DirectXInit.vcxproj -> C:\Users\richs\Documents\GitHub\FaslowVer2\x64\Debug\DirectXInit.exe
