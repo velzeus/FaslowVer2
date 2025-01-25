@@ -1,4 +1,3 @@
 
-*.vsidx
-.vs/DirectXInit/FileContentIndex/read.lock
-/.vs
+
+*.ipch
