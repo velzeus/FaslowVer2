@@ -2,18 +2,20 @@
 #include"SceneManager.h"
 
 //前方宣言
-//class SceneManager;
+enum SCENENAME;
 
-class DrawManager;
-class NodeManager;
+class SceneManager;
+
+
 
 class Scene
 {
 private:
 	const SCENENAME sceneName;
+
 public:
 	//コンストラクタ、デストラクタ
-	Scene(const SCENENAME _sceneName);
+	Scene(SCENENAME _sceneName);
 	virtual ~Scene();
 
 	virtual int Start();
@@ -21,6 +23,7 @@ public:
 	virtual int Draw();
 	virtual int End();
 
-	
+	SCENENAME GetSceneName();
 };
+
 

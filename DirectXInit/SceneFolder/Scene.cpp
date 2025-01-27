@@ -2,7 +2,7 @@
 
 
 //コンストラクタ
-Scene::Scene(const SCENENAME _sceneName):sceneName(_sceneName){
+Scene::Scene(SCENENAME _sceneName):sceneName(_sceneName){
 	//初期化
 	//Start();
 
@@ -52,4 +52,10 @@ int Scene::End()
 	//シーン終了時の処理
 
 	return 0;
+}
+
+SCENENAME Scene::GetSceneName()
+{
+	
+	return sceneName;
 }

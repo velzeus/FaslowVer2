@@ -4,6 +4,10 @@
 #include "Game.h"
 
 #include"./SceneFolder/Scenes/TitleScene.h"
+#include<memory>
+
+
+
 // マクロ定義
 #define CLASS_NAME   "DX21Smpl"// ウインドウクラスの名前
 #define WINDOW_NAME  "DirectX初期化"// ウィンドウの名前
@@ -68,8 +72,9 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_  HINSTANCE hPrevInstance, 
 	// シーンマネージャーの初期化
 	SceneManager* sceneManager;
 	sceneManager = SceneManager::GetInstance();
-	TitleScene titleScene;
-	sceneManager->AddScene(&titleScene);
+
+	sceneManager->AddScene(SCENENAME::TITLE , std::make_unique<TitleScene>());
+	sceneManager->ChangeScene(TITLE);
 	
 
 	//ゲーム初期化
@@ -113,8 +118,11 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_  HINSTANCE hPrevInstance, 
 			if (nowCount >= oldCount + frequency / 60)
 			{
 				// ゲーム処理実行
-				// game.Update();
+				game.Update();
 				// game.Draw();
+				sceneManager->Update();
+				sceneManager->Draw();
+
 
 				fpsCounter++;//ゲーム処理を実行したら＋１する
 				oldCount = nowCount;

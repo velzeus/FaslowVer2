@@ -1,150 +1,112 @@
 #include "SceneManager.h"
+#include "../input.h"
+#include "../Sound.h"
+#include "../Object.h"
+#include <iostream>
 
+using namespace std;
+
+// 静的メンバ変数の初期化
 SceneManager* SceneManager::instance = nullptr;
-
 bool SceneManager::endFlg = false;
 
-
-//コンストラクタ
-SceneManager::SceneManager()//:sound(nullptr)
+// コンストラクタ
+SceneManager::SceneManager()
+    : currentScene(nullptr), nextScene(nullptr)
 {
-	//vector型のサイズをあらかじめ定義し、scenesの中身を全てnullptrにする
-	scenes.resize(SCENENAME_MAX,nullptr);
-
-	currentScene = nullptr;
-	nextScene = nullptr;
-	
-	//currentSceneとNextScene
-	
+    // 特別な初期化は不要
 }
 
-//インスタンスを取得
+// デストラクタ
+SceneManager::~SceneManager() = default;  // unique_ptrが自動的にリソースを解放
+
+// インスタンスを取得（シングルトンパターン）
 SceneManager* SceneManager::GetInstance()
 {
-	if (instance == nullptr)
-	{
-		instance = new SceneManager;//作成
-	}
-	return instance;
+    if (instance==nullptr)
+    {
+        instance = new SceneManager;  // インスタンスを作成
+    }
+    return instance;
 }
 
-SceneManager::~SceneManager()
-{
-	delete instance;	// 破棄
-	instance = nullptr;	// memory
-}
-
-//シーンを追加
-void SceneManager::AddScene(Scene* _scene)
-{
-	//scenes.push_back(_scene);
-}
-
-//開始処理
-int SceneManager::Start()
-{
-	//scene->Start();
-	
-	//Scene追加
-	//AddScene(scene);
-
-	//instance->scene = new Scene;//メモリ確保
-
-	//読み込むシーンを代入
-	instance->currentScene = instance->nextScene;
-
-	//nextSceneをnullptrにする
-	instance->nextScene = nullptr;
-
-	//適切に生成できていたら
-	if (instance->currentScene != nullptr)
-	{
-		instance->currentScene->Start();
-	}
-	
-
-	return 0;
-}
-
-//更新処理
+// 更新処理
 int SceneManager::Update()
 {
-	static bool isChangingScene = false;
+    if (nextScene != nullptr)  // 次のシーンに切り替える場合
+    {
+        if (currentScene != nullptr) {
+            currentScene->End();  // 現在のシーンを終了
+        }
 
-	//次のシーンと現在のシーンが違ったら
-	if (isChangingScene ==false && instance->currentScene != instance->nextScene)
-	{
-		isChangingScene = true;
-		End();
-		Start();
-		isChangingScene = false;
-	}
+        currentScene = std::move(nextScene);  // nextSceneの所有権をcurrentSceneに移動
+        nextScene = nullptr;  // 次のシーンはクリア
 
-	//シーン更新
-	if (instance->currentScene != nullptr)
-	//currentSceneがnullptrじゃないときにUpdate実行
-	{
-		instance->currentScene->Update();
-	}
+        currentScene->Start();  // 新しいシーンの開始処理
+    }
 
-	
-	
-	//nextScene = scene;
-	
-	return 0;
+    if (currentScene != nullptr)
+    {
+        return currentScene->Update();  // 現在のシーンの更新
+    }
+
+    return -1;  // シーンがない場合は-1を返す
 }
 
-//描画処理
+// 描画処理
 int SceneManager::Draw()
 {
-	//シーン描画
-	if (instance->currentScene != nullptr)
-		//currentSceneがnullptrじゃないときにUpdate実行
-	{
-		instance->currentScene->Draw();
-	}
-	
-		//currentScene->Draw();
-	
-	return 0;
+    D3D_StartRender();
+
+    if (currentScene != nullptr)
+    {
+        currentScene->Draw();  // 現在のシーンの描画
+    }
+
+    D3D_FinishRender();
+    return 0;
 }
 
-//終了処理
-int SceneManager::End()
+std::string SceneManager::SceneNameToString( SCENENAME _sceneName)
 {
-	//既に読み込み済みのシーンがある場合
-	if (instance->currentScene != nullptr)
-	{
-		//シーンの終了処理
-		instance->currentScene->End();
-
-		//シーンを解放
-		delete instance->currentScene;
-		instance->currentScene = nullptr;
-
-	}
-
-	return 0;
+    
+    switch (_sceneName)
+    {
+    case TITLE:
+        return "Title";
+        break;
+    case RESULT:
+        return "Result";
+        break;
+    default:
+        break;
+    }
+    return "Error";
 }
 
-void SceneManager::ChangeScene(SCENENAME _sceneName)
+// シーンを追加
+void SceneManager::AddScene(SCENENAME sceneName, std::unique_ptr<Scene> _scene)
 {
-	//nextSceneを解放する
-	if (instance->nextScene != nullptr)
-	{
-		delete instance->nextScene;
-	}
+    if (_scene == nullptr) {
+        cerr << "Cannot add a null scene!" << endl;
+        return;
+    }
 
-	switch (_sceneName)
-	{
-	case TITLE:
-		instance->nextScene = new Scene;//メモリ確保
-		break;
+    if (sceneFactories.find(sceneName) != sceneFactories.end()) {
+        cerr << "Scene " << sceneName << " is already registered!" << endl;
+        return;
+    }
+    sceneFactories[sceneName] = std::move(_scene);
+}
 
-		/*ステージシーン*/
-
-	case RESULT:
-		instance->nextScene = new Scene;//メモリ確保
-		break;
-	}	
+// シーンを切り替える
+void SceneManager::ChangeScene(SCENENAME sceneName)
+{
+    auto it = sceneFactories.find(sceneName);
+    if (it != sceneFactories.end()) {
+        nextScene = std::move(it->second);
+    }
+    else {
+        cerr << "Scene with name " << sceneName << " not found!" << endl;
+    }
 }

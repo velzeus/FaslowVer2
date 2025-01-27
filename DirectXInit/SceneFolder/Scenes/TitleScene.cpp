@@ -1,4 +1,5 @@
 #include"./TitleScene.h"
+#include<iostream>
 
 TitleScene::TitleScene():Scene(SCENENAME::TITLE)
 {
@@ -11,7 +12,7 @@ TitleScene::~TitleScene()
 
 int TitleScene::Start()
 {
-	titleImage.Init(L"../../asset/back_img_01.png");
+	std::cout << "TitleSceneStart" << std::endl;
 	return 0;
 }
 
@@ -23,7 +24,7 @@ int TitleScene::Update()
 
 int TitleScene::Draw()
 {
-	titleImage.Draw();
+	std::cout << "TitleSceneDraw" << std::endl;
 	return 0;
 }
 
