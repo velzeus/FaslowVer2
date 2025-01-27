@@ -1,17 +1,12 @@
-﻿  compilation object save succeeded; see C:\Users\galep\Desktop\AssignmentFolder\Second grade\チーム制作草案\Faslow\FaslowVer2\x64\Debug\PixelShader.cso
-  compilation object save succeeded; see C:\Users\galep\Desktop\AssignmentFolder\Second grade\チーム制作草案\Faslow\FaslowVer2\x64\Debug\VertexShader.cso
-  direct3d.cpp
-C:\Users\galep\Desktop\AssignmentFolder\Second grade\チーム制作草案\Faslow\FaslowVer2\DirectXInit\direct3d.cpp(290,30): warning C4267: '初期化中': 'size_t' から 'int' に変換しました。データが失われているかもしれません。
-  Game.cpp
-C:\Users\galep\Desktop\AssignmentFolder\Second grade\チーム制作草案\Faslow\FaslowVer2\DirectXInit\Game.cpp(27,67): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\galep\Desktop\AssignmentFolder\Second grade\チーム制作草案\Faslow\FaslowVer2\DirectXInit\Game.cpp(27,35): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\galep\Desktop\AssignmentFolder\Second grade\チーム制作草案\Faslow\FaslowVer2\DirectXInit\Game.cpp(551,53): warning C4244: '=': 'int' から 'float' への変換です。データが失われる可能性があります。
-  input.cpp
-  main.cpp
-  Object.cpp
-C:\Users\galep\Desktop\AssignmentFolder\Second grade\チーム制作草案\Faslow\FaslowVer2\DirectXInit\Object.cpp(58,60): warning C4244: '引数': 'double' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\galep\Desktop\AssignmentFolder\Second grade\チーム制作草案\Faslow\FaslowVer2\DirectXInit\Object.cpp(138,9): warning C4244: '=': 'Direction' から 'float' への変換です。データが失われる可能性があります。
-  sound.cpp
-  WICTextureLoader.cpp
+﻿  main.cpp
+  MouseInput.cpp
+  Word1_Stage.cpp
+C:\Re_GitHub\DirectXInit\Word1_Stage.cpp(178,52): warning C4244: '=': 'int' から 'float' への変換です。データが失われる可能性があります。
   コードを生成中...
-  DirectXInit.vcxproj -> C:\Users\galep\Desktop\AssignmentFolder\Second grade\チーム制作草案\Faslow\FaslowVer2\x64\Debug\DirectXInit.exe
+main.obj : error LNK2019: 未解決の外部シンボル "public: static class SceneManager * __cdecl SceneManager::GetInstance(void)" (?GetInstance@SceneManager@@SAPEAV1@XZ) が関数 WinMain で参照されました
+main.obj : error LNK2019: 未解決の外部シンボル "public: void __cdecl SceneManager::AddScene(enum SCENENAME,class std::unique_ptr<class Scene,struct std::default_delete<class Scene> >)" (?AddScene@SceneManager@@QEAAXW4SCENENAME@@V?$unique_ptr@VScene@@U?$default_delete@VScene@@@std@@@std@@@Z) が関数 WinMain で参照されました
+main.obj : error LNK2019: 未解決の外部シンボル "public: void __cdecl SceneManager::ChangeScene(enum SCENENAME)" (?ChangeScene@SceneManager@@QEAAXW4SCENENAME@@@Z) が関数 WinMain で参照されました
+main.obj : error LNK2019: 未解決の外部シンボル "public: int __cdecl SceneManager::Update(void)" (?Update@SceneManager@@QEAAHXZ) が関数 WinMain で参照されました
+main.obj : error LNK2019: 未解決の外部シンボル "public: int __cdecl SceneManager::Draw(void)" (?Draw@SceneManager@@QEAAHXZ) が関数 WinMain で参照されました
+main.obj : error LNK2019: 未解決の外部シンボル "public: __cdecl TitleScene::TitleScene(void)" (??0TitleScene@@QEAA@XZ) が関数 "class std::unique_ptr<class TitleScene,struct std::default_delete<class TitleScene> > __cdecl std::make_unique<class TitleScene,0>(void)" (??$make_unique@VTitleScene@@$$V$0A@@std@@YA?AV?$unique_ptr@VTitleScene@@U?$default_delete@VTitleScene@@@std@@@0@XZ) で参照されました
+C:\Re_GitHub\x64\Debug\DirectXInit.exe : fatal error LNK1120: 6 件の未解決の外部参照

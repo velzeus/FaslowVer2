@@ -5,6 +5,7 @@
 #include <memory>
 #include <unordered_map>
 #include <functional>
+#include<iostream>
 
 // ‘O•ûéŒ¾
 class Scene;
