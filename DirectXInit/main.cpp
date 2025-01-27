@@ -2,6 +2,12 @@
 
 #include <Windows.h>
 #include "Game.h"
+
+#include"./SceneFolder/Scenes/TitleScene.h"
+#include<memory>
+
+
+
 // マクロ定義
 #define CLASS_NAME   "DX21Smpl"// ウインドウクラスの名前
 #define WINDOW_NAME  "DirectX初期化"// ウィンドウの名前
@@ -63,6 +69,14 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_  HINSTANCE hPrevInstance, 
 	// ウィンドウの状態を直ちに反映(ウィンドウのクライアント領域を更新)
 	UpdateWindow(hWnd);
 
+	// シーンマネージャーの初期化
+	SceneManager* sceneManager;
+	sceneManager = SceneManager::GetInstance();
+
+	sceneManager->AddScene(SCENENAME::TITLE , std::make_unique<TitleScene>());
+	sceneManager->ChangeScene(TITLE);
+	
+
 	//ゲーム初期化
 	Game game;
 	game.Init(hWnd);
@@ -105,7 +119,10 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_  HINSTANCE hPrevInstance, 
 			{
 				// ゲーム処理実行
 				game.Update();
-				game.Draw();
+				// game.Draw();
+				sceneManager->Update();
+				sceneManager->Draw();
+
 
 				fpsCounter++;//ゲーム処理を実行したら＋１する
 				oldCount = nowCount;

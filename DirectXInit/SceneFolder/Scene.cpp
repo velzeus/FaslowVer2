@@ -2,12 +2,10 @@
 
 
 //コンストラクタ
-Scene::Scene():drawManager(nullptr),nodeManager(nullptr),sound(nullptr)
-{
+Scene::Scene(SCENENAME _sceneName):sceneName(_sceneName){
 	//初期化
 	//Start();
 
-	sound->GetInstance();
 }
 
 Scene::~Scene()
@@ -54,4 +52,10 @@ int Scene::End()
 	//シーン終了時の処理
 
 	return 0;
+}
+
+SCENENAME Scene::GetSceneName()
+{
+	
+	return sceneName;
 }

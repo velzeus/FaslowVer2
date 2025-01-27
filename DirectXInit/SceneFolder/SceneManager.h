@@ -1,60 +1,44 @@
 #pragma once
-#include"Scene.h"
-#include<vector>
-#include<algorithm>
-#include"sound.h"
+#include "Scene.h"
+#include <vector>
+#include <algorithm>
+#include <memory>
+#include <unordered_map>
+#include <functional>
 
-//前方宣言
+// 前方宣言
 class Scene;
 
-enum  SCENENAME
+enum SCENENAME
 {
-	TITLE=0,
-
-
-	RESULT,
-
-	SCENENAME_MAX,
+    TITLE = 0,
+    RESULT,
+    SCENENAME_MAX,
 };
 
-class SceneManager
-{
+
+class SceneManager {
 private:
-	static SceneManager* instance;// インスタンス
+    static bool endFlg;  // 終了フラグ
 
-	Scene* currentScene;// 現在のシーン
-	Scene* nextScene;//次のシーン
+    static SceneManager* instance; // シングルトンインスタンス
 
-	// サウンド
-	Sound* sound;
+    // Sceneの
+    std::unique_ptr<Scene> currentScene; // 現在のシーン
+    std::unique_ptr<Scene> nextScene; // 次のシーン
+    std::unordered_map<SCENENAME, std::unique_ptr<Scene>> sceneFactories; // シーン生成ロジック
 
-	std::vector<Scene*> scenes;
-	static bool endFlg;
-
-	//コンストラクタ
-	SceneManager();
+    SceneManager(); // コンストラクタ
 
 public:
-	
+    static SceneManager* GetInstance(); // シングルトンインスタンスを取得
+    ~SceneManager(); // デストラクタ
 
-	//インスタンスを取得
-	static SceneManager* GetInstance();
+    void AddScene(SCENENAME _sceneName, std::unique_ptr<Scene> _scene);
+    void ChangeScene(SCENENAME _sceneName);
+    int Update();
+    int Draw();
 
-	//シーンを追加
-	void AddScene(Scene* _scene);
-
-	//各シーンに関する処理を呼び出す
-	int Start();	//開始処理
-	int Update();	//更新処理
-	int Draw();		//描画処理
-	int End();		//終了処理
-
-
-	//シーンを切り替える
-	void ChangeScene(SCENENAME _sceneName);
+    // エラー用
+    std::string SceneNameToString( SCENENAME _sceneName);
 };
-
-//静的メンバ変数の定義
-// SceneManager* SceneManager::instance = nullptr;
-// bool SceneManager::endFlg = false;
-
