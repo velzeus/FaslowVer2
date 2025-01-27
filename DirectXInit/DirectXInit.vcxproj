@@ -137,6 +137,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MouseInput.cpp" />
     <ClCompile Include="Object.cpp" />
+    <ClCompile Include="Reposition.cpp" />
     <ClCompile Include="sound.cpp" />
     <ClCompile Include="WICTextureLoader.cpp" />
   </ItemGroup>
@@ -170,6 +171,7 @@
     <ClInclude Include="Hold.h" />
     <ClInclude Include="input.h" />
     <ClInclude Include="MouseInput.h" />
+    <ClInclude Include="Reposition.h" />
     <ClInclude Include="sound.h" />
     <ClInclude Include="WICTextureLoader.h" />
   </ItemGroup>
