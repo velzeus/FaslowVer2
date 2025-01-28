@@ -1,5 +1,7 @@
 #include "MouseInput.h"
 
+MouseInput* MouseInput::instance = nullptr;
+
 MouseInput::MouseInput()
     : isLeftButtonDown(false) {
     clickPosition = { 0, 0 };
