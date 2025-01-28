@@ -10,7 +10,7 @@ class SceneManager;
 
 class Scene
 {
-private:
+protected:
 	const SCENENAME sceneName;
 
 public:

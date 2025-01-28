@@ -1,9 +1,13 @@
 #include"./TitleScene.h"
 #include<iostream>
 
-TitleScene::TitleScene():Scene(SCENENAME::TITLE)
+
+TitleScene::TitleScene()
+	:Scene(SCENENAME::TITLE), input(nullptr), mouseInput(nullptr)
 {
-	
+	std::cout << SceneManager::GetInstance()->SceneNameToString(GetSceneName()) 
+		<< "コンストラクタ" << std::endl;
+	std::cout << "    SceneName(" << sceneName << ")" << std::endl;
 }
 
 TitleScene::~TitleScene()

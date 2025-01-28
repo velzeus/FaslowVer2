@@ -5,6 +5,8 @@
 Scene::Scene(SCENENAME _sceneName):sceneName(_sceneName){
 	//初期化
 	//Start();
+	std::cout << SceneManager::GetInstance()->SceneNameToString(_sceneName)
+		<< ": Sceneコンストラクタ" << std::endl;
 
 }
 
@@ -20,6 +22,7 @@ Scene::~Scene()
 int Scene::Start()
 {
 	//シーン開始時の処理
+	std::cout << "error is Scene::Strt" << std::endl;
 
 	return 0;
 }
@@ -56,6 +59,7 @@ int Scene::End()
 
 SCENENAME Scene::GetSceneName()
 {
-	
+	std::cout << "GetSceneNameが読み出されました:sceneName(" 
+		<< sceneName << ")" << std::endl;
 	return sceneName;
 }
