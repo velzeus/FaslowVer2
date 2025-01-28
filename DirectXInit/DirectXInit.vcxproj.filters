@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="SceneFolder">
+      <UniqueIdentifier>{9ca5ee74-050f-4aaa-858d-3a35e434f674}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SceneFolder\Scenes">
+      <UniqueIdentifier>{8a33b62f-eec3-4b6b-a075-d17dced85bcb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -48,6 +54,24 @@
     <ClCompile Include="Reposition.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="SceneFolder\Scene.cpp">
+      <Filter>SceneFolder</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneFolder\SceneManager.cpp">
+      <Filter>SceneFolder</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneFolder\Scenes\TitleScene.cpp">
+      <Filter>SceneFolder\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneFolder\Scenes\WorldSelectScene.cpp">
+      <Filter>SceneFolder\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="DebugConsorl.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneFolder\Scenes\ResultScene.cpp">
+      <Filter>SceneFolder\Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="PixelShader.hlsl" />
@@ -80,6 +104,24 @@
     </ClInclude>
     <ClInclude Include="Reposition.h">
       <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneFolder\Scene.h">
+      <Filter>SceneFolder</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneFolder\SceneManager.h">
+      <Filter>SceneFolder</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneFolder\Scenes\TitleScene.h">
+      <Filter>SceneFolder\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneFolder\Scenes\WorldSelectScene.h">
+      <Filter>SceneFolder\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugConsorl.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneFolder\Scenes\ResultScene.h">
+      <Filter>SceneFolder\Scenes</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
