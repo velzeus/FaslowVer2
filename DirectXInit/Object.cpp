@@ -1,4 +1,8 @@
 #include "Object.h"
+#include <stdio.h>
+#include<iostream>
+#include<fstream>
+
 
 void Object::Init(const wchar_t* imgname, int sx, int sy)
 {
@@ -31,6 +35,25 @@ void Object::Init(const wchar_t* imgname, int sx, int sy)
 	hr = DirectX::CreateWICTextureFromFile(g_pDevice,imgname, NULL, &m_pTextureView);
 	if (FAILED(hr))
 	{
+		if (FAILED(hr))
+		{
+			char errorMsg[256];
+			sprintf_s(errorMsg, "テクスチャ読込失敗, HRESULT: 0x%08X", hr);
+			std::cout << errorMsg << std::endl;
+			MessageBoxA(NULL, errorMsg, "エラー", MB_ICONERROR | MB_OK);
+		}
+		
+		if (!std::ifstream(imgname)) {
+			std::cout << "指定されたファイルが存在しません" << std::endl;
+			MessageBoxA(NULL, "指定されたファイルが存在しません", "エラー", MB_ICONERROR | MB_OK);
+			
+		}
+	
+		if (g_pDevice == nullptr) {
+			MessageBoxA(NULL, "グローバルデバイスがnullptrです", "エラー", MB_ICONERROR | MB_OK);
+			
+		}
+
 		MessageBoxA(NULL, "テクスチャ読込失敗", "エラー", MB_ICONERROR | MB_OK);
 		return ;
 	}
