@@ -2,8 +2,9 @@
 
 #include <Windows.h>
 #include "Game.h"
-
+#include"DebugConsorl.h"
 #include"./SceneFolder/Scenes/TitleScene.h"
+#include"./SceneFolder/Scenes/ResultScene.h"
 #include<memory>
 
 
@@ -22,6 +23,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 //--------------------------------------------------------------------------------------
 int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_  HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine, _In_ int nCmdShow)
 {
+	DebugConsole();
+
 	// ウィンドウクラス情報をまとめる
 	WNDCLASSEX wc;
 	wc.cbSize = sizeof(WNDCLASSEX);
@@ -73,13 +76,16 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_  HINSTANCE hPrevInstance, 
 	SceneManager* sceneManager;
 	sceneManager = SceneManager::GetInstance();
 
+	sceneManager->Initialize(hWnd);
+
 	sceneManager->AddScene(SCENENAME::TITLE , std::make_unique<TitleScene>());
+	sceneManager->AddScene(SCENENAME::RESULT, std::make_unique<ResultScene>());
 	sceneManager->ChangeScene(TITLE);
 	
 
 	//ゲーム初期化
-	Game game;
-	game.Init(hWnd);
+	// Game game;
+	// game.Init(hWnd);
 
 	MSG msg;
 
@@ -118,7 +124,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_  HINSTANCE hPrevInstance, 
 			if (nowCount >= oldCount + frequency / 60)
 			{
 				// ゲーム処理実行
-				game.Update();
+				// game.Update();
 				// game.Draw();
 				sceneManager->Update();
 				sceneManager->Draw();
@@ -144,7 +150,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_  HINSTANCE hPrevInstance, 
 		}
 	}
 	//ゲーム終了
-	game.Uninit();
+	// game.Uninit();
 
 	UnregisterClass(CLASS_NAME, hInstance);
 
