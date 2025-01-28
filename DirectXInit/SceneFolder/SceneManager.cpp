@@ -3,6 +3,9 @@
 #include "../Sound.h"
 #include "../Object.h"
 #include <iostream>
+#include<Windows.h>
+
+
 
 using namespace std;
 
@@ -12,9 +15,11 @@ bool SceneManager::endFlg = false;
 
 // コンストラクタ
 SceneManager::SceneManager()
-    : currentScene(nullptr), nextScene(nullptr)
+    : currentScene(nullptr), nextScene(nullptr), mouseInput(nullptr)
 {
     // 特別な初期化は不要
+
+    mouseInput = MouseInput::GetInstance();
 }
 
 // デストラクタ
@@ -23,18 +28,23 @@ SceneManager::~SceneManager() = default;  // unique_ptrが自動的にリソースを解放
 // インスタンスを取得（シングルトンパターン）
 SceneManager* SceneManager::GetInstance()
 {
-    if (instance==nullptr)
-    {
-        instance = new SceneManager;  // インスタンスを作成
-    }
-    return instance;
+    static SceneManager inst;
+    return &inst;
+
 }
 
 // 更新処理
 int SceneManager::Update()
 {
+    mouseInput->Update();
+
     if (nextScene != nullptr)  // 次のシーンに切り替える場合
     {
+        cout << "Update: currentScene = "
+            << (currentScene ? "valid" : "nullptr")
+            << ", nextScene = "
+            << (nextScene ? "valid" : "nullptr") << endl;
+
         // 現在のシーンが存在している場合
         if (currentScene != nullptr) {
             currentScene->End();  // 現在のシーンを終了
@@ -44,11 +54,14 @@ int SceneManager::Update()
             sceneFactories[currentSceneName] = std::move(currentScene);  // 現在のシーンを格納
         }
 
-        currentScene = std::move(nextScene);  // nextSceneの所有権をcurrentSceneに移動
+
+        currentScene = std::move(nextScene);  // nextSceneの所有権を currentSceneに移動
         nextScene = nullptr;  // 次のシーンはクリア
 
         SCENENAME currentSceneName = currentScene->GetSceneName();  // 新しいシーン名を取得
         sceneFactories[currentSceneName] = std::move(currentScene);  // 現在のシーンを格納
+
+
 
         currentScene->Start();  // 新しいシーンの開始処理
     }
@@ -97,11 +110,13 @@ void SceneManager::AddScene(SCENENAME sceneName, std::unique_ptr<Scene> _scene)
 {
     if (_scene == nullptr) {
         cerr << "Cannot add a null scene!" << endl;
+        cout << "Cannot add a null scene!" << SceneNameToString(_scene.get()->GetSceneName()) << endl;
         return;
     }
 
     if (sceneFactories.find(sceneName) != sceneFactories.end()) {
         cerr << "Scene " << sceneName << " is already registered!" << endl;
+        cout << "Scene " << sceneName << " is already registered!" << endl;
         return;
     }
     sceneFactories[sceneName] = std::move(_scene);
@@ -112,10 +127,23 @@ void SceneManager::ChangeScene(SCENENAME sceneName)
 {
     auto it = sceneFactories.find(sceneName);
     if (it != sceneFactories.end()) {
+
+        if (!it->second) {
+            cout << "sceneがnullptrです" << sceneName << endl;
+            return;
+        }
+        else
+            cout << "sceneが正常に作動してます(" 
+            << SceneNameToString(sceneFactories[sceneName]->GetSceneName()) 
+            << ")" << endl;
+
         nextScene = std::move(it->second);
+
+        // エラー処理を記述してください
+
     }
     else {
-        cerr << "Scene with name " << sceneName << " not found!" << endl;
+        cerr << "Scene with name " << SceneNameToString(sceneName) << " not found!" << endl;
     }
 }
 

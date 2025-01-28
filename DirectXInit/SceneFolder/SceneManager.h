@@ -16,7 +16,7 @@ class Scene;
 
 enum SCENENAME
 {
-    TITLE = 0,
+    TITLE = 1,
     RESULT,
     SCENENAME_MAX,
 };
@@ -27,6 +27,9 @@ private:
     static bool endFlg;  // 終了フラグ
 
     static SceneManager* instance; // シングルトンインスタンス
+    
+
+    MouseInput* mouseInput;
 
     // Sceneの
     std::unique_ptr<Scene> currentScene; // 現在のシーン
