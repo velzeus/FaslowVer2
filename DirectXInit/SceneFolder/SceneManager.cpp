@@ -35,12 +35,20 @@ int SceneManager::Update()
 {
     if (nextScene != nullptr)  // 次のシーンに切り替える場合
     {
+        // 現在のシーンが存在している場合
         if (currentScene != nullptr) {
             currentScene->End();  // 現在のシーンを終了
+
+            // sceneFactoriesに現在のシーンを格納
+            SCENENAME currentSceneName = currentScene->GetSceneName();  // 現在のシーン名を取得
+            sceneFactories[currentSceneName] = std::move(currentScene);  // 現在のシーンを格納
         }
 
         currentScene = std::move(nextScene);  // nextSceneの所有権をcurrentSceneに移動
         nextScene = nullptr;  // 次のシーンはクリア
+
+        SCENENAME currentSceneName = currentScene->GetSceneName();  // 新しいシーン名を取得
+        sceneFactories[currentSceneName] = std::move(currentScene);  // 現在のシーンを格納
 
         currentScene->Start();  // 新しいシーンの開始処理
     }
@@ -109,4 +117,12 @@ void SceneManager::ChangeScene(SCENENAME sceneName)
     else {
         cerr << "Scene with name " << sceneName << " not found!" << endl;
     }
+}
+
+HRESULT SceneManager::Initialize(HWND hWnd)
+{
+    srand((unsigned)time(NULL));
+    D3D_Create(hWnd);                //DirectXを初期化
+
+    return S_OK;
 }

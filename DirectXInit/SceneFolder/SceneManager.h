@@ -1,5 +1,9 @@
 #pragma once
 #include "Scene.h"
+#include"../Object.h"
+#include"../input.h"
+#include"../MouseInput.h"
+#include"../Sound.h"
 #include <vector>
 #include <algorithm>
 #include <memory>
@@ -37,6 +41,9 @@ public:
 
     void AddScene(SCENENAME _sceneName, std::unique_ptr<Scene> _scene);
     void ChangeScene(SCENENAME _sceneName);
+
+    HRESULT Initialize(HWND hWnd);
+
     int Update();
     int Draw();
 
