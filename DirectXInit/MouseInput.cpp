@@ -8,6 +8,14 @@ MouseInput::MouseInput()
 
 MouseInput::~MouseInput() {}
 
+MouseInput* MouseInput::GetInstance()
+{
+    if(instance!=nullptr) return instance;
+
+    static MouseInput _instance;
+    return &_instance;
+}
+
 void MouseInput::Update() {
     // マウスの状態を取得
     if (GetAsyncKeyState(VK_LBUTTON) & 0x8000) { // 左ボタンが押されたとき

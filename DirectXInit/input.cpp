@@ -1,9 +1,21 @@
 #include "input.h"
 
+Input* Input::instance = nullptr;
+
 //コンストラクタ
 Input::Input()
 {
 	VibrationTime = 0;
+}
+
+Input* Input::GetInstance()
+{
+	if (instance != nullptr) {
+	return instance;
+	}
+
+	static Input _instance;
+	return  &_instance;
 }
 
 //デストラクタ

@@ -7,9 +7,14 @@ private:
     POINT releasePosition; // 左クリックを離した位置
     bool isLeftButtonDown; // 左ボタンが押されているか
 
-public:
+    static MouseInput* instance;
     MouseInput();
+
+public:
     ~MouseInput();
+
+    static MouseInput* GetInstance();
+
 
     void Update(); // マウス入力の状態を更新する
     POINT GetClickPosition() const; // 左クリックした座標を取得
