@@ -1,25 +1,45 @@
 #pragma once
-#include <array>
-#include <utility> // std::pair
+#include <vector>
 #include "MouseInput.h"
+#include "Word1_Stage.h"
+
+// Grid構造体の定義
+struct Grid {
+    int x, y;
+    GridState state;
+};
 
 class Hold {
 private:
-    POINT startSelection; // 選択の開始点
-    POINT endSelection;   // 選択の終了点
-    bool isSelecting;     // 選択中かどうか
+    MouseInput mouseInput; // マウス入力オブジェクト
+    std::vector<Grid> savedGrids; // 保存されたグリッドの状態
+    std::vector<std::vector<GridState>> originalGridStates; // 保存元の状態
 
-    // 配列でエリアを保存（最大5回）
-    std::array<std::pair<POINT, POINT>, 5> selectedAreas;
-    size_t currentSaveIndex; // 現在選択したインデックス
+    // マウスのクリック範囲からグリッドを計算
+    std::vector<Grid> CalculateGrids(const POINT& start, const POINT& end, World1_Stage& stage);
+
+    // 選択された範囲のグリッドをNULLBLOCK, STICKY_BLOCKに置き換える
+    void UpdateSavedGrids(const std::vector<Grid>& grids);
 
 public:
-    Hold();
+    Hold(); // コンストラクタ
+    ~Hold(); // デストラクタ
 
-    void Update(MouseInput& mouseInput); // マウス入力に基づいて選択状態を更新
-    void Render(); // 保存したエリアを描画する
-    const std::array<std::pair<POINT, POINT>, 5>& GetSelectedAreas() const; // 選択されたエリアを取得
-    void ResetSelection(); // 選択状態をリセット
-    void SelectAreaAtPosition(POINT pos); // クリックした位置でエリア選択
+    void Update(World1_Stage& stage); // 更新
+    void Draw(); // 選択範囲を描画
+    std::vector<Grid> GetSavedGrids() const; // 保存されたグリッド情報を取得
+
+private:
+    std::vector<Grid> savedGrids;  // 保存されたグリッド
+
+    // マウスのクリック範囲からグリッドを計算
+    std::vector<Grid> CalculateGrids(const POINT& start, const POINT& end, World1_Stage& stage);
+
+    // 保存されたグリッドを更新
+    void UpdateSavedGrids(const std::vector<Grid>& grids);
 };
+
+
+
+
 

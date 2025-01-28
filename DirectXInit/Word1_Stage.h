@@ -62,7 +62,7 @@ private:
 	Object background; //背景オブジェクト
 	Object scoreboard;//スコアオブジェクト
 	Object grids[STAGE_X][STAGE_Y];//マスオブジェクト
-	int gridData[STAGE_X][STAGE_Y] = {};//データ配列
+	//int gridData[STAGE_X][STAGE_Y] = {};//データ配列
 	//int TetrominoType; //テトリミノの種類（０～６）
 	//int TetrominoDirection; //テトリミノの向き（０～３）
 	//int state = 0;//ゲームの状態（０：落下するものがない状態　１：落下中）
@@ -79,7 +79,7 @@ private:
 public:
 
 	World1_Stage();//コンストラクタ
-
+	int gridData[STAGE_X][STAGE_Y] = {};
 	//jsonファイルを読み込む（引数にStage番号を持ってくる）
 	void ReadFile(int _stageNumber);
 

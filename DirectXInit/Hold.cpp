@@ -1,66 +1,75 @@
 #include "Hold.h"
-#include <algorithm> // std::min, std::max
-#include <iostream>
 
-Hold::Hold()
-    : isSelecting(false), currentSaveIndex(0) {}
+Hold::Hold() {}
 
-void Hold::Update(MouseInput& mouseInput) {
-    POINT currentMousePos;
+Hold::~Hold() {}
 
+void Hold::Update(World1_Stage& stage) {
+    mouseInput.Update(); // マウスの状態を更新
+
+    // 左クリックされた場合
     if (mouseInput.IsLeftButtonDown()) {
-        GetCursorPos(&currentMousePos);
-        ScreenToClient(GetActiveWindow(), &currentMousePos);
+        POINT clickPos = mouseInput.GetClickPosition();
+        POINT releasePos = mouseInput.GetReleasePosition();
 
-        if (!isSelecting) {
-            isSelecting = true;
-            startSelection = currentMousePos;
-        }
+        // 範囲を計算
+        std::vector<Grid> grids = CalculateGrids(clickPos, releasePos, stage);
 
-        // 選択中の終点を更新
-        endSelection = currentMousePos;
-    }
-    else {
-        if (isSelecting) {
-            if (currentSaveIndex < 5) {
-                selectedAreas[currentSaveIndex] = std::make_pair(startSelection, endSelection);
-                std::cout << "Area saved at index " << currentSaveIndex << std::endl;
-                currentSaveIndex++;
-            }
-            isSelecting = false;
-        }
+        // グリッドを更新
+        UpdateSavedGrids(grids);
     }
 }
 
-void Hold::Render() {
-    // 保存されたエリアを描画するための仮のコード
-    for (size_t i = 0; i < currentSaveIndex; ++i) {
-        std::cout << "Saved Area " << i << ": "
-            << "Start: (" << selectedAreas[i].first.x << ", " << selectedAreas[i].first.y << ") "
-            << "End: (" << selectedAreas[i].second.x << ", " << selectedAreas[i].second.y << ")\n";
-    }
+
+
+
+void Hold::Draw() {
+    
 }
 
-void Hold::SelectAreaAtPosition(POINT pos) {
-    // クリックした位置で、保存されたエリアを選択する
-    for (size_t i = 0; i < currentSaveIndex; ++i) {
-        const auto& area = selectedAreas[i];
-        if (pos.x >= area.first.x && pos.x <= area.second.x &&
-            pos.y >= area.first.y && pos.y <= area.second.y) {
-            currentSaveIndex = i;  // クリックした位置に対応するエリアのインデックスをセット
-            std::cout << "Selected saved area at index " << i << std::endl;
-            break;
+std::vector<Grid> Hold::GetSavedGrids() const {
+    return savedGrids;
+}
+
+std::vector<Grid> Hold::CalculateGrids(const POINT& start, const POINT& end, World1_Stage& stage) {
+    std::vector<Grid> grids;
+
+    // 選択範囲の座標を取得（左上から右下への範囲）
+    int startX = start.x / BLOCKSIZE_X;
+    int startY = start.y / BLOCKSIZE_Y;
+    int endX = end.x / BLOCKSIZE_X;
+    int endY = end.y / BLOCKSIZE_Y;
+
+    // 範囲内のグリッドを計算
+    for (int x = startX; x <= endX; ++x) {
+        for (int y = startY; y <= endY; ++y) {
+            grids.push_back(Grid{ x, y, static_cast<GridState>(stage.gridData[x][y]) });// stage.gridData[x][y]で状態を取得
         }
     }
+
+    return grids;
 }
 
-const std::array<std::pair<POINT, POINT>, 5>& Hold::GetSelectedAreas() const {
-    return selectedAreas;
+void Hold::UpdateSavedGrids(const std::vector<Grid>& grids) {
+    savedGrids.clear(); // 一度リセット
+
+    // 保存されたグリッドを更新
+    for (const auto& grid : grids) {
+        GridState gridState = grid.state;
+
+        // NULLBLOCK, STICKY_BLOCK であれば保存
+        if (gridState == NULLBLOCK || gridState == STICKY_BLOCK) {
+            savedGrids.push_back({ grid.x, grid.y, NULLBLOCK }); // NULLBLOCKに置き換え
+        }
+        else {
+            // GORL, COIN, BALL はそのまま保存
+            savedGrids.push_back({ grid.x, grid.y, gridState });
+        }
+    }
 }
 
-void Hold::ResetSelection() {
-    currentSaveIndex = 0;
-}
+
+
 
 
 
