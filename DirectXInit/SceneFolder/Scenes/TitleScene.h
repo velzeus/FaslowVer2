@@ -1,6 +1,5 @@
 #pragma once
 #include "../Scene.h"
-#include "../../Object.h"
 
 
 class TitleScene :
@@ -23,6 +22,8 @@ public:
 
 private:
 
+    MouseInput* mouseInput;
+    Input* input;
     Object titleImage;
 
 
