@@ -1,3 +1,4 @@
+
 ﻿  compilation object save succeeded; see C:\Users\galep\Desktop\AssignmentFolder\Second grade\チーム制作草案\Faslow\FaslowVer2\x64\Debug\PixelShader.cso
   compilation object save succeeded; see C:\Users\galep\Desktop\AssignmentFolder\Second grade\チーム制作草案\Faslow\FaslowVer2\x64\Debug\VertexShader.cso
   DebugConsorl.cpp
@@ -27,3 +28,4 @@ C:\Users\galep\Desktop\AssignmentFolder\Second grade\チーム制作草案\Faslo
 C:\Users\galep\Desktop\AssignmentFolder\Second grade\チーム制作草案\Faslow\FaslowVer2\DirectXInit\Word1_Stage.cpp(178,52): warning C4244: '=': 'int' から 'float' への変換です。データが失われる可能性があります。
   コードを生成中...
   DirectXInit.vcxproj -> C:\Users\galep\Desktop\AssignmentFolder\Second grade\チーム制作草案\Faslow\FaslowVer2\x64\Debug\DirectXInit.exe
+

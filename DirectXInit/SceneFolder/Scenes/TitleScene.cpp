@@ -1,4 +1,5 @@
 #include"./TitleScene.h"
+#include"../../SelectScene.h"
 #include<iostream>
 
 
@@ -6,8 +7,9 @@ TitleScene::TitleScene()
 	:Scene(SCENENAME::TITLE), input(nullptr), mouseInput(nullptr)
 {
 	std::cout << SceneManager::GetInstance()->SceneNameToString(GetSceneName()) 
-		<< "ƒRƒ“ƒXƒgƒ‰ƒNƒ^" << std::endl;
+		<< "ï¿½Rï¿½ï¿½ï¿½Xï¿½gï¿½ï¿½ï¿½Nï¿½^" << std::endl;
 	std::cout << "    SceneName(" << sceneName << ")" << std::endl;
+
 }
 
 TitleScene::~TitleScene()
@@ -33,6 +35,7 @@ int TitleScene::Update()
 	if (mouseInput->IsLeftButtonDown()) {
 		SceneManager::GetInstance()->ChangeScene(RESULT);
 	}
+
 
 	return 0;
 }

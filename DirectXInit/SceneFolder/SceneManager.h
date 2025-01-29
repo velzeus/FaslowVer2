@@ -10,37 +10,75 @@
 #include <unordered_map>
 #include <functional>
 #include<iostream>
+#include"../Object.h"
 
-// ‘O•ûéŒ¾
+// ï¿½Oï¿½ï¿½ï¿½éŒ¾
 class Scene;
+
 
 enum SCENENAME
 {
-    TITLE = 1,
+
+    TITLE = 0,
+    SELECT,
+    STAGE,
     RESULT,
+    OPTION,
     SCENENAME_MAX,
+};
+
+//ï¿½Xï¿½eï¿½[ï¿½Wï¿½Ôï¿½
+enum WORLDNUMBER
+{
+    
+    WORLD1 = 1,
+    WORLD2,
+    WORLD3,
+    WORLD4,
+    WORLD5,
+    WORLD6,
+};
+
+//ï¿½Xï¿½eï¿½[ï¿½Wï¿½Ôï¿½
+enum STAGENUMBER
+{
+    
+    STAGE1 = 1,
+    STAGE2,
+    STAGE3,
+    STAGE4,
+    STAGE5,
+    STAGEINIT,
 };
 
 
 class SceneManager {
 private:
-    static bool endFlg;  // I—¹ƒtƒ‰ƒO
+    static bool endFlg;  // ï¿½Iï¿½ï¿½ï¿½tï¿½ï¿½ï¿½O
 
-    static SceneManager* instance; // ƒVƒ“ƒOƒ‹ƒgƒ“ƒCƒ“ƒXƒ^ƒ“ƒX
+    static SceneManager* instance; // ï¿½Vï¿½ï¿½ï¿½Oï¿½ï¿½ï¿½gï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½Xï¿½^ï¿½ï¿½ï¿½X
     
 
     MouseInput* mouseInput;
 
-    // Scene‚Ì
-    std::unique_ptr<Scene> currentScene; // Œ»İ‚ÌƒV[ƒ“
-    std::unique_ptr<Scene> nextScene; // Ÿ‚ÌƒV[ƒ“
-    std::unordered_map<SCENENAME, std::unique_ptr<Scene>> sceneFactories; // ƒV[ƒ“¶¬ƒƒWƒbƒN
+    // Sceneï¿½ï¿½
+    std::unique_ptr<Scene> currentScene; // ï¿½ï¿½ï¿½İ‚ÌƒVï¿½[ï¿½ï¿½
+    std::unique_ptr<Scene> nextScene; // ï¿½ï¿½ï¿½ÌƒVï¿½[ï¿½ï¿½
+    std::unordered_map<SCENENAME, std::unique_ptr<Scene>> sceneFactories; // ï¿½Vï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Wï¿½bï¿½N
 
-    SceneManager(); // ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+    WORLDNUMBER worldNumber;//ï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½hï¿½Ôï¿½ï¿½ï¿½Û‘ï¿½ï¿½ï¿½ï¿½ï¿½
+
+    STAGENUMBER stageNumber;//ï¿½Xï¿½eï¿½[ï¿½Wï¿½Ôï¿½ï¿½ï¿½Û‘ï¿½ï¿½ï¿½ï¿½ï¿½
+
+    //ï¿½ï¿½Åï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½--------------
+    HWND hwnd;
+    //----------------------------
+
+    SceneManager(); // ï¿½Rï¿½ï¿½ï¿½Xï¿½gï¿½ï¿½ï¿½Nï¿½^
 
 public:
-    static SceneManager* GetInstance(); // ƒVƒ“ƒOƒ‹ƒgƒ“ƒCƒ“ƒXƒ^ƒ“ƒX‚ğæ“¾
-    ~SceneManager(); // ƒfƒXƒgƒ‰ƒNƒ^
+    static SceneManager* GetInstance(); // ï¿½Vï¿½ï¿½ï¿½Oï¿½ï¿½ï¿½gï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½Xï¿½^ï¿½ï¿½ï¿½Xï¿½ï¿½ï¿½æ“¾
+    ~SceneManager(); // ï¿½fï¿½Xï¿½gï¿½ï¿½ï¿½Nï¿½^
 
     void AddScene(SCENENAME _sceneName, std::unique_ptr<Scene> _scene);
     void ChangeScene(SCENENAME _sceneName);
@@ -50,6 +88,18 @@ public:
     int Update();
     int Draw();
 
-    // ƒGƒ‰[—p
+    // ï¿½Gï¿½ï¿½ï¿½[ï¿½p
     std::string SceneNameToString( SCENENAME _sceneName);
+
+    //ï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½hï¿½Ôï¿½ï¿½ÆƒXï¿½eï¿½[ï¿½Wï¿½Ôï¿½ï¿½ÌƒZï¿½bï¿½^ï¿½[ï¿½Eï¿½Qï¿½bï¿½^ï¿½[ï¿½Öï¿½
+    void SetWorldNumber(WORLDNUMBER _worldNum);
+    void SetStageNumber(STAGENUMBER _stageNum);
+
+    WORLDNUMBER GetWorldNumber();
+    STAGENUMBER GetStageNumber();
+
+    //ï¿½ï¿½Åï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½----------------
+    void SetHWND(HWND _hWnd);
+    HWND GetHWND();
+    //------------------------------
 };
