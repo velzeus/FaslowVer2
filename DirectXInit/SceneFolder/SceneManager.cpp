@@ -1,7 +1,4 @@
 #include "SceneManager.h"
-#include "../input.h"
-#include "../Sound.h"
-#include "../Object.h"
 #include <iostream>
 #include<Windows.h>
 
@@ -19,7 +16,7 @@ SceneManager::SceneManager()
 {
     // 特別な初期化は不要
 
-    mouseInput = MouseInput::GetInstance();
+     mouseInput = MouseInput::GetInstance();
 }
 
 // デストラクタ
@@ -58,8 +55,6 @@ int SceneManager::Update()
         currentScene = std::move(nextScene);  // nextSceneの所有権を currentSceneに移動
         nextScene = nullptr;  // 次のシーンはクリア
 
-        SCENENAME currentSceneName = currentScene->GetSceneName();  // 新しいシーン名を取得
-        sceneFactories[currentSceneName] = std::move(currentScene);  // 現在のシーンを格納
 
 
 
