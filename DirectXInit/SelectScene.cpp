@@ -1,5 +1,5 @@
 #include "SelectScene.h"
-#include"ClassA.h"
+#include"StageScene.h"
 
 SelectScene::SelectScene() :
 	Scene(SCENENAME::SELECT), manager(SceneManager::GetInstance())
@@ -39,7 +39,7 @@ int SelectScene::Update()
 		manager->SetWorldNumber(worldNum);
 		manager->SetStageNumber(stageNum);
 
-		manager->AddScene(SCENENAME::STAGE, std::make_unique<ClassA>());
+		manager->AddScene(SCENENAME::STAGE, std::make_unique<StageScene>());
 		manager->ChangeScene(STAGE);
 
 		break;

@@ -133,7 +133,9 @@
     </FxCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="ClassA.cpp" />
+    <ClCompile Include="ClassA.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="direct3d.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Hold.cpp" />
@@ -148,6 +150,7 @@
     <ClCompile Include="SceneFolder\Scenes\WorldSelectScene.cpp" />
     <ClCompile Include="SelectScene.cpp" />
     <ClCompile Include="sound.cpp" />
+    <ClCompile Include="StageScene.cpp" />
     <ClCompile Include="WICTextureLoader.cpp" />
     <ClCompile Include="Word1_Stage.cpp" />
   </ItemGroup>
@@ -176,7 +179,9 @@
     </FxCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ClassA.h" />
+    <ClInclude Include="ClassA.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="direct3d.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Hold.h" />
@@ -189,6 +194,7 @@
     <ClInclude Include="SceneFolder\Scenes\WorldSelectScene.h" />
     <ClInclude Include="SelectScene.h" />
     <ClInclude Include="sound.h" />
+    <ClInclude Include="StageScene.h" />
     <ClInclude Include="WICTextureLoader.h" />
     <ClInclude Include="Word1_Stage.h" />
   </ItemGroup>
