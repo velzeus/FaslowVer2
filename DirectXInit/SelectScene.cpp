@@ -23,13 +23,13 @@ int SelectScene::Update()
 	{
 	case WOELDSELECTSCENE:
 		
-		worldNum = WORLD3;
+		worldNum = WORLD1;
 		stateNum = STAGESELECTSCENE;
 		
 		break;
 	case STAGESELECTSCENE:
 		
-		stageNum = STAGE3;
+		stageNum = STAGE1;
 		stateNum = SETSTAGE;
 		
 		break;
