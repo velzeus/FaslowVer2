@@ -72,9 +72,6 @@
     <ClCompile Include="InputSystem\TS_InputSystem.cpp">
       <Filter>InputSystem</Filter>
     </ClCompile>
-    <ClCompile Include="ClassA.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="StageScene.cpp">
       <Filter>SceneFolder\Scenes</Filter>
     </ClCompile>
@@ -83,6 +80,9 @@
     </ClCompile>
     <ClCompile Include="input.cpp">
       <Filter>InputSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="ClassA.cpp">
+      <Filter>SceneFolder\Scenes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -132,9 +132,6 @@
     <ClInclude Include="InputSystem\TS_InputSystem.h">
       <Filter>InputSystem</Filter>
     </ClInclude>
-    <ClInclude Include="ClassA.h">
-      <Filter>ソース ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="StageScene.h">
       <Filter>SceneFolder\Scenes</Filter>
     </ClInclude>
@@ -146,6 +143,15 @@
     </ClInclude>
     <ClInclude Include="MouseInput.h">
       <Filter>InputSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="ClassA.h">
+      <Filter>SceneFolder\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="CreateStageJson.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="json.hpp">
+      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
