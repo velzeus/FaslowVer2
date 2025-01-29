@@ -120,18 +120,6 @@ STAGENUMBER SceneManager::GetStageNumber()
     return stageNumber;
 }
 
-//‰¼‚Åİ’è‚µ‚½ŠÖ”---------------------
-void SceneManager::SetHWND(HWND _hWnd)
-{
-    hwnd = _hWnd;
-}
-
-HWND SceneManager::GetHWND()
-{
-    return hwnd;
-}
-//-------------------------------------
-
 // ƒV[ƒ“‚ğ’Ç‰Á
 void SceneManager::AddScene(SCENENAME sceneName, std::unique_ptr<Scene> _scene)
 {

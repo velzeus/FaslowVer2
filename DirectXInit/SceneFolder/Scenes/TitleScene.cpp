@@ -1,5 +1,5 @@
 #include"./TitleScene.h"
-#include"../../SelectScene.h"
+//#include"SelectScene.h"
 #include<iostream>
 
 
@@ -33,7 +33,9 @@ int TitleScene::Start()
 int TitleScene::Update()
 {
 	if (mouseInput->IsLeftButtonDown()) {
-		SceneManager::GetInstance()->ChangeScene(RESULT);
+		//SceneManager::GetInstance()->ChangeScene(RESULT);
+
+		SceneManager::GetInstance()->ChangeScene(SELECT);
 	}
 
 

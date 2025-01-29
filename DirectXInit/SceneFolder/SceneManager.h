@@ -70,9 +70,6 @@ private:
 
     STAGENUMBER stageNumber;//�X�e�[�W�ԍ���ۑ�����
 
-    //��ŏ����Ă���--------------
-    HWND hwnd;
-    //----------------------------
 
     SceneManager(); // �R���X�g���N�^
 
@@ -98,8 +95,5 @@ public:
     WORLDNUMBER GetWorldNumber();
     STAGENUMBER GetStageNumber();
 
-    //��ŏ����Ă���----------------
-    void SetHWND(HWND _hWnd);
-    HWND GetHWND();
-    //------------------------------
+   
 };

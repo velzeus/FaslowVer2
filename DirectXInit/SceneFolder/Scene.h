@@ -11,7 +11,7 @@ class SceneManager;
 
 class TitleScene;
 class SelectScene;
-class ClassA;
+class StageScene;
 
 class Scene
 {

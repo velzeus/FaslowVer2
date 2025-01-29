@@ -5,6 +5,10 @@
 #include"DebugConsorl.h"
 #include"./SceneFolder/Scenes/TitleScene.h"
 #include"./SceneFolder/Scenes/ResultScene.h"
+//最初に各シーンクラスを追加しておく
+#include"SceneFolder/Scenes/SelectScene.h"
+#include"SceneFolder/Scenes/StageScene.h"
+
 #include "Game.h"
 
 
@@ -83,11 +87,12 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_  HINSTANCE hPrevInstance, 
 
 	sceneManager->AddScene(SCENENAME::TITLE , std::make_unique<TitleScene>());
 	sceneManager->AddScene(SCENENAME::RESULT, std::make_unique<ResultScene>());
-	sceneManager->ChangeScene(TITLE);
 	
-	//後で消しておく---------------
-	sceneManager->SetHWND(hWnd);
-	//-----------------------------
+	//シーンを追加
+	sceneManager->AddScene(SCENENAME::SELECT, std::make_unique<SelectScene>());
+	sceneManager->AddScene(SCENENAME::STAGE, std::make_unique<StageScene>());
+
+	sceneManager->ChangeScene(TITLE);
 
 	//ゲーム初期化
 	// Game game;
