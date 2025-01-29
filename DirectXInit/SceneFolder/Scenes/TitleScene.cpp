@@ -1,9 +1,11 @@
 #include"./TitleScene.h"
+#include"../../SelectScene.h"
 #include<iostream>
 
-TitleScene::TitleScene():Scene(SCENENAME::TITLE)
+TitleScene::TitleScene():
+	Scene(SCENENAME::TITLE),manager(SceneManager::GetInstance())
 {
-	
+	//manager = SceneManager::GetInstance();
 }
 
 TitleScene::~TitleScene()
@@ -18,6 +20,10 @@ int TitleScene::Start()
 
 int TitleScene::Update()
 {
+	
+
+	manager->AddScene(SCENENAME::SELECT, std::make_unique<SelectScene>());
+	manager->ChangeScene(SELECT);
 
 	return 0;
 }

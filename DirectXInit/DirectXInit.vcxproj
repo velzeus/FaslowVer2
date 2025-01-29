@@ -133,6 +133,7 @@
     </FxCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ClassA.cpp" />
     <ClCompile Include="direct3d.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Hold.cpp" />
@@ -141,6 +142,11 @@
     <ClCompile Include="MouseInput.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="Reposition.cpp" />
+    <ClCompile Include="SceneFolder\Scene.cpp" />
+    <ClCompile Include="SceneFolder\SceneManager.cpp" />
+    <ClCompile Include="SceneFolder\Scenes\TitleScene.cpp" />
+    <ClCompile Include="SceneFolder\Scenes\WorldSelectScene.cpp" />
+    <ClCompile Include="SelectScene.cpp" />
     <ClCompile Include="sound.cpp" />
     <ClCompile Include="WICTextureLoader.cpp" />
     <ClCompile Include="Word1_Stage.cpp" />
@@ -170,12 +176,18 @@
     </FxCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ClassA.h" />
     <ClInclude Include="direct3d.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Hold.h" />
     <ClInclude Include="input.h" />
     <ClInclude Include="MouseInput.h" />
     <ClInclude Include="Reposition.h" />
+    <ClInclude Include="SceneFolder\Scene.h" />
+    <ClInclude Include="SceneFolder\SceneManager.h" />
+    <ClInclude Include="SceneFolder\Scenes\TitleScene.h" />
+    <ClInclude Include="SceneFolder\Scenes\WorldSelectScene.h" />
+    <ClInclude Include="SelectScene.h" />
     <ClInclude Include="sound.h" />
     <ClInclude Include="WICTextureLoader.h" />
     <ClInclude Include="Word1_Stage.h" />
