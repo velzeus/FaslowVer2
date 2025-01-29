@@ -4,9 +4,14 @@
 //‘O•ûéŒ¾
 enum SCENENAME;
 
+enum WORLDNUMBER;
+enum STAGENUMBER;
+
 class SceneManager;
 
-
+class TitleScene;
+class SelectScene;
+class ClassA;
 
 class Scene
 {

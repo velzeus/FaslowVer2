@@ -26,7 +26,7 @@ private:
     Input* input;
     Object titleImage;
 
-
+    SceneManager* manager;
 
 };
 

@@ -85,6 +85,9 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_  HINSTANCE hPrevInstance, 
 	sceneManager->AddScene(SCENENAME::RESULT, std::make_unique<ResultScene>());
 	sceneManager->ChangeScene(TITLE);
 	
+	//Œã‚ÅÁ‚µ‚Ä‚¨‚­---------------
+	sceneManager->SetHWND(hWnd);
+	//-----------------------------
 
 	//ƒQ[ƒ€‰Šú‰»
 	// Game game;

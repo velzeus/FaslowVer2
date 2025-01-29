@@ -5,6 +5,15 @@ class WorldSelectScene :
     public Scene
 {
 public:
-    int Update()override;
+    WorldSelectScene();
+    ~WorldSelectScene() override;
+
+    int Start() override;
+    int Update() override;
+    int Draw() override;
+    int End() override;
+    
+private:
+    SceneManager* manager;
 };
 
