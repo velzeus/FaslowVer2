@@ -1,11 +1,11 @@
 #undef UNICODE  // Unicodeではなく、マルチバイト文字を使う
 
 #include <Windows.h>
-#include "Game.h"
+#include<memory>
 #include"DebugConsorl.h"
 #include"./SceneFolder/Scenes/TitleScene.h"
 #include"./SceneFolder/Scenes/ResultScene.h"
-#include<memory>
+#include "Game.h"
 
 
 
@@ -16,6 +16,7 @@
 // 関数のプロトタイプ宣言
 LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 
+void SetFullscreen(HWND hwnd);	//	フルスクリーンのための関数
 
 
 //--------------------------------------------------------------------------------------
@@ -66,6 +67,8 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_  HINSTANCE hPrevInstance, 
 	sx += ((rc1.right - rc1.left) - (rc2.right - rc2.left));   
 	sy += ((rc1.bottom - rc1.top) - (rc2.bottom - rc2.left));
 	SetWindowPos(hWnd, NULL, 0, 0, sx, sy, (SWP_NOZORDER | SWP_NOOWNERZORDER | SWP_NOMOVE));//ウィンドウサイズを偏向
+
+	// SetFullscreen(hWnd);//フルスクリーンに設定
 
 	// 指定されたウィンドウの表示状態を設定(ウィンドウを表示)
 	ShowWindow(hWnd, nCmdShow);
@@ -177,6 +180,11 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 	}
 	break;
 
+	case WM_CREATE:	// 全画面表示
+	{
+		// SetFullscreen(hWnd);
+	}break;
+
 	case WM_KEYDOWN: //キー入力があったメッセージ
 		if (LOWORD(wParam) == VK_ESCAPE) { //入力されたキーがESCAPEなら
 			PostMessage(hWnd, WM_CLOSE, wParam, lParam);//「WM_CLOSE」を送る
@@ -189,4 +197,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 	}
 
 	return 0;
+}
+void SetFullscreen(HWND hwnd) {
+	SetWindowLong(hwnd, GWL_STYLE, WS_POPUP);
+	ShowWindow(hwnd, SW_MAXIMIZE);
 }

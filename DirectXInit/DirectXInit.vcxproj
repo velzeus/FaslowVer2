@@ -141,6 +141,7 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Hold.cpp" />
     <ClCompile Include="input.cpp" />
+    <ClCompile Include="InputSystem\TS_InputSystem.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MouseInput.cpp" />
     <ClCompile Include="Object.cpp" />
@@ -184,6 +185,7 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="Hold.h" />
     <ClInclude Include="input.h" />
+    <ClInclude Include="InputSystem\TS_InputSystem.h" />
     <ClInclude Include="MouseInput.h" />
     <ClInclude Include="Reposition.h" />
     <ClInclude Include="SceneFolder\Scene.h" />

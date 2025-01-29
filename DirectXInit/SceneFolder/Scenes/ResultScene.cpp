@@ -17,7 +17,7 @@ int ResultScene::Start()
     mouseInput = MouseInput::GetInstance();
     resultImage.Init(L"./asset/back_img_02.jpg");
     resultImage.SetColor(1, 1, 1, 1);
-    resultImage.SetPos(0, 0, 0);
+    resultImage.SetPos(100, 0, 0);
     resultImage.SetSize(100, 100, 1);
    
     return 0;

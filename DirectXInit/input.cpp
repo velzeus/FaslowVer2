@@ -10,10 +10,6 @@ Input::Input()
 
 Input* Input::GetInstance()
 {
-	if (instance != nullptr) {
-	return instance;
-	}
-
 	static Input _instance;
 	return  &_instance;
 }

@@ -19,6 +19,9 @@
     <Filter Include="SceneFolder\Scenes">
       <UniqueIdentifier>{8a33b62f-eec3-4b6b-a075-d17dced85bcb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="InputSystem">
+      <UniqueIdentifier>{5363c84b-9224-4c7e-a7ec-850bfeb397ff}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -72,6 +75,9 @@
     <ClCompile Include="SceneFolder\Scenes\ResultScene.cpp">
       <Filter>SceneFolder\Scenes</Filter>
     </ClCompile>
+    <ClCompile Include="InputSystem\TS_InputSystem.cpp">
+      <Filter>InputSystem</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="PixelShader.hlsl" />
@@ -122,6 +128,9 @@
     </ClInclude>
     <ClInclude Include="SceneFolder\Scenes\ResultScene.h">
       <Filter>SceneFolder\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="InputSystem\TS_InputSystem.h">
+      <Filter>InputSystem</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
