@@ -1,29 +1,3 @@
-﻿  compilation object save succeeded; see C:\Users\galep\Desktop\AssignmentFolder\Second grade\チーム制作草案\Faslow\FaslowVer2\x64\Debug\PixelShader.cso
-  compilation object save succeeded; see C:\Users\galep\Desktop\AssignmentFolder\Second grade\チーム制作草案\Faslow\FaslowVer2\x64\Debug\VertexShader.cso
-  DebugConsorl.cpp
-  direct3d.cpp
-C:\Users\galep\Desktop\AssignmentFolder\Second grade\チーム制作草案\Faslow\FaslowVer2\DirectXInit\direct3d.cpp(290,30): warning C4267: '初期化中': 'size_t' から 'int' に変換しました。データが失われているかもしれません。
-  Game.cpp
-C:\Users\galep\Desktop\AssignmentFolder\Second grade\チーム制作草案\Faslow\FaslowVer2\DirectXInit\Game.cpp(27,67): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\galep\Desktop\AssignmentFolder\Second grade\チーム制作草案\Faslow\FaslowVer2\DirectXInit\Game.cpp(27,35): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\galep\Desktop\AssignmentFolder\Second grade\チーム制作草案\Faslow\FaslowVer2\DirectXInit\Game.cpp(551,53): warning C4244: '=': 'int' から 'float' への変換です。データが失われる可能性があります。
-  Hold.cpp
-  input.cpp
-  TS_InputSystem.cpp
-  main.cpp
-  MouseInput.cpp
-  Object.cpp
-C:\Users\galep\Desktop\AssignmentFolder\Second grade\チーム制作草案\Faslow\FaslowVer2\DirectXInit\Object.cpp(81,60): warning C4244: '引数': 'double' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\galep\Desktop\AssignmentFolder\Second grade\チーム制作草案\Faslow\FaslowVer2\DirectXInit\Object.cpp(161,9): warning C4244: '=': 'Direction' から 'float' への変換です。データが失われる可能性があります。
-  Reposition.cpp
-  Scene.cpp
-  SceneManager.cpp
-  ResultScene.cpp
-  TitleScene.cpp
-  WorldSelectScene.cpp
-  sound.cpp
-  WICTextureLoader.cpp
-  Word1_Stage.cpp
-C:\Users\galep\Desktop\AssignmentFolder\Second grade\チーム制作草案\Faslow\FaslowVer2\DirectXInit\Word1_Stage.cpp(178,52): warning C4244: '=': 'int' から 'float' への変換です。データが失われる可能性があります。
-  コードを生成中...
+﻿  ResultScene.cpp
+  LINK : 前回のインクリメンタル リンクで C:\Users\galep\Desktop\AssignmentFolder\Second grade\チーム制作草案\Faslow\FaslowVer2\x64\Debug\DirectXInit.exe が見つからなかったか、ビルドされませんでした。フル リンクを行います。
   DirectXInit.vcxproj -> C:\Users\galep\Desktop\AssignmentFolder\Second grade\チーム制作草案\Faslow\FaslowVer2\x64\Debug\DirectXInit.exe
