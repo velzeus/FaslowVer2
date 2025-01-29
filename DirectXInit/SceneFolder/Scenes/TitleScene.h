@@ -25,7 +25,7 @@ private:
 
     Object titleImage;
 
-
+    SceneManager* manager;
 
 };
 

@@ -84,6 +84,26 @@ std::string SceneManager::SceneNameToString( SCENENAME _sceneName)
     return "Error";
 }
 
+void SceneManager::SetWorldNumber(WORLDNUMBER _worldNum)
+{
+    worldNumber = _worldNum;
+}
+
+void SceneManager::SetStageNumber(STAGENUMBER _stageNum)
+{
+    stageNumber = _stageNum;
+}
+
+WORLDNUMBER SceneManager::GetWorldNumber()
+{
+    return worldNumber;
+}
+
+STAGENUMBER SceneManager::GetStageNumber()
+{
+    return stageNumber;
+}
+
 // ÉVÅ[ÉìÇí«â¡
 void SceneManager::AddScene(SCENENAME sceneName, std::unique_ptr<Scene> _scene)
 {

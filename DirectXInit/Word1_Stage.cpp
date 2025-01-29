@@ -3,18 +3,18 @@ using namespace std;
 
 using json = nlohmann::json;
 
-//json‚É•ÏŠ·‚·‚é‚½‚ß‚ÌŠÖ”
-void to_json(json& j, const VECTOR2& v)
-{
-	j = json{ {"x",v.x},{"y",v.y} };
-}
-
-//json‚©‚ç•ÏŠ·‚·‚é‚½‚ß‚ÌŠÖ”
-void from_json(const json& j, VECTOR2& v)
-{
-	j.at("x").get_to(v.x);
-	j.at("y").get_to(v.y);
-}
+////json‚É•ÏŠ·‚·‚é‚½‚ß‚ÌŠÖ”
+//void to_json(json& j, const VECTOR2& v)
+//{
+//	j = json{ {"x",v.x},{"y",v.y} };
+//}
+//
+////json‚©‚ç•ÏŠ·‚·‚é‚½‚ß‚ÌŠÖ”
+//void from_json(const json& j, VECTOR2& v)
+//{
+//	j.at("x").get_to(v.x);
+//	j.at("y").get_to(v.y);
+//}
 
 World1_Stage::World1_Stage()
 {
@@ -62,7 +62,7 @@ void World1_Stage::ReadFile(int _stageNumber)
 
 		/*vector<vector<int>>*/ read_gridStateList = read_json["blockState"].get<vector<vector<int>>>();
 
-		/*vector<vector<VECTOR2>>*/ read_blockPositionList = read_json["blockPosition"].get<vector<vector<VECTOR2>>>();
+		///*vector<vector<VECTOR2>>*/ read_blockPositionList = read_json["blockPosition"].get<vector<vector<VECTOR2>>>();
 
 
 		//cout << "\n" << "“Ç‚İ‚İ" << endl;
