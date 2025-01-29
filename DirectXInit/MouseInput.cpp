@@ -1,5 +1,7 @@
 #include "MouseInput.h"
 
+MouseInput* MouseInput::instance = nullptr;
+
 MouseInput::MouseInput()
     : isLeftButtonDown(false) {
     clickPosition = { 0, 0 };
@@ -7,6 +9,14 @@ MouseInput::MouseInput()
 }
 
 MouseInput::~MouseInput() {}
+
+MouseInput* MouseInput::GetInstance()
+{
+    if(instance!=nullptr) return instance;
+
+    static MouseInput _instance;
+    return &_instance;
+}
 
 void MouseInput::Update() {
     // ƒ}ƒEƒX‚Ìó‘Ô‚ğæ“¾

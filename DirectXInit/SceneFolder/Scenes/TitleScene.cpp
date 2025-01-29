@@ -2,10 +2,14 @@
 #include"../../SelectScene.h"
 #include<iostream>
 
-TitleScene::TitleScene():
-	Scene(SCENENAME::TITLE),manager(SceneManager::GetInstance())
+
+TitleScene::TitleScene()
+	:Scene(SCENENAME::TITLE), input(nullptr), mouseInput(nullptr)
 {
-	//manager = SceneManager::GetInstance();
+	std::cout << SceneManager::GetInstance()->SceneNameToString(GetSceneName()) 
+		<< "�R���X�g���N�^" << std::endl;
+	std::cout << "    SceneName(" << sceneName << ")" << std::endl;
+
 }
 
 TitleScene::~TitleScene()
@@ -14,27 +18,36 @@ TitleScene::~TitleScene()
 
 int TitleScene::Start()
 {
-	std::cout << "TitleSceneStart" << std::endl;
+	input = Input::GetInstance();
+	mouseInput = MouseInput::GetInstance();
+
+
+
+	titleImage.Init(L"./SceneFolder/Scenes/TextureTest/back_img_01.png",1,1);
+	titleImage.SetSize(100, 100, 1);
+	titleImage.SetPos(0, 0, 0);
+	titleImage.SetColor(1, 1, 1, 1);
 	return 0;
 }
 
 int TitleScene::Update()
 {
-	
+	if (mouseInput->IsLeftButtonDown()) {
+		SceneManager::GetInstance()->ChangeScene(RESULT);
+	}
 
-	manager->AddScene(SCENENAME::SELECT, std::make_unique<SelectScene>());
-	manager->ChangeScene(SELECT);
 
 	return 0;
 }
 
 int TitleScene::Draw()
 {
-	std::cout << "TitleSceneDraw" << std::endl;
+	titleImage.Draw();
 	return 0;
 }
 
 int TitleScene::End()
 {
+	
 	return 0;
 }

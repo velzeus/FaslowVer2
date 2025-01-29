@@ -56,7 +56,7 @@ struct VECTOR2
 class World1_Stage
 {
 private:
-	Input input;//キー入力オブジェクト
+	// Input input;//キー入力オブジェクト
 	//Sound sound;
 	Object player;//プレイヤーオブジェクト
 	Object background; //背景オブジェクト

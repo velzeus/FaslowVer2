@@ -1,10 +1,11 @@
 #undef UNICODE  // Unicodeではなく、マルチバイト文字を使う
 
 #include <Windows.h>
-#include "Game.h"
-
-#include"./SceneFolder/Scenes/TitleScene.h"
 #include<memory>
+#include"DebugConsorl.h"
+#include"./SceneFolder/Scenes/TitleScene.h"
+#include"./SceneFolder/Scenes/ResultScene.h"
+#include "Game.h"
 
 
 
@@ -15,6 +16,7 @@
 // 関数のプロトタイプ宣言
 LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 
+void SetFullscreen(HWND hwnd);	//	フルスクリーンのための関数
 
 
 //--------------------------------------------------------------------------------------
@@ -22,6 +24,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 //--------------------------------------------------------------------------------------
 int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_  HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine, _In_ int nCmdShow)
 {
+	DebugConsole();
+
 	// ウィンドウクラス情報をまとめる
 	WNDCLASSEX wc;
 	wc.cbSize = sizeof(WNDCLASSEX);
@@ -64,6 +68,8 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_  HINSTANCE hPrevInstance, 
 	sy += ((rc1.bottom - rc1.top) - (rc2.bottom - rc2.left));
 	SetWindowPos(hWnd, NULL, 0, 0, sx, sy, (SWP_NOZORDER | SWP_NOOWNERZORDER | SWP_NOMOVE));//ウィンドウサイズを偏向
 
+	// SetFullscreen(hWnd);//フルスクリーンに設定
+
 	// 指定されたウィンドウの表示状態を設定(ウィンドウを表示)
 	ShowWindow(hWnd, nCmdShow);
 	// ウィンドウの状態を直ちに反映(ウィンドウのクライアント領域を更新)
@@ -73,7 +79,10 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_  HINSTANCE hPrevInstance, 
 	SceneManager* sceneManager;
 	sceneManager = SceneManager::GetInstance();
 
+	sceneManager->Initialize(hWnd);
+
 	sceneManager->AddScene(SCENENAME::TITLE , std::make_unique<TitleScene>());
+	sceneManager->AddScene(SCENENAME::RESULT, std::make_unique<ResultScene>());
 	sceneManager->ChangeScene(TITLE);
 	
 	//後で消しておく---------------
@@ -81,8 +90,8 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_  HINSTANCE hPrevInstance, 
 	//-----------------------------
 
 	//ゲーム初期化
-	Game game;
-	game.Init(hWnd);
+	// Game game;
+	// game.Init(hWnd);
 
 	MSG msg;
 
@@ -121,7 +130,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_  HINSTANCE hPrevInstance, 
 			if (nowCount >= oldCount + frequency / 60)
 			{
 				// ゲーム処理実行
-				game.Update();
+				// game.Update();
 				// game.Draw();
 				sceneManager->Update();
 				sceneManager->Draw();
@@ -147,7 +156,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_  HINSTANCE hPrevInstance, 
 		}
 	}
 	//ゲーム終了
-	game.Uninit();
+	// game.Uninit();
 
 	UnregisterClass(CLASS_NAME, hInstance);
 
@@ -174,6 +183,11 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 	}
 	break;
 
+	case WM_CREATE:	// 全画面表示
+	{
+		// SetFullscreen(hWnd);
+	}break;
+
 	case WM_KEYDOWN: //キー入力があったメッセージ
 		if (LOWORD(wParam) == VK_ESCAPE) { //入力されたキーがESCAPEなら
 			PostMessage(hWnd, WM_CLOSE, wParam, lParam);//「WM_CLOSE」を送る
@@ -186,4 +200,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 	}
 
 	return 0;
+}
+void SetFullscreen(HWND hwnd) {
+	SetWindowLong(hwnd, GWL_STYLE, WS_POPUP);
+	ShowWindow(hwnd, SW_MAXIMIZE);
 }

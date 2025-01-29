@@ -15,7 +15,7 @@ class ClassA;
 
 class Scene
 {
-private:
+protected:
 	const SCENENAME sceneName;
 
 public:
