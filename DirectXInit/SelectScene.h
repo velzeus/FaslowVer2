@@ -1,5 +1,7 @@
 #pragma once
 #include "SceneFolder/Scene.h"
+#include"MouseInput.h"
+#include"Object.h"
 
 //画面に表示するものの状態
 enum DRAWSTATE
@@ -28,6 +30,18 @@ private:
     STAGENUMBER stageNum;
 
     DRAWSTATE stateNum;
+
+    //後で消しておく--------------
+    MouseInput mouseInput;
+    //----------------------------
+
+    //ワールド
+    Object world_image[6];
+
+    //ステージ
+    Object stage_image[5];
+    
+    //POINT imagePos;
 
 };
 

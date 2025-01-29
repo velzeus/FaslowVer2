@@ -6,6 +6,7 @@
 #include <unordered_map>
 #include <functional>
 #include<iostream>
+#include"../Object.h"
 
 // 前方宣言
 class Scene;
@@ -61,6 +62,9 @@ private:
 
     STAGENUMBER stageNumber;//ステージ番号を保存する
 
+    //後で消しておく--------------
+    HWND hwnd;
+    //----------------------------
 
     SceneManager(); // コンストラクタ
 
@@ -83,5 +87,8 @@ public:
     WORLDNUMBER GetWorldNumber();
     STAGENUMBER GetStageNumber();
 
-
+    //後で消しておく----------------
+    void SetHWND(HWND _hWnd);
+    HWND GetHWND();
+    //------------------------------
 };

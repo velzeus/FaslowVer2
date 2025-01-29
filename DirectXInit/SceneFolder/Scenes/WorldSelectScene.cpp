@@ -1,6 +1,6 @@
 #include "WorldSelectScene.h"
 #include"TitleScene.h"
-#include"../../ClassA.h"
+//#include"../../ClassA.h"
 
 WorldSelectScene::WorldSelectScene() :Scene(SCENENAME::RESULT), manager(SceneManager::GetInstance())
 {
@@ -20,7 +20,7 @@ int WorldSelectScene::Start()
 
 int WorldSelectScene::Update()
 {
-	manager->AddScene(SCENENAME::STAGE, std::make_unique<ClassA>());
+	manager->AddScene(SCENENAME::STAGE, std::make_unique<WorldSelectScene>());
 	manager->ChangeScene(STAGE);
 
 	return 0;
