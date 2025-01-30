@@ -30,6 +30,8 @@ StageScene::~StageScene()
 
 int StageScene::Start()
 {
+	mouseInput = MouseInput::GetInstance();
+
 	//ファイル読み込み
 	ReadFile();
 
@@ -45,6 +47,13 @@ int StageScene::Start()
 			gridData[x][y] = read_gridStateList[y][x];
 		}
 	}
+
+	//オプションボタン　　440
+	optionButton.Init(L"asset/block.png");
+	optionButton.SetPos(-860.0f, 340.0f, 0.0f);
+	optionButton.SetSize(50.0f, 50.0f, 0.0f);
+	optionButton.SetAngle(0.0f);
+	optionButton.SetColor(0.0f, 0.0f, 0.0f, 1.0f);
 
 	return 0;
 }
@@ -73,8 +82,38 @@ int StageScene::Update()
 			case STICKY_BLOCK://粘着ブロック
 				grids[x][y].SetColor(0.0f, 1.0f, 0.0f, 1.0f);
 				break;
+			case SLIP_BLOCK://滑るブロック
+				grids[x][y].SetColor(0.0f, 1.0f, 1.0f, 1.0f);
+				break;
+			case UNBREAK_BLOCK://破壊不可ブロック
+				grids[x][y].SetColor(0.0f, 0.0f, 0.0f, 1.0f);
+				break;
 			}
 		}
+	}
+
+	//戻るボタン
+	if (mouseInput->IsLeftButtonDown())
+	{
+		//クリックされたx座標が内側にあったら
+		if (mouseInput->GetClickPosition().x - SCREEN_WIDTH / 2 > (optionButton.GetPos().x - optionButton.GetSize().x / 2) &&
+			mouseInput->GetClickPosition().x - SCREEN_WIDTH / 2 < (optionButton.GetPos().x + optionButton.GetSize().x / 2))
+		{
+			//
+			if ((mouseInput->GetClickPosition().y - SCREEN_HEIGHT / 2) * -1 > (optionButton.GetPos().y - optionButton.GetSize().y / 2) &&
+				(mouseInput->GetClickPosition().y - SCREEN_HEIGHT / 2) * -1 < (optionButton.GetPos().y + optionButton.GetSize().y / 2))
+			{
+				//決定されてない状態に戻す
+				SceneManager::GetInstance()->SetWorldNumber(NOTDONE_WORLD);
+				SceneManager::GetInstance()->SetStageNumber(NOTDONE_STAGE);
+
+
+				//セレクトシーンに戻る
+				SceneManager::GetInstance()->ChangeScene(SELECT);
+			}
+
+		}
+
 	}
 
 	return 0;
@@ -90,6 +129,8 @@ int StageScene::Draw()
 			grids[x][y].Draw();
 		}
 	}
+
+	optionButton.Draw();
 
 	return 0;
 }
@@ -107,6 +148,7 @@ void StageScene::ReadFile()
 
 	//読み込むファイルの名前を作成
 	string fileName = "StageFolder/Stage" + number_world + "-" + number_stage + ".json";
+	//"StageFolder/New_Stage"
 
 	ifstream fin(fileName.c_str());
 	//読み込みに失敗したらエラー文を表示

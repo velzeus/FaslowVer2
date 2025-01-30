@@ -55,6 +55,8 @@ public:
 private:
     SceneManager* manager;
 
+	MouseInput* mouseInput;
+
     std::vector<std::vector<int>> read_gridStateList;//マス目の状態を保存する
 
     std::vector<std::vector<VECTOR2>> read_blockPositionList;//ブロックの座標を保存する
@@ -62,6 +64,9 @@ private:
     Object grids[STAGE_X][STAGE_Y];
 
 	int gridData[STAGE_X][STAGE_Y];
+
+	//オプションボタン
+	Object optionButton;
 
 };
 

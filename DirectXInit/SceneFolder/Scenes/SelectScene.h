@@ -37,7 +37,7 @@ private:
     //ステージ
     Object stage_image[5];
     
-    
-
+    //戻るボタン
+    Object backButton;
 };
 

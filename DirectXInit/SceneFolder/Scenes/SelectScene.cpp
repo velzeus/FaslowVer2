@@ -72,11 +72,21 @@ int SelectScene::Start()
 	stage_image[4].SetPos(75, -100, 0.0f);
 
 
+	//戻るボタン
+	backButton.Init(L"asset/block.png");
+	backButton.SetPos(-860.0f, 440.0f, 0.0f);
+	backButton.SetSize(50.0f, 50.0f, 0.0f);
+	backButton.SetAngle(0.0f);
+	backButton.SetColor(0.0f, 0.0f, 0.0f, 1.0f);
+
+	stateNum = WOELDSELECTSCENE;
+
 	return 0;
 }
 
 int SelectScene::Update()
 {
+	//ワールド、ステージセレクト
 	switch (stateNum)
 	{
 	case WOELDSELECTSCENE:
@@ -126,6 +136,7 @@ int SelectScene::Update()
 			}
 
 		}
+
 		break;
 	case STAGESELECTSCENE:
 		//クリックされたら
@@ -182,6 +193,32 @@ int SelectScene::Update()
 		break;
 	}
 
+	//戻るボタン
+	if (mouseInput->IsLeftButtonDown())
+	{
+		//クリックされたx座標が内側にあったら
+		if (mouseInput->GetClickPosition().x - SCREEN_WIDTH / 2 > (backButton.GetPos().x - backButton.GetSize().x / 2) &&
+			mouseInput->GetClickPosition().x - SCREEN_WIDTH / 2 < (backButton.GetPos().x + backButton.GetSize().x / 2))
+		{
+			//
+			if ((mouseInput->GetClickPosition().y - SCREEN_HEIGHT / 2) * -1 > (backButton.GetPos().y - backButton.GetSize().y / 2) &&
+				(mouseInput->GetClickPosition().y - SCREEN_HEIGHT / 2) * -1 < (backButton.GetPos().y + backButton.GetSize().y / 2))
+			{
+				switch (stateNum)
+				{
+				case WOELDSELECTSCENE://タイトルシーンに戻る
+					SceneManager::GetInstance()->ChangeScene(TITLE);
+					break;
+				case STAGESELECTSCENE: //ワールドセレクトに戻る
+					stateNum = WOELDSELECTSCENE;
+					worldNum = NOTDONE_WORLD;
+					break;
+				}
+			}
+
+		}
+
+	}
 
 	return 0;
 }
@@ -209,6 +246,8 @@ int SelectScene::Draw()
 	case SETSTAGE:
 		break;
 	}
+
+	backButton.Draw();
 
 	return 0;
 }
