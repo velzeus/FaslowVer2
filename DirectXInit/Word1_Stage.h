@@ -79,7 +79,15 @@ private:
 public:
 
 	World1_Stage();//コンストラクタ
+	// gridData にアクセスするためのゲッター
+	int GetGridData(int x, int y) const {
+		return gridData[x][y];  // gridData の指定された位置を返す
+	}
 
+	// gridData に値を設定するためのセッター
+	void SetGridData(int x, int y, int value) {
+		gridData[x][y] = value;  // gridData の指定された位置に値を設定
+	}
 	//jsonファイルを読み込む（引数にStage番号を持ってくる）
 	void ReadFile(int _stageNumber);
 
