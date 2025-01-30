@@ -1,5 +1,5 @@
 #include"./TitleScene.h"
-#include"../../SelectScene.h"
+//#include"SelectScene.h"
 #include<iostream>
 
 #define BUTTONSIZE_X (float)370
@@ -56,7 +56,9 @@ int TitleScene::Start()
 int TitleScene::Update()
 {
 	if (mouseInput->IsLeftButtonDown()) {
-		SceneManager::GetInstance()->ChangeScene(RESULT);
+		//SceneManager::GetInstance()->ChangeScene(RESULT);
+
+		SceneManager::GetInstance()->ChangeScene(SELECT);
 	}
 
 

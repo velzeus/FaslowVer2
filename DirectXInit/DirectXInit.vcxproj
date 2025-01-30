@@ -42,7 +42,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
@@ -136,6 +136,7 @@
     </FxCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="DebugConsorl.cpp" />
     <ClCompile Include="ClassA.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
@@ -154,10 +155,11 @@
     <ClCompile Include="SceneFolder\Scene.cpp" />
     <ClCompile Include="SceneFolder\SceneManager.cpp" />
     <ClCompile Include="SceneFolder\Scenes\ResultScene.cpp" />
+    <ClCompile Include="SceneFolder\Scenes\SelectScene.cpp" />
+    <ClCompile Include="SceneFolder\Scenes\StageScene.cpp" />
     <ClCompile Include="SceneFolder\Scenes\TitleScene.cpp" />
     <ClCompile Include="SceneFolder\Scenes\WorldSelectScene.cpp" />
     <ClCompile Include="sound.cpp" />
-    <ClCompile Include="StageScene.cpp" />
     <ClCompile Include="WICTextureLoader.cpp" />
     <ClCompile Include="Word1_Stage.cpp" />
   </ItemGroup>
@@ -204,6 +206,8 @@
     <ClInclude Include="SceneFolder\Scene.h" />
     <ClInclude Include="SceneFolder\SceneManager.h" />
     <ClInclude Include="SceneFolder\Scenes\ResultScene.h" />
+    <ClInclude Include="SceneFolder\Scenes\SelectScene.h" />
+    <ClInclude Include="SceneFolder\Scenes\StageScene.h" />
     <ClInclude Include="SceneFolder\Scenes\TitleScene.h" />
     <ClInclude Include="SceneFolder\Scenes\WorldSelectScene.h" />
     <ClInclude Include="sound.h" />
