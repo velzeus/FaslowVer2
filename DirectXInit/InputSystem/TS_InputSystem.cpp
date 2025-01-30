@@ -2,16 +2,21 @@
 
 static TS::TS_InputSystem* g_inputSystem = nullptr;
 
+
+
 namespace TS {
+	TS_InputSystem* TS_InputSystem::instance = nullptr;
 	TS_InputSystem* TS_InputSystem::GetInstance()
 	{
 		// インスタンスがなければインスタンを生成
-		static TS_InputSystem instance;
-		return &instance;
+		if (instance == nullptr) {
+			instance = new TS_InputSystem ;
+		}
+		return instance;
 	}
 
 
-	void TS_InputSystem::Init(bool& _isLoop)
+	void TS_InputSystem::Init()
 	{
 		if (isInitialized == false) {
 			isInitialized = true;
@@ -102,11 +107,13 @@ namespace TS {
 	TS_InputSystem::TS_InputSystem() {
 		memset(curtKayState, 0, sizeof(curtKayState));
 		memset(prevKayState, 0, sizeof(prevKayState));
+		isInitialized = false;
 	}
 	TS_InputSystem::~TS_InputSystem()
 	{
 
 
-
+		delete instance;
+		instance = nullptr;
 	};
 }

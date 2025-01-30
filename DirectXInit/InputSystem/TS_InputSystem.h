@@ -138,7 +138,7 @@ namespace TS {
 		static TS_InputSystem* GetInstance();
 
 
-		void Init(bool& _isLoop);
+		void Init();
 		void Update();
 		void Uninit();
 
@@ -151,14 +151,16 @@ namespace TS {
 		POINT GetReleasePosition() const; // 左クリックを離した座標を取得
 
 
+		~TS_InputSystem();
 	private:
 
 		// 外部からインスタンスを生成できなくする
 		TS_InputSystem();
-		~TS_InputSystem();
 
 		POINT clickPosition; // 左クリックした位置
 		POINT releasePosition; // 左クリックを離した位置
+
+		static TS_InputSystem* instance;
 
 
 		// コピーコンストラクタと代入演算子も削除

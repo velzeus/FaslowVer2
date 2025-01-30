@@ -12,13 +12,16 @@ bool SceneManager::endFlg = false;
 
 // コンストラクタ
 SceneManager::SceneManager()
-    : currentScene(nullptr), nextScene(nullptr), mouseInput(nullptr)
+    : currentScene(nullptr), nextScene(nullptr)//, mouseInput(nullptr)
 {
     // 特別な初期化は不要
 
-     mouseInput = MouseInput::GetInstance();
+     //mouseInput = MouseInput::GetInstance();
 
-     g_inputSystem = TS::TS_InputSystem::GetInstance();
+     //g_inputSystem = TS::TS_InputSystem::GetInstance();
+     inputSystem=TS::TS_InputSystem::GetInstance();
+
+     inputSystem->Init();
 }
 
 // デストラクタ
@@ -35,7 +38,9 @@ SceneManager* SceneManager::GetInstance()
 // 更新処理
 int SceneManager::Update()
 {
-    mouseInput->Update();
+    //mouseInput->Update();
+
+    inputSystem->Update();
 
     if (nextScene != nullptr)  // 次のシーンに切り替える場合
     {

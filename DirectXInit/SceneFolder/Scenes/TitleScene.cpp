@@ -19,7 +19,7 @@
 
 
 TitleScene::TitleScene()
-	:Scene(SCENENAME::TITLE), input(nullptr), mouseInput(nullptr)
+	:Scene(SCENENAME::TITLE), input(nullptr)//, mouseInput(nullptr)
 {
 	std::cout << SceneManager::GetInstance()->SceneNameToString(GetSceneName()) 
 		<< "�R���X�g���N�^" << std::endl;
@@ -34,19 +34,20 @@ TitleScene::~TitleScene()
 int TitleScene::Start()
 {
 	input = Input::GetInstance();
-	mouseInput = MouseInput::GetInstance();
+	//mouseInput = MouseInput::GetInstance();
+	inputSystem = TS::TS_InputSystem::GetInstance();
 
-
-
-	StartButton.Init(L"./asset/UI/スタート.png",1,1);
+	//StartButton.Init(L"asset/UI/スタート.png",1,1);
+	StartButton.Init(L"asset/UI/start.png", 1, 1);
 	StartButton.SetSize(BUTTONSIZE_X, BUTTONSIZE_Y, BUTTONSIZE_Z);
 	StartButton.SetPos(0, START_BUTTON_POS_Y, 0);
 	StartButton.SetColor(1, 1, 1, 1);
 
-	EndButton.Init(L"./asset/UI/エンド.png", 1, 1);
+//	EndButton.Init(L"asset/UI/エンド.png", 1, 1);
+	/*EndButton.Init(L"asset/UI/エンド.png", 1, 1);
 	EndButton.SetSize(BUTTONSIZE_X, BUTTONSIZE_Y, BUTTONSIZE_Z);
 	EndButton.SetPos(0,-150,0);
-	EndButton.SetColor(1,1,1,1);
+	EndButton.SetColor(1,1,1,1);*/
 
 
 
@@ -55,7 +56,8 @@ int TitleScene::Start()
 
 int TitleScene::Update()
 {
-	if (mouseInput->IsLeftButtonDown()) {
+	//mouseInput->IsLeftButtonDown()
+	if (inputSystem->GetTrigger(MK_LEFT)) {
 		//SceneManager::GetInstance()->ChangeScene(RESULT);
 
 		SceneManager::GetInstance()->ChangeScene(SELECT);

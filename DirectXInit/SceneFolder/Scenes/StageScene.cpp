@@ -30,7 +30,9 @@ StageScene::~StageScene()
 
 int StageScene::Start()
 {
-	mouseInput = MouseInput::GetInstance();
+	//inputSystem = MouseInput::GetInstance();
+
+	inputSystem = TS::TS_InputSystem::GetInstance();
 
 	//ファイル読み込み
 	ReadFile();
@@ -93,15 +95,15 @@ int StageScene::Update()
 	}
 
 	//戻るボタン
-	if (mouseInput->IsLeftButtonDown())
+	if (inputSystem->GetTrigger(MK_LEFT))
 	{
 		//クリックされたx座標が内側にあったら
-		if (mouseInput->GetClickPosition().x - SCREEN_WIDTH / 2 > (optionButton.GetPos().x - optionButton.GetSize().x / 2) &&
-			mouseInput->GetClickPosition().x - SCREEN_WIDTH / 2 < (optionButton.GetPos().x + optionButton.GetSize().x / 2))
+		if (inputSystem->GetClickPosition().x - SCREEN_WIDTH / 2 > (optionButton.GetPos().x - optionButton.GetSize().x / 2) &&
+			inputSystem->GetClickPosition().x - SCREEN_WIDTH / 2 < (optionButton.GetPos().x + optionButton.GetSize().x / 2))
 		{
 			//
-			if ((mouseInput->GetClickPosition().y - SCREEN_HEIGHT / 2) * -1 > (optionButton.GetPos().y - optionButton.GetSize().y / 2) &&
-				(mouseInput->GetClickPosition().y - SCREEN_HEIGHT / 2) * -1 < (optionButton.GetPos().y + optionButton.GetSize().y / 2))
+			if ((inputSystem->GetClickPosition().y - SCREEN_HEIGHT / 2) * -1 > (optionButton.GetPos().y - optionButton.GetSize().y / 2) &&
+				(inputSystem->GetClickPosition().y - SCREEN_HEIGHT / 2) * -1 < (optionButton.GetPos().y + optionButton.GetSize().y / 2))
 			{
 				//決定されてない状態に戻す
 				SceneManager::GetInstance()->SetWorldNumber(NOTDONE_WORLD);
@@ -147,7 +149,7 @@ void StageScene::ReadFile()
 	string number_stage = to_string(manager->GetStageNumber());
 
 	//読み込むファイルの名前を作成
-	string fileName = "StageFolder/Stage" + number_world + "-" + number_stage + ".json";
+	string fileName = "StageFolder/New_Stage" + number_world + "-" + number_stage + ".json";
 	//"StageFolder/New_Stage"
 
 	ifstream fin(fileName.c_str());
