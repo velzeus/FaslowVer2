@@ -131,46 +131,51 @@
 //===================================================
 
 
-
-class TS_InputSystem
-{
-public:
-	static TS_InputSystem* GetInstance();
-
-
-	void Init(bool& _isLoop);
-	void Update();
-	void Uninit();
-
-	bool GetTrigger(int _keyNumber); // 押した時
-	bool GetRelease(int _keyNumber); // 離した時
-	bool GetPress(int _keyNumber);   // 押し続けている間
+namespace TS {
+	class TS_InputSystem
+	{
+	public:
+		static TS_InputSystem* GetInstance();
 
 
-	POINT GetClickPosition() const; // 左クリックした座標を取得
-	POINT GetReleasePosition() const; // 左クリックを離した座標を取得
+		void Init(bool& _isLoop);
+		void Update();
+		void Uninit();
+
+		bool GetTrigger(int _keyNumber); // 押した時
+		bool GetRelease(int _keyNumber); // 離した時
+		bool GetPress(int _keyNumber);   // 押し続けている間
 
 
-private:
-	
-	// 外部からインスタンスを生成できなくする
-	TS_InputSystem();
-	~TS_InputSystem();
-	
-	POINT clickPosition; // 左クリックした位置
-	POINT releasePosition; // 左クリックを離した位置
-	
-
-	// コピーコンストラクタと代入演算子も削除
-	// 複数のインスタンスを防ぐ
-	TS_InputSystem(const TS_InputSystem&) = delete;
-	TS_InputSystem& operator=(const TS_InputSystem&) = delete;
+		POINT GetClickPosition() const; // 左クリックした座標を取得
+		POINT GetReleasePosition() const; // 左クリックを離した座標を取得
 
 
-	// 初期化フラグ
-	bool isInitialized = false;
+	private:
 
-	SHORT curtKayState[256];
-	SHORT prevKayState[256];
-};
+		// 外部からインスタンスを生成できなくする
+		TS_InputSystem();
+		~TS_InputSystem();
 
+		POINT clickPosition; // 左クリックした位置
+		POINT releasePosition; // 左クリックを離した位置
+
+
+		// コピーコンストラクタと代入演算子も削除
+		// 複数のインスタンスを防ぐ
+		TS_InputSystem(const TS_InputSystem&) = delete;
+		TS_InputSystem& operator=(const TS_InputSystem&) = delete;
+
+
+		// 初期化フラグ
+		bool isInitialized = false;
+
+		SHORT curtKayState[256];
+		SHORT prevKayState[256];
+	};
+
+}
+
+
+
+extern TS::TS_InputSystem* g_inputSystem;

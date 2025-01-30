@@ -3,6 +3,7 @@
 #include"../Object.h"
 #include"../input.h"
 #include"../MouseInput.h"
+#include"../InputSystem/TS_InputSystem.h"
 #include"../Sound.h"
 #include <vector>
 #include <algorithm>

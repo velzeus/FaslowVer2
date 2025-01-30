@@ -39,9 +39,6 @@
     <ClCompile Include="Game.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="input.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="sound.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
@@ -49,9 +46,6 @@
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Hold.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="MouseInput.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Reposition.cpp">
@@ -77,13 +71,20 @@
     </ClCompile>
     <ClCompile Include="InputSystem\TS_InputSystem.cpp">
       <Filter>InputSystem</Filter>
-    <ClCompile Include="ClassA.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="SelectScene.cpp">
-      <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="StageScene.cpp">
+      <Filter>SceneFolder\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="MouseInput.cpp">
+      <Filter>InputSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="input.cpp">
+      <Filter>InputSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="ClassA.cpp">
+      <Filter>SceneFolder\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="cut.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
@@ -98,9 +99,6 @@
     <ClInclude Include="Game.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="input.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="WICTextureLoader.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -111,9 +109,6 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Hold.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="MouseInput.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Reposition.h">
@@ -139,13 +134,29 @@
     </ClInclude>
     <ClInclude Include="InputSystem\TS_InputSystem.h">
       <Filter>InputSystem</Filter>
-    <ClInclude Include="ClassA.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="SelectScene.h">
-      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="StageScene.h">
+      <Filter>SceneFolder\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="main.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="input.h">
+      <Filter>InputSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="MouseInput.h">
+      <Filter>InputSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="ClassA.h">
+      <Filter>SceneFolder\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="CreateStageJson.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="json.hpp">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="cut.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

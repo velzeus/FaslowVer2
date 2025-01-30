@@ -17,6 +17,8 @@ SceneManager::SceneManager()
     // 特別な初期化は不要
 
      mouseInput = MouseInput::GetInstance();
+
+     g_inputSystem = TS::TS_InputSystem::GetInstance();
 }
 
 // デストラクタ
