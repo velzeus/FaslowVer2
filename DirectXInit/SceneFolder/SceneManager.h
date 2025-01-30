@@ -30,7 +30,7 @@ enum SCENENAME
 //�X�e�[�W�ԍ�
 enum WORLDNUMBER
 {
-    
+    NOTDONE_WORLD = -1,//決定されていない状態
     WORLD1 = 1,
     WORLD2,
     WORLD3,
@@ -42,7 +42,7 @@ enum WORLDNUMBER
 //�X�e�[�W�ԍ�
 enum STAGENUMBER
 {
-    
+    NOTDONE_STAGE = -1,//決定されていない状態
     STAGE1 = 1,
     STAGE2,
     STAGE3,
