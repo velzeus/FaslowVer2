@@ -8,7 +8,7 @@ class TitleScene :
 
 public:
 
-    // ƒRƒ“ƒXƒgƒ‰ƒNƒ^/ƒfƒXƒgƒ‰ƒNƒ^
+    // ï¿½Rï¿½ï¿½ï¿½Xï¿½gï¿½ï¿½ï¿½Nï¿½^/ï¿½fï¿½Xï¿½gï¿½ï¿½ï¿½Nï¿½^
     TitleScene();
     ~TitleScene() override;
 
@@ -18,15 +18,14 @@ public:
     int Update() override;
     int Draw() override;
     int End() override;
-    
 
 private:
 
     MouseInput* mouseInput;
+
     Input* input;
-    Object titleImage;
 
-    SceneManager* manager;
-
+    Object StartButton;
+    Object EndButton;
 };
 

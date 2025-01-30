@@ -177,4 +177,5 @@ namespace TS {
 }
 
 
-static TS::TS_InputSystem* inputSystem = nullptr;
+
+extern TS::TS_InputSystem* g_inputSystem;

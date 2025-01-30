@@ -1,5 +1,7 @@
 #include "TS_InputSystem.h"
 
+static TS::TS_InputSystem* g_inputSystem = nullptr;
+
 namespace TS {
 	TS_InputSystem* TS_InputSystem::GetInstance()
 	{
