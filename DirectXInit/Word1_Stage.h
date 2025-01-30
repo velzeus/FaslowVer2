@@ -2,6 +2,10 @@
 #include "Object.h"
 #include"input.h"
 #include"Sound.h"
+#include"Ball.h"
+#include"BlockBace.h"
+#include <vector>
+#include <utility> // std::pair を使うため
 
 #include<iostream>
 #include<fstream>
@@ -63,6 +67,7 @@ private:
 	Object scoreboard;//スコアオブジェクト
 	Object grids[STAGE_X][STAGE_Y];//マスオブジェクト
 	int gridData[STAGE_X][STAGE_Y] = {};//データ配列
+	Ball ball;//ボール
 	//int TetrominoType; //テトリミノの種類（０～６）
 	//int TetrominoDirection; //テトリミノの向き（０～３）
 	//int state = 0;//ゲームの状態（０：落下するものがない状態　１：落下中）
@@ -96,5 +101,29 @@ public:
 	void Update(void);    //更新
 	void Draw();          //描画 
 	void Uninit();        //終了  
+
+	void UpdateMoveDir();
+
+	DirectX::XMFLOAT3 center;//ボールの位置
+	std::vector<std::pair<float, float>> surroundingBlocks;//周囲８マスのあたり判定
+	bool Collision(BlockBace* obj1, const std::pair<float, float>& obj2);//あたり判定
+
+	std::vector<BlockBace*> GetNearbyBlocks(const std::vector<std::pair<float, float>>& surroundingBlocks);//ステージ上にある周囲８マスを取得
+	std::vector<BlockBace*> nearbyBlocks;//ボールの周り8マスに存在するブロック
+
+	//ボールがブロックの区切りにいるときだけ当たり判定を実行
+	bool onGridX;
+	bool onGridY;
+
+	int prv_index = -1;//あたった正面のブロック
+
+	//０：front　１：back　２：left　３：right
+	int hitIndex[4] = { -1,-1,-1,-1 };//あたったブロックの添え字
+	int hitSafe[4] = { -1,-1,-1,-1 };//あたったブロックをセーブする
+	bool hitFlgs[4] = { false,false,false,false };//あたり判定
+	BLOCKTYPE hitBlockType[4] = { EMPTY,EMPTY, EMPTY, EMPTY, };//当たったブロックの種類
+	void CheckSurroundingCollisions();
+
+	DIRECTION _moveDir;
 };
 
