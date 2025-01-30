@@ -3,7 +3,7 @@
 
 class MouseInput {
 private:
-    POINT clickPosition; // 左クリックした位置
+     POINT clickPosition; // 左クリックした位置
     POINT releasePosition; // 左クリックを離した位置
     bool isLeftButtonDown; // 左ボタンが押されているか
 

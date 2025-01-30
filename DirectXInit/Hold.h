@@ -29,14 +29,7 @@ public:
     void Draw(); // 選択範囲を描画
     std::vector<Grid> GetSavedGrids() const; // 保存されたグリッド情報を取得
 
-private:
-    std::vector<Grid> savedGrids;  // 保存されたグリッド
 
-    // マウスのクリック範囲からグリッドを計算
-    std::vector<Grid> CalculateGrids(const POINT& start, const POINT& end, World1_Stage& stage);
-
-    // 保存されたグリッドを更新
-    void UpdateSavedGrids(const std::vector<Grid>& grids);
 };
 
 

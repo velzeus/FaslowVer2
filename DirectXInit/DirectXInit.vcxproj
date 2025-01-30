@@ -133,9 +133,11 @@
     </FxCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="cut.cpp" />
     <ClCompile Include="direct3d.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Hold.cpp" />
+    <ClCompile Include="HoldArea.cpp" />
     <ClCompile Include="input.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MouseInput.cpp" />
@@ -170,9 +172,11 @@
     </FxCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="cut.h" />
     <ClInclude Include="direct3d.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Hold.h" />
+    <ClInclude Include="HoldArea.h" />
     <ClInclude Include="input.h" />
     <ClInclude Include="MouseInput.h" />
     <ClInclude Include="Reposition.h" />

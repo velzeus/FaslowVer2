@@ -1,12 +1,27 @@
-﻿  main.cpp
+﻿  cut.cpp
+C:\Re_GitHub\DirectXInit\cut.cpp(10,23): error C2589: '(': スコープ解決演算子 (::) の右側にあるトークンは使えません。
+C:\Re_GitHub\DirectXInit\cut.cpp(10,18): error C2062: 型 'unknown-type' は不要です。
+C:\Re_GitHub\DirectXInit\cut.cpp(10,23): error C2059: 構文エラー: ')'
+C:\Re_GitHub\DirectXInit\cut.cpp(11,23): error C2589: '(': スコープ解決演算子 (::) の右側にあるトークンは使えません。
+C:\Re_GitHub\DirectXInit\cut.cpp(11,18): error C2062: 型 'unknown-type' は不要です。
+C:\Re_GitHub\DirectXInit\cut.cpp(11,23): error C2059: 構文エラー: ')'
+C:\Re_GitHub\DirectXInit\cut.cpp(12,21): error C2589: '(': スコープ解決演算子 (::) の右側にあるトークンは使えません。
+C:\Re_GitHub\DirectXInit\cut.cpp(12,16): error C2062: 型 'unknown-type' は不要です。
+C:\Re_GitHub\DirectXInit\cut.cpp(12,21): error C2059: 構文エラー: ')'
+C:\Re_GitHub\DirectXInit\cut.cpp(13,21): error C2589: '(': スコープ解決演算子 (::) の右側にあるトークンは使えません。
+C:\Re_GitHub\DirectXInit\cut.cpp(13,16): error C2062: 型 'unknown-type' は不要です。
+C:\Re_GitHub\DirectXInit\cut.cpp(13,21): error C2059: 構文エラー: ')'
+C:\Re_GitHub\DirectXInit\cut.cpp(22,17): error C2589: '(': スコープ解決演算子 (::) の右側にあるトークンは使えません。
+C:\Re_GitHub\DirectXInit\cut.cpp(22,12): error C2062: 型 'unknown-type' は不要です。
+C:\Re_GitHub\DirectXInit\cut.cpp(22,17): error C2059: 構文エラー: ')'
+C:\Re_GitHub\DirectXInit\cut.cpp(23,17): error C2589: '(': スコープ解決演算子 (::) の右側にあるトークンは使えません。
+C:\Re_GitHub\DirectXInit\cut.cpp(23,12): error C2062: 型 'unknown-type' は不要です。
+C:\Re_GitHub\DirectXInit\cut.cpp(23,17): error C2059: 構文エラー: ')'
+C:\Re_GitHub\DirectXInit\cut.cpp(34,42): error C2039: 'GetGridData': 'World1_Stage' のメンバーではありません
+C:\Re_GitHub\DirectXInit\Word1_Stage.h(56,7): message : 'World1_Stage' の宣言を確認してください
+C:\Re_GitHub\DirectXInit\cut.cpp(36,24): error C2039: 'SetGridData': 'World1_Stage' のメンバーではありません
+C:\Re_GitHub\DirectXInit\Word1_Stage.h(56,7): message : 'World1_Stage' の宣言を確認してください
+  Hold.cpp
   MouseInput.cpp
-  Word1_Stage.cpp
-C:\Re_GitHub\DirectXInit\Word1_Stage.cpp(178,52): warning C4244: '=': 'int' から 'float' への変換です。データが失われる可能性があります。
+  Reposition.cpp
   コードを生成中...
-main.obj : error LNK2019: 未解決の外部シンボル "public: static class SceneManager * __cdecl SceneManager::GetInstance(void)" (?GetInstance@SceneManager@@SAPEAV1@XZ) が関数 WinMain で参照されました
-main.obj : error LNK2019: 未解決の外部シンボル "public: void __cdecl SceneManager::AddScene(enum SCENENAME,class std::unique_ptr<class Scene,struct std::default_delete<class Scene> >)" (?AddScene@SceneManager@@QEAAXW4SCENENAME@@V?$unique_ptr@VScene@@U?$default_delete@VScene@@@std@@@std@@@Z) が関数 WinMain で参照されました
-main.obj : error LNK2019: 未解決の外部シンボル "public: void __cdecl SceneManager::ChangeScene(enum SCENENAME)" (?ChangeScene@SceneManager@@QEAAXW4SCENENAME@@@Z) が関数 WinMain で参照されました
-main.obj : error LNK2019: 未解決の外部シンボル "public: int __cdecl SceneManager::Update(void)" (?Update@SceneManager@@QEAAHXZ) が関数 WinMain で参照されました
-main.obj : error LNK2019: 未解決の外部シンボル "public: int __cdecl SceneManager::Draw(void)" (?Draw@SceneManager@@QEAAHXZ) が関数 WinMain で参照されました
-main.obj : error LNK2019: 未解決の外部シンボル "public: __cdecl TitleScene::TitleScene(void)" (??0TitleScene@@QEAA@XZ) が関数 "class std::unique_ptr<class TitleScene,struct std::default_delete<class TitleScene> > __cdecl std::make_unique<class TitleScene,0>(void)" (??$make_unique@VTitleScene@@$$V$0A@@std@@YA?AV?$unique_ptr@VTitleScene@@U?$default_delete@VTitleScene@@@std@@@0@XZ) で参照されました
-C:\Re_GitHub\x64\Debug\DirectXInit.exe : fatal error LNK1120: 6 件の未解決の外部参照
