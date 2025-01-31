@@ -68,6 +68,8 @@ public:
 
 	DIRECTION _moveDir;
 
+	DirectX::XMFLOAT3 v;
+
 private:
     SceneManager* manager;
 
