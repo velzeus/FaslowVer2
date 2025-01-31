@@ -29,6 +29,8 @@ class StageScene :
     public Scene
 {
 public:
+
+	Ball ball;
     StageScene();
     ~StageScene() override;
 
@@ -40,7 +42,7 @@ public:
     //jsonファイルを読み込む（引数にStage番号を持ってくる）
     void ReadFile();
 
-	Ball ball;//ボール
+	//Ball ball;//ボール
 
 	void UpdateMoveDir();
 

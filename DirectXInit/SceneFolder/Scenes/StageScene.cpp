@@ -88,6 +88,11 @@ int StageScene::Start()
 		}
 	}
 
+	//ボールの向きを設定
+	center = ball.GetPos();
+	CheckSurroundingCollisions();
+	UpdateMoveDir();
+
 	//オプションボタン　　440
 	optionButton.Init(L"asset/UI/back.png");
 	optionButton.SetPos(-860.0f, 440.0f, 0.0f);
@@ -100,6 +105,22 @@ int StageScene::Start()
 
 int StageScene::Update()
 {
+	ball.Move();//移動
+	center = ball.GetPos();//ボールの位置を取得
+
+	// **ボールがブロックの境界線上にいるかチェック**
+	onGridX = (static_cast<int>(center.x) % BLOCK_W == 0);
+	onGridY = (static_cast<int>(center.y) % BLOCK_H == 0);
+
+	// **ボールがブロックの区切りにいるときだけ当たり判定を実行**
+	if (onGridX && onGridY)
+	{
+		CheckSurroundingCollisions();//あたり判定
+		UpdateMoveDir();//ボールの方向を変える
+		ball.Setborder();//端に行った時
+
+	}
+
 	//色をつける
 	for (int x = 0; x < STAGE_X; x++)
 	{
@@ -198,7 +219,7 @@ int StageScene::Draw()
 		
 		blocks[i]->Draw();
 	}*/
-
+	ball.Draw();
 	optionButton.Draw();
 
 	gorl.Draw();
@@ -212,7 +233,7 @@ int StageScene::End()
 	{
 		delete blocks[i];
 	}
-
+	ball.Uninit();
 	blocks.clear();
 	return 0;
 }
@@ -289,9 +310,9 @@ void StageScene::ReadFile()
 void StageScene::UpdateMoveDir()
 {
 
-	if (hitBlockType[0] == GORL)
+	if (hitBlockType[0] == GORL)//ボールの前にゴールブロックがあれば
 	{
-		cout << "go-ru" << endl;
+		SceneManager::GetInstance()->ChangeScene(RESULT);
 	}
 	//最後に触れたブロックを保存　前＞右＞左
 	if (hitBlockType[3] == STICKY_BLOCK)
