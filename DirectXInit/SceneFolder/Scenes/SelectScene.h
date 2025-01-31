@@ -41,5 +41,8 @@ private:
     
     //–ß‚éƒ{ƒ^ƒ“
     Object backButton;
+
+    //”wŒi
+    Object backGround;
 };
 

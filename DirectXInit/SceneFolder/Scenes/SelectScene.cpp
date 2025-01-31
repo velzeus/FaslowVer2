@@ -81,6 +81,13 @@ int SelectScene::Start()
 	backButton.SetAngle(0.0f);
 	backButton.SetColor(1.0f, 1.0f, 1.0f, 1.0f);
 
+	//”wŒi
+	backGround.Init(L"asset/Background/•ÇŽ†_01.png");
+	backGround.SetPos(0.0f, 0.0f, 0.0f);
+	backGround.SetSize(SCREEN_WIDTH, SCREEN_HEIGHT, 0.0f);
+	backGround.SetAngle(0);
+	backGround.SetColor(1, 1, 1, 1);
+
 	stateNum = WOELDSELECTSCENE;
 
 	return 0;
@@ -240,6 +247,8 @@ int SelectScene::Update()
 int SelectScene::Draw()
 {
 	//D3D_StartRender();   //•`‰æŠJŽn
+
+	backGround.Draw();
 
 	switch (stateNum)
 	{
