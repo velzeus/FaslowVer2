@@ -69,11 +69,12 @@ int StageScene::Start()
 				int idx1 = idxBase / STAGE_X;	//Y
 				int idx2 = idxBase % STAGE_X;	//X
 
-				if (idx1 == y && idx2 == x)
+				if ((idx1 == y && idx2 == x)&& idxBase >blocks.size())
 				{
 					//座標を代入
+					blocks[n]->Init(L"asset/Blocks/STICKY_BLOCK_GREEN.png");
 					blocks[n]->SetPos(read_blockPositionList[idx1][idx2].x, read_blockPositionList[idx1][idx2].y, 0.0f);
-					
+					blocks[n]->SetSize(BLOCKSIZE_X, BLOCKSIZE_Y, 0.0f);
 					blocks[n]->SetIndex(n);
 
 					//座標確認用
@@ -96,6 +97,7 @@ int StageScene::Start()
 	center = ball.GetPos();
 	CheckSurroundingCollisions();
 	UpdateMoveDir();
+	v = ball.GetPos();
 
 	//オプションボタン　　440
 	optionButton.Init(L"asset/UI/back.png");
@@ -127,10 +129,12 @@ int StageScene::Update()
 	// **ボールがブロックの区切りにいるときだけ当たり判定を実行**
 	if (onGridX && onGridY)
 	{
+		v = ball.GetPos();
 		CheckSurroundingCollisions();//あたり判定
 		UpdateMoveDir();//ボールの方向を変える
 		ball.Setborder();//端に行った時
 
+		cout << "実行" << endl;
 	}
 
 	//色をつける
@@ -249,11 +253,11 @@ int StageScene::Draw()
 		}
 	}
 
-	/*for (int i = 0; i < blocks.size(); i++)
+	for (int i = 0; i < blocks.size(); i++)
 	{
 		
 		blocks[i]->Draw();
-	}*/
+	}
 	ball.Draw();
 	optionButton.Draw();
 
