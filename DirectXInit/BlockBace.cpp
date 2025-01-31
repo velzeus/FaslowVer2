@@ -5,12 +5,12 @@ BlockBace::BlockBace()
 
 }
 
-BlockBace::BlockBace(int _index, BLOCKTYPE _blocktype) :index(_index), blocktype(_blocktype)
+BlockBace::BlockBace(int _index, GridState _blocktype) :index(_index), blocktype(_blocktype)
 {
 
 }
 
-BLOCKTYPE BlockBace::GetBlockType()
+GridState BlockBace::GetBlockType()
 {
     return blocktype;
 }

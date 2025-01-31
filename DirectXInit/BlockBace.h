@@ -1,23 +1,38 @@
 #pragma once
 #include"Object.h"
 
-enum BLOCKTYPE
+
+//マス目の状態
+enum GridState
 {
-	SLIME,//粘着ブロック
-	SLIDE,//滑るブロック
-	UNBREAK,//壊せないブロック
-	EMPTY//何もない
+	//変わらないもの
+	NULLBLOCK = 0,			//何もない
+	BOLL,			//ボール
+	GORL,			//ゴール
+	COIN,			//コイン
+
+	//ブロック
+	STICKY_BLOCK = 10,	//粘着ブロック
+	SLIP_BLOCK,		//滑るブロック
+	UNBREAK_BLOCK,	//破壊不可ブロック
+
+	//ギミック
+	CANNON = 20,	//大砲
+	WORMHOLE,		//ワームホール
+	SWITCH_BOLL,	//スイッチのボール
+	SWITCH_GORL,	//スイッチのゴール
 };
+
 
 class BlockBace :public Object
 {
 private:
 	int index;//ブロックのインデックス
-	BLOCKTYPE blocktype;
+	GridState blocktype;
 public:
 	BlockBace();
-	BlockBace(int _index, BLOCKTYPE _blocktype);
-	BLOCKTYPE GetBlockType();
+	BlockBace(int _index, GridState _blocktype);
+	GridState GetBlockType();
 	int GetIndex();//インデックスを取得
 	
 	//勝手に追加しました by西嶋
