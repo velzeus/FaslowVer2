@@ -63,14 +63,7 @@ private:
 
     std::vector<std::vector<VECTOR2>> read_blockPositionList;//ブロックの座標を保存する
 
-	//ステージを仮に描画するためのもの
     Object grids[STAGE_X][STAGE_Y];
-
-	//ブロック
-	//std::vector<Object> blocks;
-
-	//ボールオブジェクト
-	//Object ball;
 
 	int gridData[STAGE_X][STAGE_Y];
 

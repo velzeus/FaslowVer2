@@ -75,11 +75,11 @@ int SelectScene::Start()
 
 
 	//–ß‚éƒ{ƒ^ƒ“
-	backButton.Init(L"asset/UI/back.png");
+	backButton.Init(L"asset/block.png");
 	backButton.SetPos(-860.0f, 440.0f, 0.0f);
 	backButton.SetSize(50.0f, 50.0f, 0.0f);
 	backButton.SetAngle(0.0f);
-	backButton.SetColor(1.0f, 1.0f, 1.0f, 1.0f);
+	backButton.SetColor(0.0f, 0.0f, 0.0f, 1.0f);
 
 	stateNum = WOELDSELECTSCENE;
 
