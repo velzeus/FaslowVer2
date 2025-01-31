@@ -72,7 +72,7 @@
     <ClCompile Include="InputSystem\TS_InputSystem.cpp">
       <Filter>InputSystem</Filter>
     </ClCompile>
-    <ClCompile Include="StageScene.cpp">
+    <ClCompile Include="SceneFolder\Scenes\StageScene.cpp">
       <Filter>SceneFolder\Scenes</Filter>
     </ClCompile>
     <ClCompile Include="MouseInput.cpp">
@@ -90,7 +90,6 @@
     <ClCompile Include="BlockBace.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="PixelShader.hlsl" />
@@ -139,7 +138,7 @@
     <ClInclude Include="InputSystem\TS_InputSystem.h">
       <Filter>InputSystem</Filter>
     </ClInclude>
-    <ClInclude Include="StageScene.h">
+    <ClInclude Include="SceneFolder\Scenes\StageScene.h">
       <Filter>SceneFolder\Scenes</Filter>
     </ClInclude>
     <ClInclude Include="main.h">
@@ -166,6 +165,5 @@
     <ClInclude Include="BlockBace.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-
   </ItemGroup>
 </Project>
