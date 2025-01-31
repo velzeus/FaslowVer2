@@ -51,11 +51,11 @@ int StageScene::Start()
 	}
 
 	//オプションボタン　　440
-	optionButton.Init(L"asset/block.png");
-	optionButton.SetPos(-860.0f, 340.0f, 0.0f);
+	optionButton.Init(L"asset/UI/back.png");
+	optionButton.SetPos(-860.0f, 440.0f, 0.0f);
 	optionButton.SetSize(50.0f, 50.0f, 0.0f);
 	optionButton.SetAngle(0.0f);
-	optionButton.SetColor(0.0f, 0.0f, 0.0f, 1.0f);
+	optionButton.SetColor(1.0f, 1.0f, 1.0f, 1.0f);
 
 	return 0;
 }

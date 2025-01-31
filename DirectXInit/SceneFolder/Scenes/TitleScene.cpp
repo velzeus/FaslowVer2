@@ -60,7 +60,24 @@ int TitleScene::Update()
 	if (inputSystem->GetTrigger(MK_LEFT)) {
 		//SceneManager::GetInstance()->ChangeScene(RESULT);
 
-		SceneManager::GetInstance()->ChangeScene(SELECT);
+		//クリックされたx座標が内側にあったら
+		if (inputSystem->GetClickPosition().x - SCREEN_WIDTH / 2 > (StartButton.GetPos().x - StartButton.GetSize().x / 2) &&
+			inputSystem->GetClickPosition().x - SCREEN_WIDTH / 2 < (StartButton.GetPos().x + StartButton.GetSize().x / 2))
+		{
+			//
+			if ((inputSystem->GetClickPosition().y - SCREEN_HEIGHT / 2) * -1 > (StartButton.GetPos().y - StartButton.GetSize().y / 2) &&
+				(inputSystem->GetClickPosition().y - SCREEN_HEIGHT / 2) * -1 < (StartButton.GetPos().y + StartButton.GetSize().y / 2))
+			{
+				//決定されてない状態に戻す
+				SceneManager::GetInstance()->SetWorldNumber(NOTDONE_WORLD);
+				SceneManager::GetInstance()->SetStageNumber(NOTDONE_STAGE);
+
+
+				//セレクトシーンに
+				SceneManager::GetInstance()->ChangeScene(SELECT);
+			}
+
+		}
 	}
 
 
