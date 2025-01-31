@@ -109,8 +109,8 @@ int StageScene::Update()
 	center = ball.GetPos();//ボールの位置を取得
 
 	// **ボールがブロックの境界線上にいるかチェック**
-	onGridX = (static_cast<int>(center.x) % BLOCK_W == 0);
-	onGridY = (static_cast<int>(center.y) % BLOCK_H == 0);
+	onGridX = (static_cast<int>(center.x) % BLOCKSIZE_X == 0);
+	onGridY = (static_cast<int>(center.y) % BLOCKSIZE_Y == 0);
 
 	// **ボールがブロックの区切りにいるときだけ当たり判定を実行**
 	if (onGridX && onGridY)
