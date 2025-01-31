@@ -4,7 +4,8 @@
 
 Ball::Ball() :rotDirection(true)
 {
-
+	Init(L"./asset/Ball/Ball_Syan.png", 1, 1);
+	SetSize(40, 40, 0);
 }
 
 Ball::Ball(bool _rotDir) :rotDirection(_rotDir)

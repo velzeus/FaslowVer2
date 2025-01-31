@@ -96,5 +96,6 @@ private:
 	//ƒS[ƒ‹i‰¼j
 	Object gorl;
 
+
 };
 

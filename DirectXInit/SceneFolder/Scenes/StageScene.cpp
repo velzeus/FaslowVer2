@@ -57,6 +57,10 @@ int StageScene::Start()
 				gorl.SetAngle(0.0f);
 				gorl.SetColor(1.0f, 1.0f, 1.0f, 1.0f);
 			}
+			else if (gridData[x][y] == BOLL) {
+				ball.SetPos(read_blockPositionList[y][x].x, read_blockPositionList[y][x].y, 0);
+				gridData[x][y] = NULLBLOCK;
+			}
 
 			//ÉuÉçÉbÉN
 			for (int n = 0; n < blocks.size(); n++)
