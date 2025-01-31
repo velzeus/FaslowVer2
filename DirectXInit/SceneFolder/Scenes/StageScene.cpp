@@ -95,6 +95,14 @@ int StageScene::Start()
 	optionButton.SetAngle(0.0f);
 	optionButton.SetColor(1.0f, 1.0f, 1.0f, 1.0f);
 
+	//リトライボタン
+	retryButton.Init(L"asset/UI/ハンバーガーアイコン100x100.png");
+	//retryButton.Init(L"asset/block.png");
+	retryButton.SetPos(-860.0f, -440.0f, 0.0f);
+	retryButton.SetSize(50.0f, 50.0f, 0);
+	retryButton.SetAngle(0);
+	retryButton.SetColor(1, 1, 1, 1);
+
 	return 0;
 }
 
@@ -139,9 +147,9 @@ int StageScene::Update()
 		if (inputSystem->GetClickPosition().x - SCREEN_WIDTH / 2 > (optionButton.GetPos().x - optionButton.GetSize().x / 2) &&
 			inputSystem->GetClickPosition().x - SCREEN_WIDTH / 2 < (optionButton.GetPos().x + optionButton.GetSize().x / 2))
 		{
-			//
-			if ((inputSystem->GetClickPosition().y - SCREEN_HEIGHT / 2) * -1 > (optionButton.GetPos().y - optionButton.GetSize().y / 2) &&
-				(inputSystem->GetClickPosition().y - SCREEN_HEIGHT / 2) * -1 < (optionButton.GetPos().y + optionButton.GetSize().y / 2))
+			//マウスカーソルの座標との誤差を埋めるため10ずらす
+			if ((inputSystem->GetClickPosition().y - SCREEN_HEIGHT / 2+10) * -1 > (optionButton.GetPos().y - optionButton.GetSize().y / 2) &&
+				(inputSystem->GetClickPosition().y - SCREEN_HEIGHT / 2+10) * -1 < (optionButton.GetPos().y + optionButton.GetSize().y / 2))
 			{
 				//決定されてない状態に戻す
 				SceneManager::GetInstance()->SetWorldNumber(NOTDONE_WORLD);
@@ -177,6 +185,29 @@ int StageScene::Update()
 		}
 
 
+		//リトライボタン
+		//クリックされたx座標が内側にあったら
+		if (inputSystem->GetClickPosition().x - SCREEN_WIDTH / 2 > (retryButton.GetPos().x - retryButton.GetSize().x / 2) &&
+			inputSystem->GetClickPosition().x - SCREEN_WIDTH / 2 < (retryButton.GetPos().x + retryButton.GetSize().x / 2))
+		{
+			//タスクバーを勘案して-部分だけ40上にずらして考える
+			if ((inputSystem->GetClickPosition().y - SCREEN_HEIGHT / 2 + 40) * -1 > (retryButton.GetPos().y - retryButton.GetSize().y / 2) &&
+				(inputSystem->GetClickPosition().y - SCREEN_HEIGHT / 2 + 40) * -1 < (retryButton.GetPos().y + retryButton.GetSize().y / 2))
+			{
+				//決定されてない状態に戻す
+				//SceneManager::GetInstance()->SetWorldNumber(NOTDONE_WORLD);
+				//SceneManager::GetInstance()->SetStageNumber(NOTDONE_STAGE);
+
+
+				//ステージシーンを呼び直す
+				//SceneManager::GetInstance()->ChangeScene(STAGE);
+				End();//vector型配列をリセットさせる
+				Start();
+			}
+
+		}
+
+
 	}
 
 	return 0;
@@ -203,11 +234,14 @@ int StageScene::Draw()
 
 	gorl.Draw();
 
+	retryButton.Draw();
+
 	return 0;
 }
 
 int StageScene::End()
 {
+	//vector型の配列を解放
 	for (int i = 0; i < blocks.size(); i++)
 	{
 		delete blocks[i];

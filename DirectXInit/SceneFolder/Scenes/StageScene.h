@@ -88,6 +88,9 @@ private:
 	//オプションボタン
 	Object optionButton;
 
+	//リトライボタン
+	Object retryButton;
+
 	//ゴール（仮）
 	Object gorl;
 
