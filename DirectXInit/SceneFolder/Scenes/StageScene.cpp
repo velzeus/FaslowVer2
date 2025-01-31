@@ -47,15 +47,53 @@ int StageScene::Start()
 
 			//マスの状態を代入
 			gridData[x][y] = read_gridStateList[y][x];
+
+			//ゴールを別個に作る
+			if (gridData[x][y] == GORL)
+			{
+				gorl.Init(L"asset/Goll/TeamName/Team_Name.png");
+				gorl.SetPos(read_blockPositionList[y][x].x, read_blockPositionList[y][x].y, 0.0f);
+				gorl.SetSize(BLOCKSIZE_X, BLOCKSIZE_Y, 0.0f);
+				gorl.SetAngle(0.0f);
+				gorl.SetColor(1.0f, 1.0f, 1.0f, 1.0f);
+			}
+
+			//ブロック
+			for (int n = 0; n < blocks.size(); n++)
+			{
+				int idxBase = blocks[n]->GetIndex();
+				int idx1 = idxBase / STAGE_X;	//Y
+				int idx2 = idxBase % STAGE_X;	//X
+
+				if (idx1 == y && idx2 == x)
+				{
+					//座標を代入
+					blocks[n]->SetPos(read_blockPositionList[idx1][idx2].x, read_blockPositionList[idx1][idx2].y, 0.0f);
+					
+					blocks[n]->SetIndex(n);
+
+					//座標確認用
+					/*blocks[n]->Init(L"asset/block.png");
+					blocks[n]->SetSize(BLOCKSIZE_X, BLOCKSIZE_Y, 0.0f);
+					blocks[n]->SetColor(1, 1, 1, 1);*/
+					break;
+				}
+			}
+
+			
+
+			
+
+
 		}
 	}
 
 	//オプションボタン　　440
-	optionButton.Init(L"asset/block.png");
-	optionButton.SetPos(-860.0f, 340.0f, 0.0f);
+	optionButton.Init(L"asset/UI/back.png");
+	optionButton.SetPos(-860.0f, 440.0f, 0.0f);
 	optionButton.SetSize(50.0f, 50.0f, 0.0f);
 	optionButton.SetAngle(0.0f);
-	optionButton.SetColor(0.0f, 0.0f, 0.0f, 1.0f);
+	optionButton.SetColor(1.0f, 1.0f, 1.0f, 1.0f);
 
 	return 0;
 }
@@ -116,6 +154,29 @@ int StageScene::Update()
 
 		}
 
+
+		//ゴールした判定(動作確認用)
+
+		//クリックされたx座標が内側にあったら
+		if (inputSystem->GetClickPosition().x - SCREEN_WIDTH / 2 > (gorl.GetPos().x - gorl.GetSize().x / 2) &&
+			inputSystem->GetClickPosition().x - SCREEN_WIDTH / 2 < (gorl.GetPos().x + gorl.GetSize().x / 2))
+		{
+			//
+			if ((inputSystem->GetClickPosition().y - SCREEN_HEIGHT / 2) * -1 > (gorl.GetPos().y - gorl.GetSize().y / 2) &&
+				(inputSystem->GetClickPosition().y - SCREEN_HEIGHT / 2) * -1 < (gorl.GetPos().y + gorl.GetSize().y / 2))
+			{
+				//決定されてない状態に戻す
+				//SceneManager::GetInstance()->SetWorldNumber(NOTDONE_WORLD);
+				//SceneManager::GetInstance()->SetStageNumber(NOTDONE_STAGE);
+
+
+				//セレクトシーンに戻る
+				SceneManager::GetInstance()->ChangeScene(RESULT);
+			}
+
+		}
+
+
 	}
 
 	return 0;
@@ -132,13 +193,27 @@ int StageScene::Draw()
 		}
 	}
 
+	/*for (int i = 0; i < blocks.size(); i++)
+	{
+		
+		blocks[i]->Draw();
+	}*/
+
 	optionButton.Draw();
+
+	gorl.Draw();
 
 	return 0;
 }
 
 int StageScene::End()
 {
+	for (int i = 0; i < blocks.size(); i++)
+	{
+		delete blocks[i];
+	}
+
+	blocks.clear();
 	return 0;
 }
 
@@ -175,4 +250,37 @@ void StageScene::ReadFile()
 		//読み込めなかった場合、ウィンドウを表示
 		MessageBoxA(NULL, "ファイルの読み込みに失敗しました", "確認", MB_OK);
 	}
+
+	//BlockBaseに対応する形に変換
+
+	for (int i = 0; i < read_gridStateList.size(); i++)//縦方向
+	{
+		for (int j = 0; j < read_gridStateList[i].size(); j++)//横方向
+		{
+			switch (read_gridStateList[i][j])
+			{
+			case STICKY_BLOCK: //粘着ブロック
+
+				blocks.emplace_back(new BlockBace((STAGE_X * i + j), SLIME));
+
+				break;
+			case SLIP_BLOCK: //滑るブロック
+				blocks.emplace_back(new BlockBace((STAGE_X * i + j), SLIDE));
+				break;
+			//case UNBREAK_BLOCK: //破壊不可ブロック
+			//	blocks[j][i] = new BlockBace((STAGE_X * i + j), UNBREAK);
+			//	break;
+			defalt:  //その他の状態
+
+				//blocks[j][i] = new BlockBace((STAGE_X * i + j), EMPTY);
+				break;
+			}
+		}
+	}
+
+
+
+
+
+
 }
