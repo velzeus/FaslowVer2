@@ -14,7 +14,9 @@ SelectScene::~SelectScene()
 
 int SelectScene::Start()
 {
-	mouseInput = MouseInput::GetInstance();
+	//inputSystem = MouseInput::GetInstance();
+
+	inputSystem = TS::TS_InputSystem::GetInstance();
 
 	//ワールドで、同じ値のもの
 	for (int i = 0; i < 6; i++)
@@ -94,41 +96,52 @@ int SelectScene::Update()
 		パソコンのディスプレイの拡大・縮小倍率によってマウスカーソルの座標が本来の値と違う値になることがある*/
 		
 		//クリックされたら
-		if (mouseInput->IsLeftButtonDown())
+		if (inputSystem->GetTrigger(MK_LEFT))
 		{
 			for (int i = 0; i < 6; i++)
 			{
 				//クリックされたx座標が内側にあったら
-				if (mouseInput->GetClickPosition().x - SCREEN_WIDTH / 2 > (world_image[i].GetPos().x - world_image[i].GetSize().x / 2) &&
-					mouseInput->GetClickPosition().x - SCREEN_WIDTH / 2 < (world_image[i].GetPos().x + world_image[i].GetSize().x / 2))
+				if (inputSystem->GetClickPosition().x - SCREEN_WIDTH / 2 > (world_image[i].GetPos().x - world_image[i].GetSize().x / 2) &&
+					inputSystem->GetClickPosition().x - SCREEN_WIDTH / 2 < (world_image[i].GetPos().x + world_image[i].GetSize().x / 2))
 				{
 					//
-					if ((mouseInput->GetClickPosition().y - SCREEN_HEIGHT / 2) * -1 > (world_image[i].GetPos().y - world_image[i].GetSize().y / 2) &&
-						(mouseInput->GetClickPosition().y - SCREEN_HEIGHT / 2) * -1 < (world_image[i].GetPos().y + world_image[i].GetSize().y / 2))
+					if ((inputSystem->GetClickPosition().y - SCREEN_HEIGHT / 2) * -1 > (world_image[i].GetPos().y - world_image[i].GetSize().y / 2) &&
+						(inputSystem->GetClickPosition().y - SCREEN_HEIGHT / 2) * -1 < (world_image[i].GetPos().y + world_image[i].GetSize().y / 2))
 					{
 						switch (i)
 						{
 						case 0:
 							worldNum = WORLD1;
+							stateNum = STAGESELECTSCENE;
 							break;
 						case 1:
-							worldNum = WORLD2;
+							//制作されていない旨を表示
+							MessageBoxA(NULL, "現在制作中", "確認", MB_OK);
+							//worldNum = WORLD2;
 							break;
 						case 2:
-							worldNum = WORLD3;
+							//制作されていない旨を表示
+							MessageBoxA(NULL, "現在制作中", "確認", MB_OK);
+							//worldNum = WORLD3;
 							break;
 						case 3:
-							worldNum = WORLD4;
+							//制作されていない旨を表示
+							MessageBoxA(NULL, "現在制作中", "確認", MB_OK);
+							//worldNum = WORLD4;
 							break;
 						case 4:
-							worldNum = WORLD5;
+							//制作されていない旨を表示
+							MessageBoxA(NULL, "現在制作中", "確認", MB_OK);
+							//worldNum = WORLD5;
 							break;
 						case 5:
-							worldNum = WORLD6;
+							//制作されていない旨を表示
+							MessageBoxA(NULL, "現在制作中", "確認", MB_OK);
+							//worldNum = WORLD6;
 							break;
 						}
 						
-						stateNum = STAGESELECTSCENE;
+						//stateNum = STAGESELECTSCENE;
 
 					}
 				}
@@ -140,17 +153,17 @@ int SelectScene::Update()
 		break;
 	case STAGESELECTSCENE:
 		//クリックされたら
-		if (mouseInput->IsLeftButtonDown())
+		if (inputSystem->GetTrigger(MK_LEFT))
 		{
 			for (int i = 0; i < 5; i++)
 			{
 				//クリックされたx座標が内側にあったら
-				if (mouseInput->GetClickPosition().x - SCREEN_WIDTH / 2 > (stage_image[i].GetPos().x - stage_image[i].GetSize().x / 2) &&
-					mouseInput->GetClickPosition().x - SCREEN_WIDTH / 2 < (stage_image[i].GetPos().x + stage_image[i].GetSize().x / 2))
+				if (inputSystem->GetClickPosition().x - SCREEN_WIDTH / 2 > (stage_image[i].GetPos().x - stage_image[i].GetSize().x / 2) &&
+					inputSystem->GetClickPosition().x - SCREEN_WIDTH / 2 < (stage_image[i].GetPos().x + stage_image[i].GetSize().x / 2))
 				{
 					//
-					if ((mouseInput->GetClickPosition().y - SCREEN_HEIGHT / 2) * -1 > (stage_image[i].GetPos().y - stage_image[i].GetSize().y / 2) &&
-						(mouseInput->GetClickPosition().y - SCREEN_HEIGHT / 2) * -1 < (stage_image[i].GetPos().y + stage_image[i].GetSize().y / 2))
+					if ((inputSystem->GetClickPosition().y - SCREEN_HEIGHT / 2) * -1 > (stage_image[i].GetPos().y - stage_image[i].GetSize().y / 2) &&
+						(inputSystem->GetClickPosition().y - SCREEN_HEIGHT / 2) * -1 < (stage_image[i].GetPos().y + stage_image[i].GetSize().y / 2))
 					{
 						switch (i)
 						{
@@ -184,7 +197,8 @@ int SelectScene::Update()
 	case SETSTAGE:
 
 		//ワールド番号とステージ番号をセット
-		SceneManager::GetInstance()->SetWorldNumber(worldNum);
+		//SceneManager::GetInstance()->SetWorldNumber(worldNum);
+		SceneManager::GetInstance()->SetWorldNumber(WORLD2);
 		SceneManager::GetInstance()->SetStageNumber(stageNum);
 
 		//SceneManager::GetInstance()->AddScene(SCENENAME::STAGE, std::make_unique<StageScene>());
@@ -194,15 +208,15 @@ int SelectScene::Update()
 	}
 
 	//戻るボタン
-	if (mouseInput->IsLeftButtonDown())
+	if (inputSystem->GetTrigger(MK_LEFT))
 	{
 		//クリックされたx座標が内側にあったら
-		if (mouseInput->GetClickPosition().x - SCREEN_WIDTH / 2 > (backButton.GetPos().x - backButton.GetSize().x / 2) &&
-			mouseInput->GetClickPosition().x - SCREEN_WIDTH / 2 < (backButton.GetPos().x + backButton.GetSize().x / 2))
+		if (inputSystem->GetClickPosition().x - SCREEN_WIDTH / 2 > (backButton.GetPos().x - backButton.GetSize().x / 2) &&
+			inputSystem->GetClickPosition().x - SCREEN_WIDTH / 2 < (backButton.GetPos().x + backButton.GetSize().x / 2))
 		{
 			//
-			if ((mouseInput->GetClickPosition().y - SCREEN_HEIGHT / 2) * -1 > (backButton.GetPos().y - backButton.GetSize().y / 2) &&
-				(mouseInput->GetClickPosition().y - SCREEN_HEIGHT / 2) * -1 < (backButton.GetPos().y + backButton.GetSize().y / 2))
+			if ((inputSystem->GetClickPosition().y - SCREEN_HEIGHT / 2) * -1 > (backButton.GetPos().y - backButton.GetSize().y / 2) &&
+				(inputSystem->GetClickPosition().y - SCREEN_HEIGHT / 2) * -1 < (backButton.GetPos().y + backButton.GetSize().y / 2))
 			{
 				switch (stateNum)
 				{

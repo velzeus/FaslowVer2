@@ -21,7 +21,9 @@ public:
 
 private:
 
-    MouseInput* mouseInput;
+    //MouseInput* mouseInput;
+
+    TS::TS_InputSystem* inputSystem;
 
     Input* input;
 

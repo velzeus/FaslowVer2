@@ -29,8 +29,10 @@ private:
 
     DRAWSTATE stateNum;
 
-    MouseInput* mouseInput;
+   // MouseInput* mouseInput;
     
+    TS::TS_InputSystem* inputSystem;
+
     //ƒ[ƒ‹ƒh
     Object world_image[6];
 

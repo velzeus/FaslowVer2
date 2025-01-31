@@ -55,7 +55,9 @@ public:
 private:
     SceneManager* manager;
 
-	MouseInput* mouseInput;
+	//MouseInput* mouseInput;
+
+	TS::TS_InputSystem* inputSystem;
 
     std::vector<std::vector<int>> read_gridStateList;//ƒ}ƒX–Ú‚Ìó‘Ô‚ğ•Û‘¶‚·‚é
 

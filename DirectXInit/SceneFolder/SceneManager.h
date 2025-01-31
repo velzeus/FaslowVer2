@@ -60,7 +60,12 @@ private:
     static SceneManager* instance; // �V���O���g���C���X�^���X
     
 
-    MouseInput* mouseInput;
+    //MouseInput* mouseInput;
+
+    //------------
+    TS::TS_InputSystem* inputSystem;
+
+
 
     // Scene��
     std::unique_ptr<Scene> currentScene; // ���݂̃V�[��
