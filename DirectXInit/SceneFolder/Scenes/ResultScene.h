@@ -15,9 +15,14 @@ public:
 
 private:
     
-    MouseInput* mouseInput;
+   // MouseInput* mouseInput;
+
+    TS::TS_InputSystem* inputSystem;
+
     Input* input;
     Object resultImage;
-    
+
+    //次のステージへボタン
+    Object nextStage;
 };
 

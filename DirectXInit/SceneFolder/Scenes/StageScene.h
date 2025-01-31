@@ -2,6 +2,7 @@
 #include<fstream>
 #include"../../json.hpp"
 #include "../Scene.h"
+#include"../../BlockBace.h"
 
 #define STAGE_X (32)//横のマス数
 #define STAGE_Y (18)//縦のマス数
@@ -67,8 +68,15 @@ private:
 
 	int gridData[STAGE_X][STAGE_Y];
 
+	//BlockBaseで仮置き
+	BlockBace* blocks[STAGE_X][STAGE_Y];
+
+
 	//オプションボタン
 	Object optionButton;
+
+	//ゴール（仮）
+	Object gorl;
 
 };
 
