@@ -60,7 +60,22 @@ int TitleScene::Update()
 	if (inputSystem->GetTrigger(MK_LEFT)) {
 		//SceneManager::GetInstance()->ChangeScene(RESULT);
 
-		SceneManager::GetInstance()->ChangeScene(SELECT);
+		if (inputSystem->GetClickPosition().x - SCREEN_WIDTH / 2 > (StartButton.GetPos().x - StartButton.GetSize().x / 2) &&
+			inputSystem->GetClickPosition().x - SCREEN_WIDTH / 2 < (StartButton.GetPos().x + StartButton.GetSize().x / 2))
+		{
+			//
+			if ((inputSystem->GetClickPosition().y - SCREEN_HEIGHT / 2) * -1 > (StartButton.GetPos().y - StartButton.GetSize().y / 2) &&
+				(inputSystem->GetClickPosition().y - SCREEN_HEIGHT / 2) * -1 < (StartButton.GetPos().y + StartButton.GetSize().y / 2))
+			{
+				//セレクトシーンへ
+				SceneManager::GetInstance()->ChangeScene(SELECT);
+			}
+
+		}
+
+
+
+		
 	}
 
 
