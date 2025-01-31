@@ -19,3 +19,8 @@ int BlockBace::GetIndex()
 {
     return index;
 }
+
+void BlockBace::SetIndex(int _index)
+{
+    index = _index;
+}

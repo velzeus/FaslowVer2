@@ -69,8 +69,8 @@ private:
 	int gridData[STAGE_X][STAGE_Y];
 
 	//BlockBaseで仮置き
-	BlockBace* blocks[STAGE_X][STAGE_Y];
-
+	//BlockBace* blocks[STAGE_X][STAGE_Y];
+	std::vector<BlockBace*> blocks;
 
 	//オプションボタン
 	Object optionButton;

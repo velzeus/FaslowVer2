@@ -19,4 +19,7 @@ public:
 	BlockBace(int _index, BLOCKTYPE _blocktype);
 	BLOCKTYPE GetBlockType();
 	int GetIndex();//インデックスを取得
+	
+	//勝手に追加しました by西嶋
+	void SetIndex(int _index);
 };
