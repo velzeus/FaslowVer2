@@ -13,7 +13,7 @@ typedef enum
 
 class Object
 {
-private:
+protected:
 	// 頂点データを決める
 	Vertex vertexList[4] =
 	{
