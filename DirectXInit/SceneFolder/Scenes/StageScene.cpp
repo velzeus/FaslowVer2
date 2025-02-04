@@ -69,12 +69,15 @@ int StageScene::Start()
 				int idx1 = idxBase / STAGE_X;	//Y
 				int idx2 = idxBase % STAGE_X;	//X
 
-				if (idx1 == y && idx2 == x)
+				//まだ値がセットされていないかつ、indexがマスの場所と同じなら
+				if ((idx1 == y && idx2 == x) && blocks[n]->GetFlg()==false)
 				{
 					//座標を代入
 					blocks[n]->SetPos(read_blockPositionList[idx1][idx2].x, read_blockPositionList[idx1][idx2].y, 0.0f);
 					
 					blocks[n]->SetIndex(n);
+
+					blocks[n]->SetFlg(true);
 
 					//座標確認用
 					/*blocks[n]->Init(L"asset/block.png");

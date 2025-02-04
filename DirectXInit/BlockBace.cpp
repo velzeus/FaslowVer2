@@ -24,3 +24,13 @@ void BlockBace::SetIndex(int _index)
 {
     index = _index;
 }
+
+bool BlockBace::GetFlg()
+{
+    return setFlg;
+}
+
+void BlockBace::SetFlg(bool _setFlg)
+{
+    setFlg = _setFlg;
+}
