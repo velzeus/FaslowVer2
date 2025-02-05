@@ -95,9 +95,9 @@ int StageScene::Start()
 
 	//ボールの向きを設定
 	center = ball.GetPos();
+	prvpos = ball.GetPos();
 	CheckSurroundingCollisions();
 	UpdateMoveDir();
-	v = ball.GetPos();
 
 	//オプションボタン　　440
 	optionButton.Init(L"asset/UI/back.png");
@@ -122,14 +122,10 @@ int StageScene::Update()
 	ball.Move();//移動
 	center = ball.GetPos();//ボールの位置を取得
 
-	// **ボールがブロックの境界線上にいるかチェック**
-	onGridX = (static_cast<int>(center.x) % BLOCKSIZE_X == 0);
-	onGridY = (static_cast<int>(center.y) % BLOCKSIZE_Y == 0);
 
-	// **ボールがブロックの区切りにいるときだけ当たり判定を実行**
-	if (onGridX && onGridY)
+	if (abs(center.x - prvpos.x) == 40 || abs(center.y - prvpos.y) == 40)
 	{
-		v = ball.GetPos();
+		prvpos = center;
 		CheckSurroundingCollisions();//あたり判定
 		UpdateMoveDir();//ボールの方向を変える
 		ball.Setborder();//端に行った時

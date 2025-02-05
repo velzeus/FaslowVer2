@@ -51,17 +51,17 @@ void Ball::Setborder()
 		pos.x = (pos.x * -1) + 50;
 	}
 
-	if (pos.x < 130)//左端
+	if (pos.x < -1410)//左端
 	{
 		pos.x = (pos.x * -1) - 50;
 	}
 
-	if (pos.y > 130)//上端
+	if (pos.y > 850)//上端
 	{
 		pos.y = (pos.y * -1) - 50;
 	}
 
-	if (pos.y < 850)//下端
+	if (pos.y < -850)//下端
 	{
 		pos.y = (pos.y * -1) + 50;
 	}
