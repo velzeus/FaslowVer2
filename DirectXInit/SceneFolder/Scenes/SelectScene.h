@@ -34,15 +34,24 @@ private:
     TS::TS_InputSystem* inputSystem;
 
     //ワールド
-    Object world_image[6];
+    Object selectImage_world[6];
 
     //ステージ
-    Object stage_image[5];
+    Object selectImage_stage[5];
     
     //戻るボタン
     Object backButton;
 
     //背景
     Object backGround;
+
+    //ステージ画面
+    Object stageTexture;
+
+    //ステージ名
+    Object stageName;
+
+    //スタートボタン
+    Object startButton;
 };
 

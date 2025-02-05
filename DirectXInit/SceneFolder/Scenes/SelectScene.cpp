@@ -21,57 +21,90 @@ int SelectScene::Start()
 	//ワールドで、同じ値のもの
 	for (int i = 0; i < 6; i++)
 	{
-		world_image[i].Init(L"asset/number.png", 10, 1);
-		world_image[i].SetSize(100.0f, 100.0f, 0.0f);
-		world_image[i].SetAngle(0.0f);
-		world_image[i].SetColor(1.0f, 1.0f, 1.0f, 1.0f);
-		world_image[i].numU = i + 1;
+		selectImage_world[i].Init(L"asset/UI/Flame2.png"/*, 10, 1*/);
+		selectImage_world[i].SetSize(400.0f, 100.0f, 0.0f);
+		selectImage_world[i].SetAngle(0.0f);
+		selectImage_world[i].SetColor(1.0f, 1.0f, 1.0f, 1.0f);
+		//selectImage_world[i].numU = i + 1;
+
+		selectImage_world[i].SetPos(635, (selectImage_world[i].GetSize().y + 20) * (2 - i), 0);
+
 	}
 
 	//ワールドごとに違うもの
-	//ワールド1
-	world_image[0].SetPos(-150, 100, 0.0f);
+	////ワールド1
+	//selectImage_world[0].SetPos(-635, 50, 0.0f);
+	//
+	////ワールド2
+	//selectImage_world[1].SetPos(0, 50, 0.0f);
+
+	////ワールド3
+	//selectImage_world[2].SetPos(635, 50, 0.0f);
+
+	////ワールド4
+	//selectImage_world[3].SetPos(-650, -400, 0.0f);
+	//
+	////ワールド5
+	//selectImage_world[4].SetPos(0, -400, 0.0f);
+
+	////ワールド6
+	//selectImage_world[5].SetPos(650, -400, 0.0f);
+
+	/*
+	メモ欄
+	Worldを選んだらステージ1が選ばれている状態のステージセレクトに入る
+	ステージを選んだ状態でスタートボタンを押すとステージに入る
+	スタートボタンは右下
+
+	UIの中央座標
+	ステージ画面　x,-835 y,339
+	大きさ　x,880 y,491
 	
-	//ワールド2
-	world_image[1].SetPos(0, 100, 0.0f);
-
-	//ワールド3
-	world_image[2].SetPos(150, 100, 0.0f);
-
-	//ワールド4
-	world_image[3].SetPos(-150, -100, 0.0f);
+	戻るボタン　x,-836,y,476
+	大きさ 78　四方
 	
-	//ワールド5
-	world_image[4].SetPos(0, -100, 0.0f);
+	メニュー　大きさ　上と同じ
+	x,704 y,476
 
-	//ワールド6
-	world_image[5].SetPos(150, -100, 0.0f);
+	ステージの名前　座標　x,-835 y,-178
+	大きさ　x,880 y,161
+
+	ステージセレクトボタン　大きさ x,622 y,121
+	座標（ステージ1）　x,166 y,339
+
+	ステージ2 x,166 y,2
+
+	ステージ5 x," y,219
+
+	*/
 	
 	//ステージで、同じ値のもの
 	for (int i = 0; i < 5; i++)
 	{
-		stage_image[i].Init(L"asset/number.png", 10, 1);
-		stage_image[i].SetSize(100.0f, 100.0f, 0.0f);
-		stage_image[i].SetAngle(0.0f);
-		stage_image[i].SetColor(1.0f, 1.0f, 0.0f, 1.0f);
-		stage_image[i].numU = i + 1;
+		selectImage_stage[i].Init(L"asset/number.png", 10, 1);
+		selectImage_stage[i].SetSize(100.0f, 100.0f, 0.0f);
+		selectImage_stage[i].SetAngle(0.0f);
+		selectImage_stage[i].SetColor(1.0f, 1.0f, 0.0f, 1.0f);
+		selectImage_stage[i].numU = i + 1;
+
+		selectImage_stage[i].SetPos(635, (selectImage_stage[i].GetSize().y + 20) * (2 - i), 0);
 	}
 
 	//ステージごとに違うもの
-	//ステージ1
-	stage_image[0].SetPos(-150, 100, 0.0f);
+	////ステージ1
+	//selectImage_stage[0].SetPos(-150, 100, 0.0f);
 
-	//ステージ2
-	stage_image[1].SetPos(0, 100, 0.0f);
+	////ステージ2
+	//selectImage_stage[1].SetPos(0, 100, 0.0f);
 
-	//ステージ3
-	stage_image[2].SetPos(150, 100, 0.0f);
+	////ステージ3
+	//selectImage_stage[2].SetPos(150, 100, 0.0f);
 
-	//ステージ4
-	stage_image[3].SetPos(-75, -100, 0.0f);
+	////ステージ4
+	//selectImage_stage[3].SetPos(-75, -100, 0.0f);
 
-	//ステージ5
-	stage_image[4].SetPos(75, -100, 0.0f);
+	////ステージ5
+	//selectImage_stage[4].SetPos(75, -100, 0.0f);
 
 
 	//戻るボタン
@@ -83,14 +116,23 @@ int SelectScene::Start()
 
 	//背景
 	backGround.Init(L"asset/Background/壁紙_01.png");
+	//backGround.Init(L"asset/StageSelect/タイトルアニメーション_背景2.gif");
 	backGround.SetPos(0.0f, 0.0f, 0.0f);
 	backGround.SetSize(SCREEN_WIDTH, SCREEN_HEIGHT, 0.0f);
 	backGround.SetAngle(0);
 	backGround.SetColor(1, 1, 1, 1);
 
+	//ステージ画面
+
+	//ステージ名
+
+	//スタートボタン
+
 	stateNum = WOELDSELECTSCENE;
 
 	return 0;
+
+	
 }
 
 int SelectScene::Update()
@@ -108,12 +150,12 @@ int SelectScene::Update()
 			for (int i = 0; i < 6; i++)
 			{
 				//クリックされたx座標が内側にあったら
-				if (inputSystem->GetClickPosition().x - SCREEN_WIDTH / 2 > (world_image[i].GetPos().x - world_image[i].GetSize().x / 2) &&
-					inputSystem->GetClickPosition().x - SCREEN_WIDTH / 2 < (world_image[i].GetPos().x + world_image[i].GetSize().x / 2))
+				if (inputSystem->GetClickPosition().x - SCREEN_WIDTH / 2 > (selectImage_world[i].GetPos().x - selectImage_world[i].GetSize().x / 2) &&
+					inputSystem->GetClickPosition().x - SCREEN_WIDTH / 2 < (selectImage_world[i].GetPos().x + selectImage_world[i].GetSize().x / 2))
 				{
 					//
-					if ((inputSystem->GetClickPosition().y - SCREEN_HEIGHT / 2) * -1 > (world_image[i].GetPos().y - world_image[i].GetSize().y / 2) &&
-						(inputSystem->GetClickPosition().y - SCREEN_HEIGHT / 2) * -1 < (world_image[i].GetPos().y + world_image[i].GetSize().y / 2))
+					if ((inputSystem->GetClickPosition().y - SCREEN_HEIGHT / 2) * -1 > (selectImage_world[i].GetPos().y - selectImage_world[i].GetSize().y / 2) &&
+						(inputSystem->GetClickPosition().y - SCREEN_HEIGHT / 2) * -1 < (selectImage_world[i].GetPos().y + selectImage_world[i].GetSize().y / 2))
 					{
 						switch (i)
 						{
@@ -165,12 +207,12 @@ int SelectScene::Update()
 			for (int i = 0; i < 5; i++)
 			{
 				//クリックされたx座標が内側にあったら
-				if (inputSystem->GetClickPosition().x - SCREEN_WIDTH / 2 > (stage_image[i].GetPos().x - stage_image[i].GetSize().x / 2) &&
-					inputSystem->GetClickPosition().x - SCREEN_WIDTH / 2 < (stage_image[i].GetPos().x + stage_image[i].GetSize().x / 2))
+				if (inputSystem->GetClickPosition().x - SCREEN_WIDTH / 2 > (selectImage_stage[i].GetPos().x - selectImage_stage[i].GetSize().x / 2) &&
+					inputSystem->GetClickPosition().x - SCREEN_WIDTH / 2 < (selectImage_stage[i].GetPos().x + selectImage_stage[i].GetSize().x / 2))
 				{
 					//
-					if ((inputSystem->GetClickPosition().y - SCREEN_HEIGHT / 2) * -1 > (stage_image[i].GetPos().y - stage_image[i].GetSize().y / 2) &&
-						(inputSystem->GetClickPosition().y - SCREEN_HEIGHT / 2) * -1 < (stage_image[i].GetPos().y + stage_image[i].GetSize().y / 2))
+					if ((inputSystem->GetClickPosition().y - SCREEN_HEIGHT / 2) * -1 > (selectImage_stage[i].GetPos().y - selectImage_stage[i].GetSize().y / 2) &&
+						(inputSystem->GetClickPosition().y - SCREEN_HEIGHT / 2) * -1 < (selectImage_stage[i].GetPos().y + selectImage_stage[i].GetSize().y / 2))
 					{
 						switch (i)
 						{
@@ -255,7 +297,7 @@ int SelectScene::Draw()
 	case WOELDSELECTSCENE:
 		for (int i = 0; i < 6; i++)
 		{
-			world_image[i].Draw();
+			selectImage_world[i].Draw();
 		}
 
 		break;
@@ -263,7 +305,7 @@ int SelectScene::Draw()
 
 		for (int i = 0; i < 5; i++)
 		{
-			stage_image[i].Draw();
+			selectImage_stage[i].Draw();
 		}
 		break;
 	case SETSTAGE:
@@ -277,6 +319,6 @@ int SelectScene::Draw()
 
 int SelectScene::End()
 {
-	//world_image[0].Uninit();
+	//selectImage_world[0].Uninit();
 	return 0;
 }
