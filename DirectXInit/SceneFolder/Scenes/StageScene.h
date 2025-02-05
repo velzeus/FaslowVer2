@@ -25,33 +25,41 @@ struct VECTOR2
     float x, y;
 };
 
+
+
+
 class StageScene :
     public Scene
 {
 public:
 
-	Ball ball;
-    StageScene();
-    ~StageScene() override;
+    StageScene();			// コンストラクタ
+    ~StageScene() override;	// デストラクタ
+	
+    int Start() override;	// ステージの初期化
+    int Update() override;	// ステージのアップデートを行う
+    int Draw() override;	// ステージの描画
+    int End() override;		// ステージの後処理
 
-    int Start() override;
-    int Update() override;
-    int Draw() override;
-    int End() override;
+	// ボール
+	Ball ball;
 
     //jsonファイルを読み込む（引数にStage番号を持ってくる）
     void ReadFile();
 
-	//Ball ball;//ボール
-
+	// ボールのアップデートをする
 	void UpdateMoveDir();
 
-	DirectX::XMFLOAT3 center;//ボールの位置
+	DirectX::XMFLOAT3 center;	//ボールの位置
 	std::vector<std::pair<float, float>> surroundingBlocks;//周囲８マスのあたり判定
 	bool Collision(BlockBace* obj1, const std::pair<float, float>& obj2);//あたり判定
 
-	std::vector<BlockBace*> GetNearbyBlocks(const std::vector<std::pair<float, float>>& surroundingBlocks);//ステージ上にある周囲８マスを取得
+	std::vector<BlockBace*> GetNearbyBlocks(
+		const std::vector<std::pair<float, float>>& surroundingBlocks);//ステージ上にある周囲８マスを取得
+
+
 	std::vector<BlockBace*> nearbyBlocks;//ボールの周り8マスに存在するブロック
+
 
 	//ボールがブロックの区切りにいるときだけ当たり判定を実行
 	bool onGridX;

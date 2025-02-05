@@ -93,6 +93,12 @@
     <ClCompile Include="SceneFolder\Scenes\SelectScene.cpp">
       <Filter>SceneFolder\Scenes</Filter>
     </ClCompile>
+    <ClCompile Include="BlockFanction.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneFolder\Scenes\TS_StageScene.cpp">
+      <Filter>SceneFolder\Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="PixelShader.hlsl" />
@@ -169,6 +175,12 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="SceneFolder\Scenes\SelectScene.h">
+      <Filter>SceneFolder\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="BlockFanction.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneFolder\Scenes\TS_StageScene.h">
       <Filter>SceneFolder\Scenes</Filter>
     </ClInclude>
   </ItemGroup>
