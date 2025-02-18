@@ -42,6 +42,10 @@ int SceneManager::Update()
 
     inputSystem->Update();
 
+    if (endFlg == true) {
+        return 1;
+    }
+
     if (nextScene != nullptr)  // 次のシーンに切り替える場合
     {
         cout << "Update: currentScene = "
@@ -70,6 +74,8 @@ int SceneManager::Update()
 
     if (currentScene != nullptr)
     {
+
+
         return currentScene->Update();  // 現在のシーンの更新
     }
 
@@ -147,6 +153,9 @@ void SceneManager::AddScene(SCENENAME sceneName, std::unique_ptr<Scene> _scene)
 // シーンを切り替える
 void SceneManager::ChangeScene(SCENENAME sceneName)
 {
+    if (sceneName == SCENENAME::END) {
+        return;
+    }
     auto it = sceneFactories.find(sceneName);
     if (it != sceneFactories.end()) {
 

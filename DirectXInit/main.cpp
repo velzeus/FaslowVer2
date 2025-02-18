@@ -113,6 +113,9 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_  HINSTANCE hPrevInstance, 
 	QueryPerformanceCounter(&liWork);
 	long long oldCount = liWork.QuadPart;//前回計測時の時間
 	long long nowCount = oldCount;//今回計測時の時間
+
+	bool gameLoopFlg = 1;
+
 	// ゲームループ
 	while(1)
 	{
