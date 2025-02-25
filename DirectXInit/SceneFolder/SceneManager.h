@@ -25,6 +25,7 @@ enum SCENENAME
     STAGE,
     RESULT,
     OPTION,
+    END,
     SCENENAME_MAX,
 };
 

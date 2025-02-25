@@ -29,5 +29,6 @@ private:
 
     Object StartButton;
     Object EndButton;
+    Object buckGround;
 };
 

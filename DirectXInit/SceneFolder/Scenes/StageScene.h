@@ -47,6 +47,7 @@ public:
 	void UpdateMoveDir();
 
 	DirectX::XMFLOAT3 center;//ボールの位置
+	DirectX::XMFLOAT3 prvpos;//ボールの過去の位置
 	std::vector<std::pair<float, float>> surroundingBlocks;//周囲８マスのあたり判定
 	bool Collision(BlockBace* obj1, const std::pair<float, float>& obj2);//あたり判定
 

@@ -4,13 +4,13 @@ using namespace std;
 
 using json = nlohmann::json;
 
-//json‚É•ÏŠ·‚·‚é‚½‚ß‚ÌŠÖ”
+//jsonã«å¤‰æ›ã™ã‚‹ãŸã‚ã®é–¢æ•°
 void to_json(json& j, const VECTOR2& v)
 {
 	j = json{ {"x",v.x},{"y",v.y} };
 }
 
-//json‚©‚ç•ÏŠ·‚·‚é‚½‚ß‚ÌŠÖ”
+//jsonã‹ã‚‰å¤‰æ›ã™ã‚‹ãŸã‚ã®é–¢æ•°
 void from_json(const json& j, VECTOR2& v)
 {
 	j.at("x").get_to(v.x);
@@ -34,21 +34,21 @@ int StageScene::Start()
 
 	inputSystem = TS::TS_InputSystem::GetInstance();
 
-	//ƒtƒ@ƒCƒ‹“Ç‚İ‚İ
+	//ãƒ•ã‚¡ã‚¤ãƒ«èª­ã¿è¾¼ã¿
 	ReadFile();
 
 	for (int x = 0; x < STAGE_X; x++)
 	{
 		for (int y = 0; y < STAGE_Y; y++)
 		{
-			grids[x][y].Init(L"asset/block.png");//ƒuƒƒbƒN‚ğ‰Šú‰»
-			grids[x][y].SetPos(read_blockPositionList[y][x].x, read_blockPositionList[y][x].y, 0.0f);//ˆÊ’u‚ğİ’è
-			grids[x][y].SetSize(BLOCKSIZE_X, BLOCKSIZE_Y, 0.0f);//‘å‚«‚³‚ğİ’è
+			grids[x][y].Init(L"asset/block.png");//ãƒ–ãƒ­ãƒƒã‚¯ã‚’åˆæœŸåŒ–
+			grids[x][y].SetPos(read_blockPositionList[y][x].x, read_blockPositionList[y][x].y, 0.0f);//ä½ç½®ã‚’è¨­å®š
+			grids[x][y].SetSize(BLOCKSIZE_X, BLOCKSIZE_Y, 0.0f);//å¤§ãã•ã‚’è¨­å®š
 
-			//ƒ}ƒX‚Ìó‘Ô‚ğ‘ã“ü
+			//ãƒã‚¹ã®çŠ¶æ…‹ã‚’ä»£å…¥
 			gridData[x][y] = read_gridStateList[y][x];
 
-			//ƒS[ƒ‹‚ğ•ÊŒÂ‚Éì‚é
+			//ã‚´ãƒ¼ãƒ«ã‚’åˆ¥å€‹ã«ä½œã‚‹
 			if (gridData[x][y] == GORL)
 			{
 				gorl.Init(L"asset/Goll/TeamName/Team_Name.png");
@@ -62,24 +62,27 @@ int StageScene::Start()
 				gridData[x][y] = NULLBLOCK;
 			}
 
-			//ƒuƒƒbƒN
+			//ãƒ–ãƒ­ãƒƒã‚¯
 			for (int n = 0; n < blocks.size(); n++)
 			{
 				int idxBase = blocks[n]->GetIndex();
 				int idx1 = idxBase / STAGE_X;	//Y
 				int idx2 = idxBase % STAGE_X;	//X
 
-				//‚Ü‚¾’l‚ªƒZƒbƒg‚³‚ê‚Ä‚¢‚È‚¢‚©‚ÂAindex‚ªƒ}ƒX‚ÌêŠ‚Æ“¯‚¶‚È‚ç
+
+				//ã¾ã å€¤ãŒã‚»ãƒƒãƒˆã•ã‚Œã¦ã„ãªã„ã‹ã¤ã€indexãŒãƒã‚¹ã®å ´æ‰€ã¨åŒã˜ãªã‚‰
 				if ((idx1 == y && idx2 == x) && blocks[n]->GetFlg()==false)
+
 				{
-					//À•W‚ğ‘ã“ü
+					//åº§æ¨™ã‚’ä»£å…¥
+					blocks[n]->Init(L"asset/Blocks/STICKY_BLOCK_GREEN.png");
 					blocks[n]->SetPos(read_blockPositionList[idx1][idx2].x, read_blockPositionList[idx1][idx2].y, 0.0f);
-					
+					blocks[n]->SetSize(BLOCKSIZE_X, BLOCKSIZE_Y, 0.0f);
 					blocks[n]->SetIndex(n);
 
 					blocks[n]->SetFlg(true);
 
-					//À•WŠm”F—p
+					//åº§æ¨™ç¢ºèªç”¨
 					/*blocks[n]->Init(L"asset/block.png");
 					blocks[n]->SetSize(BLOCKSIZE_X, BLOCKSIZE_Y, 0.0f);
 					blocks[n]->SetColor(1, 1, 1, 1);*/
@@ -95,20 +98,21 @@ int StageScene::Start()
 		}
 	}
 
-	//ƒ{[ƒ‹‚ÌŒü‚«‚ğİ’è
+	//ãƒœãƒ¼ãƒ«ã®å‘ãã‚’è¨­å®š
 	center = ball.GetPos();
+	prvpos = ball.GetPos();
 	CheckSurroundingCollisions();
 	UpdateMoveDir();
 
-	//ƒIƒvƒVƒ‡ƒ“ƒ{ƒ^ƒ“@@440
+	//ã‚ªãƒ—ã‚·ãƒ§ãƒ³ãƒœã‚¿ãƒ³ã€€ã€€440
 	optionButton.Init(L"asset/UI/back.png");
 	optionButton.SetPos(-860.0f, 440.0f, 0.0f);
 	optionButton.SetSize(50.0f, 50.0f, 0.0f);
 	optionButton.SetAngle(0.0f);
 	optionButton.SetColor(1.0f, 1.0f, 1.0f, 1.0f);
 
-	//ƒŠƒgƒ‰ƒCƒ{ƒ^ƒ“
-	retryButton.Init(L"asset/UI/ƒnƒ“ƒo[ƒK[ƒAƒCƒRƒ“100x100.png");
+	//ãƒªãƒˆãƒ©ã‚¤ãƒœã‚¿ãƒ³
+	retryButton.Init(L"asset/UI/ãƒãƒ³ãƒãƒ¼ã‚¬ãƒ¼ã‚¢ã‚¤ã‚³ãƒ³100x100.png");
 	//retryButton.Init(L"asset/block.png");
 	retryButton.SetPos(-860.0f, -440.0f, 0.0f);
 	retryButton.SetSize(50.0f, 50.0f, 0);
@@ -120,80 +124,78 @@ int StageScene::Start()
 
 int StageScene::Update()
 {
-	ball.Move();//ˆÚ“®
-	center = ball.GetPos();//ƒ{[ƒ‹‚ÌˆÊ’u‚ğæ“¾
+	ball.Move();//ç§»å‹•
+	center = ball.GetPos();//ãƒœãƒ¼ãƒ«ã®ä½ç½®ã‚’å–å¾—
 
-	// **ƒ{[ƒ‹‚ªƒuƒƒbƒN‚Ì‹«ŠEüã‚É‚¢‚é‚©ƒ`ƒFƒbƒN**
-	onGridX = (static_cast<int>(center.x) % BLOCKSIZE_X == 0);
-	onGridY = (static_cast<int>(center.y) % BLOCKSIZE_Y == 0);
 
-	// **ƒ{[ƒ‹‚ªƒuƒƒbƒN‚Ì‹æØ‚è‚É‚¢‚é‚Æ‚«‚¾‚¯“–‚½‚è”»’è‚ğÀs**
-	if (onGridX && onGridY)
+	if (abs(center.x - prvpos.x) == 40 || abs(center.y - prvpos.y) == 40)
 	{
-		CheckSurroundingCollisions();//‚ ‚½‚è”»’è
-		UpdateMoveDir();//ƒ{[ƒ‹‚Ì•ûŒü‚ğ•Ï‚¦‚é
-		ball.Setborder();//’[‚És‚Á‚½
+		prvpos = center;
+		CheckSurroundingCollisions();//ã‚ãŸã‚Šåˆ¤å®š
+		UpdateMoveDir();//ãƒœãƒ¼ãƒ«ã®æ–¹å‘ã‚’å¤‰ãˆã‚‹
+		ball.Setborder();//ç«¯ã«è¡Œã£ãŸæ™‚
 
+		cout << "å®Ÿè¡Œ" << endl;
 	}
 
-	//F‚ğ‚Â‚¯‚é
+	//è‰²ã‚’ã¤ã‘ã‚‹
 	for (int x = 0; x < STAGE_X; x++)
 	{
 		for (int y = 0; y < STAGE_Y; y++)
 		{
 			switch (gridData[x][y])
 			{
-			case NULLBLOCK://‹ó”’
+			case NULLBLOCK://ç©ºç™½
 				grids[x][y].SetColor(1.0f, 1.0f, 1.0f, 0.0f);
 				break;
-			case BOLL://ƒ{[ƒ‹
+			case BOLL://ãƒœãƒ¼ãƒ«
 				grids[x][y].SetColor(1.0f, 1.0f, 1.0f, 1.0f);
 				break;
-			case GORL://ƒS[ƒ‹
+			case GORL://ã‚´ãƒ¼ãƒ«
 				grids[x][y].SetColor(1.0f, 0.0f, 0.0f, 1.0f);
 				break;
-			case COIN://ƒRƒCƒ“
+			case COIN://ã‚³ã‚¤ãƒ³
 				grids[x][y].SetColor(1.0f, 1.0f, 0.0f, 1.0f);
 				break;
-			case STICKY_BLOCK://”S’…ƒuƒƒbƒN
+			case STICKY_BLOCK://ç²˜ç€ãƒ–ãƒ­ãƒƒã‚¯
 				grids[x][y].SetColor(0.0f, 1.0f, 0.0f, 1.0f);
 				break;
-			case SLIP_BLOCK://ŠŠ‚éƒuƒƒbƒN
+			case SLIP_BLOCK://æ»‘ã‚‹ãƒ–ãƒ­ãƒƒã‚¯
 				grids[x][y].SetColor(0.0f, 1.0f, 1.0f, 1.0f);
 				break;
-			case UNBREAK_BLOCK://”j‰ó•s‰ÂƒuƒƒbƒN
+			case UNBREAK_BLOCK://ç ´å£Šä¸å¯ãƒ–ãƒ­ãƒƒã‚¯
 				grids[x][y].SetColor(0.0f, 0.0f, 0.0f, 1.0f);
 				break;
 			}
 		}
 	}
 
-	//–ß‚éƒ{ƒ^ƒ“
+	//æˆ»ã‚‹ãƒœã‚¿ãƒ³
 	if (inputSystem->GetTrigger(MK_LEFT))
 	{
-		//ƒNƒŠƒbƒN‚³‚ê‚½xÀ•W‚ª“à‘¤‚É‚ ‚Á‚½‚ç
+		//ã‚¯ãƒªãƒƒã‚¯ã•ã‚ŒãŸxåº§æ¨™ãŒå†…å´ã«ã‚ã£ãŸã‚‰
 		if (inputSystem->GetClickPosition().x - SCREEN_WIDTH / 2 > (optionButton.GetPos().x - optionButton.GetSize().x / 2) &&
 			inputSystem->GetClickPosition().x - SCREEN_WIDTH / 2 < (optionButton.GetPos().x + optionButton.GetSize().x / 2))
 		{
-			//ƒ}ƒEƒXƒJ[ƒ\ƒ‹‚ÌÀ•W‚Æ‚ÌŒë·‚ğ–„‚ß‚é‚½‚ß10‚¸‚ç‚·
+			//ãƒã‚¦ã‚¹ã‚«ãƒ¼ã‚½ãƒ«ã®åº§æ¨™ã¨ã®èª¤å·®ã‚’åŸ‹ã‚ã‚‹ãŸã‚10ãšã‚‰ã™
 			if ((inputSystem->GetClickPosition().y - SCREEN_HEIGHT / 2+10) * -1 > (optionButton.GetPos().y - optionButton.GetSize().y / 2) &&
 				(inputSystem->GetClickPosition().y - SCREEN_HEIGHT / 2+10) * -1 < (optionButton.GetPos().y + optionButton.GetSize().y / 2))
 			{
-				//Œˆ’è‚³‚ê‚Ä‚È‚¢ó‘Ô‚É–ß‚·
+				//æ±ºå®šã•ã‚Œã¦ãªã„çŠ¶æ…‹ã«æˆ»ã™
 				SceneManager::GetInstance()->SetWorldNumber(NOTDONE_WORLD);
 				SceneManager::GetInstance()->SetStageNumber(NOTDONE_STAGE);
 
 
-				//ƒZƒŒƒNƒgƒV[ƒ“‚É–ß‚é
+				//ã‚»ãƒ¬ã‚¯ãƒˆã‚·ãƒ¼ãƒ³ã«æˆ»ã‚‹
 				SceneManager::GetInstance()->ChangeScene(SELECT);
 			}
 
 		}
 
 
-		//ƒS[ƒ‹‚µ‚½”»’è(“®ìŠm”F—p)
+		//ã‚´ãƒ¼ãƒ«ã—ãŸåˆ¤å®š(å‹•ä½œç¢ºèªç”¨)
 
-		//ƒNƒŠƒbƒN‚³‚ê‚½xÀ•W‚ª“à‘¤‚É‚ ‚Á‚½‚ç
+		//ã‚¯ãƒªãƒƒã‚¯ã•ã‚ŒãŸxåº§æ¨™ãŒå†…å´ã«ã‚ã£ãŸã‚‰
 		if (inputSystem->GetClickPosition().x - SCREEN_WIDTH / 2 > (gorl.GetPos().x - gorl.GetSize().x / 2) &&
 			inputSystem->GetClickPosition().x - SCREEN_WIDTH / 2 < (gorl.GetPos().x + gorl.GetSize().x / 2))
 		{
@@ -201,35 +203,35 @@ int StageScene::Update()
 			if ((inputSystem->GetClickPosition().y - SCREEN_HEIGHT / 2) * -1 > (gorl.GetPos().y - gorl.GetSize().y / 2) &&
 				(inputSystem->GetClickPosition().y - SCREEN_HEIGHT / 2) * -1 < (gorl.GetPos().y + gorl.GetSize().y / 2))
 			{
-				//Œˆ’è‚³‚ê‚Ä‚È‚¢ó‘Ô‚É–ß‚·
+				//æ±ºå®šã•ã‚Œã¦ãªã„çŠ¶æ…‹ã«æˆ»ã™
 				//SceneManager::GetInstance()->SetWorldNumber(NOTDONE_WORLD);
 				//SceneManager::GetInstance()->SetStageNumber(NOTDONE_STAGE);
 
 
-				//ƒZƒŒƒNƒgƒV[ƒ“‚É–ß‚é
+				//ã‚»ãƒ¬ã‚¯ãƒˆã‚·ãƒ¼ãƒ³ã«æˆ»ã‚‹
 				SceneManager::GetInstance()->ChangeScene(RESULT);
 			}
 
 		}
 
 
-		//ƒŠƒgƒ‰ƒCƒ{ƒ^ƒ“
-		//ƒNƒŠƒbƒN‚³‚ê‚½xÀ•W‚ª“à‘¤‚É‚ ‚Á‚½‚ç
+		//ãƒªãƒˆãƒ©ã‚¤ãƒœã‚¿ãƒ³
+		//ã‚¯ãƒªãƒƒã‚¯ã•ã‚ŒãŸxåº§æ¨™ãŒå†…å´ã«ã‚ã£ãŸã‚‰
 		if (inputSystem->GetClickPosition().x - SCREEN_WIDTH / 2 > (retryButton.GetPos().x - retryButton.GetSize().x / 2) &&
 			inputSystem->GetClickPosition().x - SCREEN_WIDTH / 2 < (retryButton.GetPos().x + retryButton.GetSize().x / 2))
 		{
-			//ƒ^ƒXƒNƒo[‚ğŠ¨ˆÄ‚µ‚Ä-•”•ª‚¾‚¯40ã‚É‚¸‚ç‚µ‚Äl‚¦‚é
+			//ã‚¿ã‚¹ã‚¯ãƒãƒ¼ã‚’å‹˜æ¡ˆã—ã¦-éƒ¨åˆ†ã ã‘40ä¸Šã«ãšã‚‰ã—ã¦è€ƒãˆã‚‹
 			if ((inputSystem->GetClickPosition().y - SCREEN_HEIGHT / 2 + 40) * -1 > (retryButton.GetPos().y - retryButton.GetSize().y / 2) &&
 				(inputSystem->GetClickPosition().y - SCREEN_HEIGHT / 2 + 40) * -1 < (retryButton.GetPos().y + retryButton.GetSize().y / 2))
 			{
-				//Œˆ’è‚³‚ê‚Ä‚È‚¢ó‘Ô‚É–ß‚·
+				//æ±ºå®šã•ã‚Œã¦ãªã„çŠ¶æ…‹ã«æˆ»ã™
 				//SceneManager::GetInstance()->SetWorldNumber(NOTDONE_WORLD);
 				//SceneManager::GetInstance()->SetStageNumber(NOTDONE_STAGE);
 
 
-				//ƒXƒe[ƒWƒV[ƒ“‚ğŒÄ‚Ñ’¼‚·
+				//ã‚¹ãƒ†ãƒ¼ã‚¸ã‚·ãƒ¼ãƒ³ã‚’å‘¼ã³ç›´ã™
 				//SceneManager::GetInstance()->ChangeScene(STAGE);
-				End();//vectorŒ^”z—ñ‚ğƒŠƒZƒbƒg‚³‚¹‚é
+				End();//vectorå‹é…åˆ—ã‚’ãƒªã‚»ãƒƒãƒˆã•ã›ã‚‹
 				Start();
 			}
 
@@ -243,7 +245,7 @@ int StageScene::Update()
 
 int StageScene::Draw()
 {
-	//ƒuƒƒbƒN‚ğ•\¦
+	//ãƒ–ãƒ­ãƒƒã‚¯ã‚’è¡¨ç¤º
 	for (int x = 0; x < STAGE_X; x++)
 	{
 		for (int y = 0; y < STAGE_Y; y++)
@@ -252,11 +254,11 @@ int StageScene::Draw()
 		}
 	}
 
-	/*for (int i = 0; i < blocks.size(); i++)
+	for (int i = 0; i < blocks.size(); i++)
 	{
 		
 		blocks[i]->Draw();
-	}*/
+	}
 	ball.Draw();
 	optionButton.Draw();
 
@@ -269,7 +271,7 @@ int StageScene::Draw()
 
 int StageScene::End()
 {
-	//vectorŒ^‚Ì”z—ñ‚ğ‰ğ•ú
+	//vectorå‹ã®é…åˆ—ã‚’è§£æ”¾
 	for (int i = 0; i < blocks.size(); i++)
 	{
 		delete blocks[i];
@@ -281,24 +283,24 @@ int StageScene::End()
 
 void StageScene::ReadFile()
 {
-	//ƒ[ƒ‹ƒh”Ô†‚ÆƒXƒe[ƒW”Ô†‚ğ•¶š—ñŒ^‚É•ÏŠ·
+	//ãƒ¯ãƒ¼ãƒ«ãƒ‰ç•ªå·ã¨ã‚¹ãƒ†ãƒ¼ã‚¸ç•ªå·ã‚’æ–‡å­—åˆ—å‹ã«å¤‰æ›
 	string number_world = to_string(manager->GetWorldNumber());
 	string number_stage = to_string(manager->GetStageNumber());
 
-	//“Ç‚İ‚Şƒtƒ@ƒCƒ‹‚Ì–¼‘O‚ğì¬
+	//èª­ã¿è¾¼ã‚€ãƒ•ã‚¡ã‚¤ãƒ«ã®åå‰ã‚’ä½œæˆ
 	string fileName = "StageFolder/New_Stage" + number_world + "-" + number_stage + ".json";
 	//"StageFolder/New_Stage"
 
 	ifstream fin(fileName.c_str());
-	//“Ç‚İ‚İ‚É¸”s‚µ‚½‚çƒGƒ‰[•¶‚ğ•\¦
+	//èª­ã¿è¾¼ã¿ã«å¤±æ•—ã—ãŸã‚‰ã‚¨ãƒ©ãƒ¼æ–‡ã‚’è¡¨ç¤º
 	if (fin.good())
 	{
-		//ƒtƒ@ƒCƒ‹‚ğ“Ç‚İ‚ñ‚Å“à—e‚ğ‰æ–Ê‚É•\¦
+		//ãƒ•ã‚¡ã‚¤ãƒ«ã‚’èª­ã¿è¾¼ã‚“ã§å†…å®¹ã‚’ç”»é¢ã«è¡¨ç¤º
 		json read_json;
 
 		fin >> read_json;
 
-		//“Ç‚İ‚ñ‚¾ƒf[ƒ^‚ğ‚»‚ê‚¼‚ê‚Ì•Ï”‚É‘ã“ü‚·‚é
+		//èª­ã¿è¾¼ã‚“ã ãƒ‡ãƒ¼ã‚¿ã‚’ãã‚Œãã‚Œã®å¤‰æ•°ã«ä»£å…¥ã™ã‚‹
 		string stageName = read_json["stage_name"];
 
 		read_gridStateList = read_json["blockState"].get<vector<vector<int>>>();
@@ -308,31 +310,31 @@ void StageScene::ReadFile()
 	}
 	else
 	{
-		//cout << "ƒtƒ@ƒCƒ‹‚Ì“Ç‚İ‚İ‚É¸”s‚µ‚Ü‚µ‚½" << endl;
-		//“Ç‚İ‚ß‚È‚©‚Á‚½ê‡AƒEƒBƒ“ƒhƒE‚ğ•\¦
-		MessageBoxA(NULL, "ƒtƒ@ƒCƒ‹‚Ì“Ç‚İ‚İ‚É¸”s‚µ‚Ü‚µ‚½", "Šm”F", MB_OK);
+		//cout << "ãƒ•ã‚¡ã‚¤ãƒ«ã®èª­ã¿è¾¼ã¿ã«å¤±æ•—ã—ã¾ã—ãŸ" << endl;
+		//èª­ã¿è¾¼ã‚ãªã‹ã£ãŸå ´åˆã€ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚’è¡¨ç¤º
+		MessageBoxA(NULL, "ãƒ•ã‚¡ã‚¤ãƒ«ã®èª­ã¿è¾¼ã¿ã«å¤±æ•—ã—ã¾ã—ãŸ", "ç¢ºèª", MB_OK);
 	}
 
-	//BlockBase‚É‘Î‰‚·‚éŒ`‚É•ÏŠ·
+	//BlockBaseã«å¯¾å¿œã™ã‚‹å½¢ã«å¤‰æ›
 
-	for (int i = 0; i < read_gridStateList.size(); i++)//c•ûŒü
+	for (int i = 0; i < read_gridStateList.size(); i++)//ç¸¦æ–¹å‘
 	{
-		for (int j = 0; j < read_gridStateList[i].size(); j++)//‰¡•ûŒü
+		for (int j = 0; j < read_gridStateList[i].size(); j++)//æ¨ªæ–¹å‘
 		{
 			switch (read_gridStateList[i][j])
 			{
-			case STICKY_BLOCK: //”S’…ƒuƒƒbƒN
+			case STICKY_BLOCK: //ç²˜ç€ãƒ–ãƒ­ãƒƒã‚¯
 
 				blocks.emplace_back(new BlockBace((STAGE_X * i + j), STICKY_BLOCK));
 
 				break;
-			case SLIP_BLOCK: //ŠŠ‚éƒuƒƒbƒN
+			case SLIP_BLOCK: //æ»‘ã‚‹ãƒ–ãƒ­ãƒƒã‚¯
 				blocks.emplace_back(new BlockBace((STAGE_X * i + j), SLIP_BLOCK));
 				break;
-			//case UNBREAK_BLOCK: //”j‰ó•s‰ÂƒuƒƒbƒN
+			//case UNBREAK_BLOCK: //ç ´å£Šä¸å¯ãƒ–ãƒ­ãƒƒã‚¯
 			//	blocks[j][i] = new BlockBace((STAGE_X * i + j), UNBREAK);
 			//	break;
-			defalt:  //‚»‚Ì‘¼‚Ìó‘Ô
+			defalt:  //ãã®ä»–ã®çŠ¶æ…‹
 
 				//blocks[j][i] = new BlockBace((STAGE_X * i + j), EMPTY);
 				break;
@@ -347,15 +349,15 @@ void StageScene::ReadFile()
 
 }
 
-//ˆÚ“®•ûŒü‚Ì•ÏX
+//ç§»å‹•æ–¹å‘ã®å¤‰æ›´
 void StageScene::UpdateMoveDir()
 {
 
-	if (hitBlockType[0] == GORL)//ƒ{[ƒ‹‚Ì‘O‚ÉƒS[ƒ‹ƒuƒƒbƒN‚ª‚ ‚ê‚Î
+	if (hitBlockType[0] == GORL)//ãƒœãƒ¼ãƒ«ã®å‰ã«ã‚´ãƒ¼ãƒ«ãƒ–ãƒ­ãƒƒã‚¯ãŒã‚ã‚Œã°
 	{
 		SceneManager::GetInstance()->ChangeScene(RESULT);
 	}
-	//ÅŒã‚ÉG‚ê‚½ƒuƒƒbƒN‚ğ•Û‘¶@‘O„‰E„¶
+	//æœ€å¾Œã«è§¦ã‚ŒãŸãƒ–ãƒ­ãƒƒã‚¯ã‚’ä¿å­˜ã€€å‰ï¼å³ï¼å·¦
 	if (hitBlockType[3] == STICKY_BLOCK)
 	{
 		prv_index = hitSafe[3];
@@ -372,13 +374,13 @@ void StageScene::UpdateMoveDir()
 
 
 
-	if (hitBlockType[0] != NULLBLOCK && hitBlockType[1] != NULLBLOCK && hitBlockType[2] != NULLBLOCK && hitBlockType[3] != NULLBLOCK) {//l•û‚ÉƒuƒƒbƒN‚ª‚ ‚ê‚Î
-		// ‚·‚×‚Ä true ‚Ìê‡‚Ìˆ—
+	if (hitBlockType[0] != NULLBLOCK && hitBlockType[1] != NULLBLOCK && hitBlockType[2] != NULLBLOCK && hitBlockType[3] != NULLBLOCK) {//å››æ–¹ã«ãƒ–ãƒ­ãƒƒã‚¯ãŒã‚ã‚Œã°
+		// ã™ã¹ã¦ true ã®å ´åˆã®å‡¦ç†
 		ball.SetMoveDir(STOP);
 	}
 	else
 	{
-		//’µ‚Ë•Ô‚è
+		//è·³ã­è¿”ã‚Š
 		if (hitBlockType[0] == SLIP_BLOCK || hitBlockType[0] == UNBREAK_BLOCK)
 		{
 			ball.SetrotDir(ball.GetrotDir() == true ? false : true);
@@ -397,23 +399,23 @@ void StageScene::UpdateMoveDir()
 		}
 
 
-		if (hitBlockType[3] != NULLBLOCK)//‰E‚ÉƒuƒƒbƒN‚ª‚ ‚é
+		if (hitBlockType[3] != NULLBLOCK)//å³ã«ãƒ–ãƒ­ãƒƒã‚¯ãŒã‚ã‚‹
 		{
-			if (hitBlockType[3] == SLIP_BLOCK || hitBlockType[2] == SLIP_BLOCK)//‰E‚ÉƒXƒ‰ƒCƒhƒuƒƒbƒN‚ª‚ ‚ê‚Î
+			if (hitBlockType[3] == SLIP_BLOCK || hitBlockType[2] == SLIP_BLOCK)//å³ã«ã‚¹ãƒ©ã‚¤ãƒ‰ãƒ–ãƒ­ãƒƒã‚¯ãŒã‚ã‚Œã°
 			{
-				if (hitBlockType[0] == NULLBLOCK)//‘O‚ÉƒuƒƒbƒN‚ª‚È‚¯‚ê‚Î
+				if (hitBlockType[0] == NULLBLOCK)//å‰ã«ãƒ–ãƒ­ãƒƒã‚¯ãŒãªã‘ã‚Œã°
 				{
 					prv_index = -1;
 					ball.Move();
 				}
 			}
 
-			if (hitBlockType[3] == STICKY_BLOCK)//‰E‚ÉƒXƒ‰ƒCƒhƒuƒƒbƒN‚ª‚ ‚ê‚Î
+			if (hitBlockType[3] == STICKY_BLOCK)//å³ã«ã‚¹ãƒ©ã‚¤ãƒ‰ãƒ–ãƒ­ãƒƒã‚¯ãŒã‚ã‚Œã°
 			{
 
-				if (hitBlockType[0] != NULLBLOCK)//‘O‚ÉƒuƒƒbƒN‚ª‚ ‚é
+				if (hitBlockType[0] != NULLBLOCK)//å‰ã«ãƒ–ãƒ­ãƒƒã‚¯ãŒã‚ã‚‹
 				{
-					if (hitBlockType[2] != NULLBLOCK)//¶‚ÉƒuƒƒbƒN‚ª‚ ‚é
+					if (hitBlockType[2] != NULLBLOCK)//å·¦ã«ãƒ–ãƒ­ãƒƒã‚¯ãŒã‚ã‚‹
 					{
 						ball.SetrotDir(ball.GetrotDir() == true ? false : true);
 						if (_moveDir == RIGHT) { ball.SetMoveDir(LEFT); }
@@ -439,11 +441,11 @@ void StageScene::UpdateMoveDir()
 				}
 			}
 		}
-		else//‰E‚ÉƒuƒƒbƒN‚ª‚È‚¢
+		else//å³ã«ãƒ–ãƒ­ãƒƒã‚¯ãŒãªã„
 		{
 
 			bool _rotdir = ball.GetrotDir();
-			//ƒ{[ƒ‹‚ª‰E‰ñ‚è‚È‚ç
+			//ãƒœãƒ¼ãƒ«ãŒå³å›ã‚Šãªã‚‰
 			if (_rotdir)
 			{
 				if (prv_index >= 0 && hitBlockType[2] == NULLBLOCK)
@@ -456,7 +458,7 @@ void StageScene::UpdateMoveDir()
 					}
 				}
 			}
-			else//ƒ{[ƒ‹‚ª¶‰ñ‚è‚È‚ç
+			else//ãƒœãƒ¼ãƒ«ãŒå·¦å›ã‚Šãªã‚‰
 			{
 				if (prv_index >= 0 && hitBlockType[2] == NULLBLOCK)
 				{
@@ -472,19 +474,19 @@ void StageScene::UpdateMoveDir()
 	}
 }
 
-//üˆÍ8ƒ}ƒX‚Ì‚ ‚½‚è”»’è‚ğæ‚é
+//å‘¨å›²8ãƒã‚¹ã®ã‚ãŸã‚Šåˆ¤å®šã‚’å–ã‚‹
 void StageScene::CheckSurroundingCollisions()
 {
-	// üˆÍ‚Ì8ƒ}ƒX‚Ì‚ ‚½‚è”»’è‚ğXV
+	// å‘¨å›²ã®8ãƒã‚¹ã®ã‚ãŸã‚Šåˆ¤å®šã‚’æ›´æ–°
 	surroundingBlocks.clear();
-	surroundingBlocks.emplace_back(center.x - BLOCKSIZE_X, center.y + BLOCKSIZE_Y);//¶ã
-	surroundingBlocks.emplace_back(center.x, center.y + BLOCKSIZE_Y);          //ã
-	surroundingBlocks.emplace_back(center.x + BLOCKSIZE_X, center.y + BLOCKSIZE_Y);//‰Eã
-	surroundingBlocks.emplace_back(center.x - BLOCKSIZE_X, center.y);          //¶
-	surroundingBlocks.emplace_back(center.x + BLOCKSIZE_X, center.y);          //‰E
-	surroundingBlocks.emplace_back(center.x - BLOCKSIZE_X, center.y - BLOCKSIZE_Y);//¶‰º
-	surroundingBlocks.emplace_back(center.x, center.y - BLOCKSIZE_Y);          //‰º
-	surroundingBlocks.emplace_back(center.x + BLOCKSIZE_X, center.y - BLOCKSIZE_Y);//‰E‰º
+	surroundingBlocks.emplace_back(center.x - BLOCKSIZE_X, center.y + BLOCKSIZE_Y);//å·¦ä¸Š
+	surroundingBlocks.emplace_back(center.x, center.y + BLOCKSIZE_Y);          //ä¸Š
+	surroundingBlocks.emplace_back(center.x + BLOCKSIZE_X, center.y + BLOCKSIZE_Y);//å³ä¸Š
+	surroundingBlocks.emplace_back(center.x - BLOCKSIZE_X, center.y);          //å·¦
+	surroundingBlocks.emplace_back(center.x + BLOCKSIZE_X, center.y);          //å³
+	surroundingBlocks.emplace_back(center.x - BLOCKSIZE_X, center.y - BLOCKSIZE_Y);//å·¦ä¸‹
+	surroundingBlocks.emplace_back(center.x, center.y - BLOCKSIZE_Y);          //ä¸‹
+	surroundingBlocks.emplace_back(center.x + BLOCKSIZE_X, center.y - BLOCKSIZE_Y);//å³ä¸‹
 
 	for (int i = 0; i < 4; i++)
 	{
@@ -496,16 +498,16 @@ void StageScene::CheckSurroundingCollisions()
 
 	_moveDir = ball.GetMoveDir();
 
-	// ‚ ‚½‚è”»’è‚Ìã‰º¶‰Ew’è
+	// ã‚ãŸã‚Šåˆ¤å®šã®ä¸Šä¸‹å·¦å³æŒ‡å®š
 	if (_moveDir == RIGHT) { hitIndex[0] = 4; hitIndex[1] = 3; hitIndex[2] = 1; hitIndex[3] = 6; } // front = 4, back = 3,left = 1,right = 6
 	else if (_moveDir == LEFT) { hitIndex[0] = 3; hitIndex[1] = 4; hitIndex[2] = 6; hitIndex[3] = 1; }// front = 3, back = 4,left = 6,right = 1
 	else if (_moveDir == UP) { hitIndex[0] = 1; hitIndex[1] = 6; hitIndex[2] = 3; hitIndex[3] = 4; }// front = 1, back = 6,left = 3,right = 4
 	else if (_moveDir == DOWN) { hitIndex[0] = 6; hitIndex[1] = 1; hitIndex[2] = 4; hitIndex[3] = 3; }// front = 6, back = 1,left = 4,right = 3
 
-	// **ƒ{[ƒ‹‚ÌüˆÍ8ƒ}ƒX‚ÌƒuƒƒbƒN‚Ì‚İ‚ğ’Tõ**
+	// **ãƒœãƒ¼ãƒ«ã®å‘¨å›²8ãƒã‚¹ã®ãƒ–ãƒ­ãƒƒã‚¯ã®ã¿ã‚’æ¢ç´¢**
 	nearbyBlocks = GetNearbyBlocks(surroundingBlocks);
 
-	//‚ ‚½‚è”»’è@‚OFfront@‚PFback@‚QFleft@‚RFright
+	//ã‚ãŸã‚Šåˆ¤å®šã€€ï¼ï¼šfrontã€€ï¼‘ï¼šbackã€€ï¼’ï¼šleftã€€ï¼“ï¼šright
 	for (int i = 0; i < 4; ++i) {
 		if (hitIndex[i] != -1) {
 			for (BlockBace* blk : nearbyBlocks) {
@@ -520,8 +522,8 @@ void StageScene::CheckSurroundingCollisions()
 	}
 }
 
-//‚P‘Î‚P‚Ì‚ ‚½‚è”»’è
-bool StageScene::Collision(BlockBace* obj1/*ƒXƒe[ƒW‚ÌƒuƒƒbƒN*/, const std::pair<float, float>& obj2)
+//ï¼‘å¯¾ï¼‘ã®ã‚ãŸã‚Šåˆ¤å®š
+bool StageScene::Collision(BlockBace* obj1/*ã‚¹ãƒ†ãƒ¼ã‚¸ã®ãƒ–ãƒ­ãƒƒã‚¯*/, const std::pair<float, float>& obj2)
 {
 	DirectX::XMFLOAT3 pos = obj1->GetPos();
 	DirectX::XMFLOAT3 size = obj1->GetSize();
@@ -531,7 +533,7 @@ bool StageScene::Collision(BlockBace* obj1/*ƒXƒe[ƒW‚ÌƒuƒƒbƒN*/, const std::pai
 	col_x = obj2.first;
 	col_y = obj2.second;
 
-	// Še•Ó‚Ì”äŠr
+	// å„è¾ºã®æ¯”è¼ƒ
 	float block_left = pos.x - size.x / 2.0f;
 	float block_right = pos.x + size.x / 2.0f;
 	float block_top = pos.y - size.y / 2.0f;
@@ -542,22 +544,22 @@ bool StageScene::Collision(BlockBace* obj1/*ƒXƒe[ƒW‚ÌƒuƒƒbƒN*/, const std::pai
 	float col_top = col_y - BLOCKSIZE_Y / 2.0f;
 	float col_bottom = col_y + BLOCKSIZE_Y / 2.0f;
 
-	// **“–‚½‚è”»’è**
+	// **å½“ãŸã‚Šåˆ¤å®š**
 	return (block_right > col_left &&
 		block_left < col_right &&
 		block_bottom > col_top &&
 		block_top < col_bottom);
 }
 
-// **ƒ{[ƒ‹‚ÌüˆÍ 8 ƒ}ƒX‚É‚ ‚éƒuƒƒbƒN‚ğæ“¾**
+// **ãƒœãƒ¼ãƒ«ã®å‘¨å›² 8 ãƒã‚¹ã«ã‚ã‚‹ãƒ–ãƒ­ãƒƒã‚¯ã‚’å–å¾—**
 std::vector<BlockBace*> StageScene::GetNearbyBlocks(const std::vector<std::pair<float, float>>& surroundingBlocks)
 {
 	std::vector<BlockBace*> result;
 	for (size_t i = 0; i < blocks.size(); i++) {
 		DirectX::XMFLOAT3 blockPos = blocks[i]->GetPos();
-		for (size_t j = 0; j < surroundingBlocks.size(); j++) { // `surroundingBlocks` ‚ÌƒTƒCƒY‚ÉŠî‚Ã‚¢‚Äƒ‹[ƒv
-			if (std::abs(blockPos.x - surroundingBlocks[j].first) < 0.1f && // `.first` ‚É•ÏX
-				std::abs(blockPos.y - surroundingBlocks[j].second) < 0.1f) { // `.second` ‚É•ÏX
+		for (size_t j = 0; j < surroundingBlocks.size(); j++) { // `surroundingBlocks` ã®ã‚µã‚¤ã‚ºã«åŸºã¥ã„ã¦ãƒ«ãƒ¼ãƒ—
+			if (std::abs(blockPos.x - surroundingBlocks[j].first) < 0.1f && // `.first` ã«å¤‰æ›´
+				std::abs(blockPos.y - surroundingBlocks[j].second) < 0.1f) { // `.second` ã«å¤‰æ›´
 				result.push_back(blocks[i]);
 				break;
 			}
