@@ -4,7 +4,7 @@
 SelectScene::SelectScene() :
 	Scene(SCENENAME::SELECT)
 {
-	stateNum = WOELDSELECTSCENE;
+	stateNum = WORLDSELECTSCENE;
 	
 }
 
@@ -21,14 +21,30 @@ int SelectScene::Start()
 	//ワールドで、同じ値のもの
 	for (int i = 0; i < 6; i++)
 	{
+		//ワールドセレクトボタン
 		selectImage_world[i].Init(L"asset/UI/Flame2.png"/*, 10, 1*/);
-		selectImage_world[i].SetSize(400.0f, 100.0f, 0.0f);
+		selectImage_world[i].SetSize(622.0f, 120.0f, 0.0f);
 		selectImage_world[i].SetAngle(0.0f);
 		selectImage_world[i].SetColor(1.0f, 1.0f, 1.0f, 1.0f);
 		//selectImage_world[i].numU = i + 1;
 
-		selectImage_world[i].SetPos(635, (selectImage_world[i].GetSize().y + 20) * (2 - i), 0);
+		selectImage_world[i].SetPos(550, ((selectImage_world[i].GetSize().y + 10) * -i /*- 216*/) + 300, 0);
 
+		//Worldの文字
+		worldNameImage[i].Init(L"asset/UI/WorldSelect.png", 2, 1);
+		worldNameImage[i].SetPos(selectImage_world[i].GetPos().x, selectImage_world[i].GetPos().y, selectImage_world[i].GetPos().z);
+		worldNameImage[i].SetSize(325, 100, 0);
+		worldNameImage[i].SetAngle(0);
+		worldNameImage[i].SetColor(1, 1, 1, 1);
+
+		//番号
+		numberText[i].Init(L"asset/UI/suuji-1.png", 1, 11);
+		numberText[i].SetSize(100, 100, 0);
+		numberText[i].SetAngle(0);
+		numberText[i].SetColor(1, 1, 1, 1);
+		numberText[i].numV = i + 1;
+
+		//635
 	}
 
 	//ワールドごとに違うもの
@@ -64,7 +80,7 @@ int SelectScene::Start()
 	大きさ 78　四方
 	
 	メニュー　大きさ　上と同じ
-	x,704 y,476
+	x,-704 y,476
 
 	ステージの名前　座標　x,-835 y,-178
 	大きさ　x,880 y,161
@@ -74,20 +90,25 @@ int SelectScene::Start()
 
 	ステージ2 x,166 y,2
 
-	ステージ5 x," y,219
+	差　337
+
+	ステージ5 x," y,-219
 
 	*/
 	
 	//ステージで、同じ値のもの
 	for (int i = 0; i < 5; i++)
 	{
-		selectImage_stage[i].Init(L"asset/number.png", 10, 1);
-		selectImage_stage[i].SetSize(100.0f, 100.0f, 0.0f);
+		//ステージセレクトボタン
+		selectImage_stage[i].Init(L"asset/UI/Flame2.png");
+		selectImage_stage[i].SetSize(622.0f, 100.0f, 0.0f);
 		selectImage_stage[i].SetAngle(0.0f);
-		selectImage_stage[i].SetColor(1.0f, 1.0f, 0.0f, 1.0f);
-		selectImage_stage[i].numU = i + 1;
+		selectImage_stage[i].SetColor(1.0f, 1.0f, 1.0f, 1.0f);
+		//selectImage_stage[i].numU = i + 1;
 
-		selectImage_stage[i].SetPos(635, (selectImage_stage[i].GetSize().y + 20) * (2 - i), 0);
+		//0番を基点として考える
+		selectImage_stage[i].SetPos(550, ((selectImage_world[i].GetSize().y + 10) * -i /*- 216*/) + 300, 0);
+		/*(166, (selectImage_stage[i].GetSize().y * -i - 216) + 339, 0);*/
 	}
 
 	//ステージごとに違うもの
@@ -109,8 +130,8 @@ int SelectScene::Start()
 
 	//戻るボタン
 	backButton.Init(L"asset/UI/back.png");
-	backButton.SetPos(-860.0f, 440.0f, 0.0f);
-	backButton.SetSize(50.0f, 50.0f, 0.0f);
+	backButton.SetPos(-836.0f, 476.0f, 0.0f);
+	backButton.SetSize(78.0f, 78.0f, 0.0f);
 	backButton.SetAngle(0.0f);
 	backButton.SetColor(1.0f, 1.0f, 1.0f, 1.0f);
 
@@ -123,12 +144,39 @@ int SelectScene::Start()
 	backGround.SetColor(1, 1, 1, 1);
 
 	//ステージ画面
+	stageTexture.Init(L"asset/Background/haikei2.png");
+	stageTexture.SetSize(1067,600,0);
+	stageTexture.SetPos(-350, (selectImage_stage[0].GetPos().y + selectImage_stage[0].GetSize().y / 2) - stageTexture.GetSize().y / 2, 0);
+	stageTexture.SetAngle(0);
+	stageTexture.SetColor(1, 1, 1, 1);
 
 	//ステージ名
+	stageName.Init(L"asset/UI/Flame2.png");
+	stageName.SetPos(-350, -378, 0);
+	stageName.SetSize(1067, 161, 0);
+	stageName.SetAngle(0);
+	stageName.SetColor(1, 1, 1, 1);
 
 	//スタートボタン
+	startButton.Init(L"asset/UI/start.png");
+	startButton.SetPos(704.0f, -400.0f, 0.0f);
+	startButton.SetSize(311.0f, 100.0f, 0.0f);
+	startButton.SetAngle(0);
+	startButton.SetColor(1, 1, 1, 1);
 
-	stateNum = WOELDSELECTSCENE;
+	//メニューボタン
+	menuButton.Init(L"asset/UI/ハンバーガーアイコン100x100.png");
+	menuButton.SetPos(-704.0f, 476.0f, 0.0f);
+	menuButton.SetSize(78.0f, 78.0f, 0.0f);
+	menuButton.SetAngle(0);
+	menuButton.SetColor(1, 1, 1, 1);
+
+
+
+
+
+
+	stateNum = WORLDSELECTSCENE;
 
 	return 0;
 
@@ -140,10 +188,17 @@ int SelectScene::Update()
 	//ワールド、ステージセレクト
 	switch (stateNum)
 	{
-	case WOELDSELECTSCENE:
+	case WORLDSELECTSCENE:
 		/*メモ書き
 		パソコンのディスプレイの拡大・縮小倍率によってマウスカーソルの座標が本来の値と違う値になることがある*/
 		
+		for (int i = 0; i < 6; i++)
+		{
+			//番号の座標をセット
+			numberText[i].SetPos(worldNameImage[i].GetPos().x + worldNameImage[i].GetSize().x / 2 + numberText[i].GetSize().x / 2,
+				worldNameImage[i].GetPos().y - 2, 0);
+		}
+	
 		//クリックされたら
 		if (inputSystem->GetTrigger(MK_LEFT))
 		{
@@ -194,7 +249,6 @@ int SelectScene::Update()
 
 					}
 				}
-				
 			}
 
 		}
@@ -269,11 +323,11 @@ int SelectScene::Update()
 			{
 				switch (stateNum)
 				{
-				case WOELDSELECTSCENE://タイトルシーンに戻る
+				case WORLDSELECTSCENE://タイトルシーンに戻る
 					SceneManager::GetInstance()->ChangeScene(TITLE);
 					break;
 				case STAGESELECTSCENE: //ワールドセレクトに戻る
-					stateNum = WOELDSELECTSCENE;
+					stateNum = WORLDSELECTSCENE;
 					worldNum = NOTDONE_WORLD;
 					break;
 				}
@@ -294,10 +348,12 @@ int SelectScene::Draw()
 
 	switch (stateNum)
 	{
-	case WOELDSELECTSCENE:
+	case WORLDSELECTSCENE:
 		for (int i = 0; i < 6; i++)
 		{
 			selectImage_world[i].Draw();
+			worldNameImage[i].Draw();
+			numberText[i].Draw();
 		}
 
 		break;
@@ -307,12 +363,25 @@ int SelectScene::Draw()
 		{
 			selectImage_stage[i].Draw();
 		}
+
+		stageTexture.Draw();
+
+		startButton.Draw();
+
+		stageName.Draw();
+
 		break;
 	case SETSTAGE:
 		break;
 	}
 
+	
+
 	backButton.Draw();
+
+	menuButton.Draw();
+
+	
 
 	return 0;
 }

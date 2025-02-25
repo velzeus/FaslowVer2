@@ -4,7 +4,7 @@
 //画面に表示するものの状態
 enum DRAWSTATE
 {
-    WOELDSELECTSCENE = 0,
+    WORLDSELECTSCENE = 0,
     STAGESELECTSCENE,
     SETSTAGE,
 };
@@ -36,6 +36,12 @@ private:
     //ワールド
     Object selectImage_world[6];
 
+    //Worldの文字
+    Object worldNameImage[6];
+
+    //番号
+    Object numberText[6];
+
     //ステージ
     Object selectImage_stage[5];
     
@@ -53,5 +59,8 @@ private:
 
     //スタートボタン
     Object startButton;
+
+    //メニューボタン
+    Object menuButton;
 };
 
