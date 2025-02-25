@@ -1,1 +1,5 @@
-﻿  DirectXInit.vcxproj -> C:\Users\richs\Documents\GitHub\FaslowVer2\x64\Debug\DirectXInit.exe
+﻿  SelectScene.cpp
+C:\Users\richs\Documents\GitHub\FaslowVer2\DirectXInit\SceneFolder\SceneManager.h(1,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+C:\Users\richs\Documents\GitHub\FaslowVer2\DirectXInit\SceneFolder\Scenes\SelectScene.cpp(46,26): warning C4244: '=': 'int' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\richs\Documents\GitHub\FaslowVer2\DirectXInit\SceneFolder\Scenes\SelectScene.cpp(277,32): warning C4244: '=': 'int' から 'float' への変換です。データが失われる可能性があります。
+  DirectXInit.vcxproj -> C:\Users\richs\Documents\GitHub\FaslowVer2\x64\Debug\DirectXInit.exe

@@ -36,6 +36,7 @@ int SelectScene::Start()
 		worldNameImage[i].SetSize(325, 100, 0);
 		worldNameImage[i].SetAngle(0);
 		worldNameImage[i].SetColor(1, 1, 1, 1);
+		worldNameImage[i].numU = 0;
 
 		//番号
 		numberText[i].Init(L"asset/UI/suuji-1.png", 1, 11);
@@ -46,25 +47,6 @@ int SelectScene::Start()
 
 		//635
 	}
-
-	//ワールドごとに違うもの
-	////ワールド1
-	//selectImage_world[0].SetPos(-635, 50, 0.0f);
-	//
-	////ワールド2
-	//selectImage_world[1].SetPos(0, 50, 0.0f);
-
-	////ワールド3
-	//selectImage_world[2].SetPos(635, 50, 0.0f);
-
-	////ワールド4
-	//selectImage_world[3].SetPos(-650, -400, 0.0f);
-	//
-	////ワールド5
-	//selectImage_world[4].SetPos(0, -400, 0.0f);
-
-	////ワールド6
-	//selectImage_world[5].SetPos(650, -400, 0.0f);
 
 	/*
 	メモ欄
@@ -101,7 +83,7 @@ int SelectScene::Start()
 	{
 		//ステージセレクトボタン
 		selectImage_stage[i].Init(L"asset/UI/Flame2.png");
-		selectImage_stage[i].SetSize(622.0f, 100.0f, 0.0f);
+		selectImage_stage[i].SetSize(622.0f, 120.0f, 0.0f);
 		selectImage_stage[i].SetAngle(0.0f);
 		selectImage_stage[i].SetColor(1.0f, 1.0f, 1.0f, 1.0f);
 		//selectImage_stage[i].numU = i + 1;
@@ -109,24 +91,15 @@ int SelectScene::Start()
 		//0番を基点として考える
 		selectImage_stage[i].SetPos(550, ((selectImage_world[i].GetSize().y + 10) * -i /*- 216*/) + 300, 0);
 		/*(166, (selectImage_stage[i].GetSize().y * -i - 216) + 339, 0);*/
+
+		//Stageの文字
+		stageNameImage[i].Init(L"asset/UI/StageSelect.png", 2, 1);
+		stageNameImage[i].SetPos(selectImage_world[i].GetPos().x, selectImage_world[i].GetPos().y, selectImage_world[i].GetPos().z);
+		stageNameImage[i].SetSize(325, 100, 0);
+		stageNameImage[i].SetAngle(0);
+		stageNameImage[i].SetColor(1, 1, 1, 1);
+		stageNameImage[i].numU = 0;
 	}
-
-	//ステージごとに違うもの
-	////ステージ1
-	//selectImage_stage[0].SetPos(-150, 100, 0.0f);
-
-	////ステージ2
-	//selectImage_stage[1].SetPos(0, 100, 0.0f);
-
-	////ステージ3
-	//selectImage_stage[2].SetPos(150, 100, 0.0f);
-
-	////ステージ4
-	//selectImage_stage[3].SetPos(-75, -100, 0.0f);
-
-	////ステージ5
-	//selectImage_stage[4].SetPos(75, -100, 0.0f);
-
 
 	//戻るボタン
 	backButton.Init(L"asset/UI/back.png");
@@ -145,17 +118,32 @@ int SelectScene::Start()
 
 	//ステージ画面
 	stageTexture.Init(L"asset/Background/haikei2.png");
-	stageTexture.SetSize(1067,600,0);
-	stageTexture.SetPos(-350, (selectImage_stage[0].GetPos().y + selectImage_stage[0].GetSize().y / 2) - stageTexture.GetSize().y / 2, 0);
+	stageTexture.SetSize(1155,650,0);
+	stageTexture.SetPos(-350, (selectImage_stage[0].GetPos().y + selectImage_stage[0].GetSize().y / 2) - stageTexture.GetSize().y / 2 + 20, 0);
 	stageTexture.SetAngle(0);
 	stageTexture.SetColor(1, 1, 1, 1);
 
+	//ステージ名の枠
+	stageNameFlame.Init(L"asset/UI/Flame2.png");
+	stageNameFlame.SetPos(-350, -378, 0);
+	stageNameFlame.SetSize(1067, 161, 0);
+	stageNameFlame.SetAngle(0);
+	stageNameFlame.SetColor(1, 1, 1, 1);
+
 	//ステージ名
-	stageName.Init(L"asset/UI/Flame2.png");
-	stageName.SetPos(-350, -378, 0);
-	stageName.SetSize(1067, 161, 0);
+	stageName.Init(L"asset/UI/StageSelect.png", 2, 1);
+	stageName.SetPos(stageNameFlame.GetPos().x, stageNameFlame.GetPos().y, 0);
+	stageName.SetSize(488, 150, 0);
 	stageName.SetAngle(0);
 	stageName.SetColor(1, 1, 1, 1);
+
+	//ステージ名の番号
+	stageNameNumber.Init(L"asset/UI/suuji-1.png", 1, 11);
+	stageNameNumber.SetSize(150, 150, 0);
+	stageNameNumber.SetPos((stageName.GetPos().x + stageName.GetSize().x / 2 + stageNameNumber.GetSize().x / 2), stageName.GetPos().y-3, 0);
+	stageNameNumber.SetAngle(0);
+	stageNameNumber.SetColor(1, 1, 1, 1);
+	stageNameNumber.numV = 1;
 
 	//スタートボタン
 	startButton.Init(L"asset/UI/start.png");
@@ -170,9 +158,6 @@ int SelectScene::Start()
 	menuButton.SetSize(78.0f, 78.0f, 0.0f);
 	menuButton.SetAngle(0);
 	menuButton.SetColor(1, 1, 1, 1);
-
-
-
 
 
 
@@ -258,6 +243,7 @@ int SelectScene::Update()
 		//クリックされたら
 		if (inputSystem->GetTrigger(MK_LEFT))
 		{
+			//ステージセレクトの枠
 			for (int i = 0; i < 5; i++)
 			{
 				//クリックされたx座標が内側にあったら
@@ -287,11 +273,26 @@ int SelectScene::Update()
 							break;
 						}
 
-						stateNum = SETSTAGE;
+						//番号をセット
+						stageNameNumber.numV = i + 1;
 
 					}
 				}
 
+			}
+
+			//スタートボタン
+			//クリックされたx座標が内側にあったら
+			if (inputSystem->GetClickPosition().x - SCREEN_WIDTH / 2 > (startButton.GetPos().x - startButton.GetSize().x / 2) &&
+				inputSystem->GetClickPosition().x - SCREEN_WIDTH / 2 < (startButton.GetPos().x + startButton.GetSize().x / 2))
+			{
+				//
+				if ((inputSystem->GetClickPosition().y - SCREEN_HEIGHT / 2) * -1 > (startButton.GetPos().y - startButton.GetSize().y / 2) &&
+					(inputSystem->GetClickPosition().y - SCREEN_HEIGHT / 2) * -1 < (startButton.GetPos().y + startButton.GetSize().y / 2))
+				{
+					//状態を変える
+					stateNum = SETSTAGE;
+				}
 			}
 
 		}
@@ -362,13 +363,19 @@ int SelectScene::Draw()
 		for (int i = 0; i < 5; i++)
 		{
 			selectImage_stage[i].Draw();
+			stageNameImage[i].Draw();
+			numberText[i].Draw();
+
 		}
 
 		stageTexture.Draw();
 
 		startButton.Draw();
 
+		stageNameFlame.Draw();
+
 		stageName.Draw();
+		stageNameNumber.Draw();
 
 		break;
 	case SETSTAGE:

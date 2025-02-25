@@ -44,6 +44,9 @@ private:
 
     //ステージ
     Object selectImage_stage[5];
+
+    //Stageの文字
+    Object stageNameImage[5];
     
     //戻るボタン
     Object backButton;
@@ -56,6 +59,12 @@ private:
 
     //ステージ名
     Object stageName;
+
+    //ステージ名の枠
+    Object stageNameFlame;
+
+    //ステージ名の番号
+    Object stageNameNumber;
 
     //スタートボタン
     Object startButton;
