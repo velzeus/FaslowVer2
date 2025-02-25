@@ -4,6 +4,18 @@ using namespace std;
 
 using json = nlohmann::json;
 
+struct  TS_Float4
+{
+public:
+	float x, y, z, a;
+	TS_Float4(float _x, float _y, float _z, float _a) :x(_x), y(_y), z(_z), a(_a) {};
+};
+
+//右クリック
+//glay<->blueへじわじわと変化できるように(20フレームで)
+const TS_Float4 StageBG_Glay(1.0f, 1.0f, 1.0f, 1);
+const TS_Float4 StageBG_Blue(0.0f, 0.6f, 1.0f, 1);
+
 //jsonに変換するための関数
 void to_json(json& j, const VECTOR2& v)
 {
@@ -48,18 +60,45 @@ int StageScene::Start()
 			//マスの状態を代入
 			gridData[x][y] = read_gridStateList[y][x];
 
-			//ゴールを別個に作る
-			if (gridData[x][y] == GORL)
+			////ゴールを別個に作る
+			//if (gridData[x][y] == GORL)
+			//{
+			//	gorl.Init(L"asset/Goll/TeamName/Team_Name.png");
+			//	gorl.SetPos(read_blockPositionList[y][x].x, read_blockPositionList[y][x].y, 0.0f);
+			//	gorl.SetSize(BLOCKSIZE_X, BLOCKSIZE_Y, 0.0f);
+			//	gorl.SetAngle(0.0f);
+			//	gorl.SetColor(1.0f, 1.0f, 1.0f, 1.0f);
+			//}
+			//else if (gridData[x][y] == BOLL) {
+			//	ball.SetPos(read_blockPositionList[y][x].x, read_blockPositionList[y][x].y, 0);
+			//	gridData[x][y] = NULLBLOCK;
+			//}
+			
+			//表示させるだけ
+			switch (gridData[x][y])
 			{
+			case GORL:
 				gorl.Init(L"asset/Goll/TeamName/Team_Name.png");
 				gorl.SetPos(read_blockPositionList[y][x].x, read_blockPositionList[y][x].y, 0.0f);
 				gorl.SetSize(BLOCKSIZE_X, BLOCKSIZE_Y, 0.0f);
 				gorl.SetAngle(0.0f);
+				gorl.SetAngle(0.0f);
 				gorl.SetColor(1.0f, 1.0f, 1.0f, 1.0f);
-			}
-			else if (gridData[x][y] == BOLL) {
+				gridData[x][y] = NULLBLOCK;
+				break;
+			case BOLL:
 				ball.SetPos(read_blockPositionList[y][x].x, read_blockPositionList[y][x].y, 0);
 				gridData[x][y] = NULLBLOCK;
+				break;
+			case COIN:
+				coin.Init(L"asset/Coin/1coin.png");
+				coin.SetPos(read_blockPositionList[y][x].x, read_blockPositionList[y][x].y, 0.0f);
+				coin.SetSize(BLOCKSIZE_X, BLOCKSIZE_Y, 0.0f);
+				coin.SetAngle(0.0f);
+				coin.SetAngle(0.0f);
+				coin.SetColor(1.0f, 1.0f, 1.0f, 1.0f);
+				gridData[x][y] = NULLBLOCK;
+				break;
 			}
 
 			//ブロック
@@ -89,12 +128,6 @@ int StageScene::Start()
 					break;
 				}
 			}
-
-			
-
-			
-
-
 		}
 	}
 
@@ -112,12 +145,26 @@ int StageScene::Start()
 	optionButton.SetColor(1.0f, 1.0f, 1.0f, 1.0f);
 
 	//リトライボタン
-	retryButton.Init(L"asset/UI/ハンバーガーアイコン100x100.png");
+	retryButton.Init(L"asset/UI/Hamburger_icon_100x100.png");
 	//retryButton.Init(L"asset/block.png");
 	retryButton.SetPos(-860.0f, -440.0f, 0.0f);
 	retryButton.SetSize(50.0f, 50.0f, 0);
 	retryButton.SetAngle(0);
 	retryButton.SetColor(1, 1, 1, 1);
+
+	//背景
+	background.Init(L"asset/background/Background_glay.png");
+	background.SetPos(-190, 50, 0);
+	background.SetSize(1280, 720, 0);
+	background.SetAngle(0);
+	background.SetColor(StageBG_Glay.x, StageBG_Glay.y, StageBG_Glay.z, StageBG_Glay.a);
+
+	
+	accelerationFlg = false;
+
+	triggerFlg_N = false;
+	triggerFlg_O = false;
+	triggerFlg_T = false;
 
 	return 0;
 }
@@ -135,7 +182,7 @@ int StageScene::Update()
 		UpdateMoveDir();//ボールの方向を変える
 		ball.Setborder();//端に行った時
 
-		cout << "実行" << endl;
+		//cout << "実行" << endl;
 	}
 
 	//色をつける
@@ -170,9 +217,20 @@ int StageScene::Update()
 		}
 	}
 
-	//戻るボタン
+	
+	//ゴールの判定
+	bool tmpGorlFlg=false;
+	if (tmpGorlFlg == true)
+	{
+		//リザルトシーンに戻る
+		SceneManager::GetInstance()->ChangeScene(RESULT);
+	}
+
+
+	//左クリック
 	if (inputSystem->GetTrigger(MK_LEFT))
 	{
+		//戻るボタン
 		//クリックされたx座標が内側にあったら
 		if (inputSystem->GetClickPosition().x - SCREEN_WIDTH / 2 > (optionButton.GetPos().x - optionButton.GetSize().x / 2) &&
 			inputSystem->GetClickPosition().x - SCREEN_WIDTH / 2 < (optionButton.GetPos().x + optionButton.GetSize().x / 2))
@@ -208,7 +266,7 @@ int StageScene::Update()
 				//SceneManager::GetInstance()->SetStageNumber(NOTDONE_STAGE);
 
 
-				//セレクトシーンに戻る
+				//リザルトシーンに戻る
 				SceneManager::GetInstance()->ChangeScene(RESULT);
 			}
 
@@ -240,11 +298,105 @@ int StageScene::Update()
 
 	}
 
+	//トリガー更新
+	triggerFlg_O = triggerFlg_N;
+
+	//右クリック(トリガー方式の切り替え)
+	if (inputSystem->GetTrigger(MK_RIGHT))
+	{
+		triggerFlg_N = true;
+	}
+	else
+	{
+		triggerFlg_N = false;
+	}
+
+	//トリガー発生
+	if (triggerFlg_O == false && triggerFlg_N == true)
+	{
+		triggerFlg_T = true;
+	}
+	else
+	{
+		triggerFlg_T = false;
+	}
+
+	//トリガーが立っていたら
+	if (triggerFlg_T == true)
+	{
+		//加速フラグの状態に合わせて状態を入れ替える
+		if (accelerationFlg == true)		//加速状態
+		{
+			accelerationFlg = false;
+			//background.SetColor(StageBG_Glay.x, StageBG_Glay.y, StageBG_Glay.z, StageBG_Glay.a);
+		}
+		else if (accelerationFlg == false)	//通常状態
+		{
+			accelerationFlg = true;
+			//background.SetColor(StageBG_Blue.x, StageBG_Blue.y, StageBG_Blue.z, StageBG_Blue.a);
+		}
+
+	}
+
+	DirectX::XMFLOAT4 color = background.GetColor();
+
+	//通常->加速状態
+	if (accelerationFlg == true)
+	{
+		//色が変更後の状態よりも大きい値なら
+		if (color.x > StageBG_Blue.x ||
+			color.y > StageBG_Blue.y ||
+			color.z > StageBG_Blue.z ||
+			color.w > StageBG_Blue.a)
+		{
+			//変更前-変更後の差の絶対値 / 変化に要するフレーム数
+			color.x -= std::abs((StageBG_Glay.x - StageBG_Blue.x)) / 20;
+			color.y -= std::abs((StageBG_Glay.y - StageBG_Blue.y)) / 20;
+			color.z -= std::abs((StageBG_Glay.z - StageBG_Blue.z)) / 20;
+			color.w -= std::abs((StageBG_Glay.a - StageBG_Blue.a)) / 20;
+		}
+		else//変更後の値以下になったら
+		{
+			color.x = StageBG_Blue.x;
+			color.y = StageBG_Blue.y;
+			color.z = StageBG_Blue.z;
+			color.w = StageBG_Blue.a;
+		}
+	}
+	//加速状態->通常
+	else if (accelerationFlg == false)
+	{
+		//色が変更後の状態よりも小さい値なら
+		if (color.x < StageBG_Glay.x ||
+			color.y < StageBG_Glay.y ||
+			color.z < StageBG_Glay.z ||
+			color.w < StageBG_Glay.a)
+		{
+			//変更前-変更後の差の絶対値 / 変化に要するフレーム数
+			color.x += std::abs((StageBG_Blue.x - StageBG_Glay.x)) / 20;
+			color.y += std::abs((StageBG_Blue.y - StageBG_Glay.y)) / 20;
+			color.z += std::abs((StageBG_Blue.z - StageBG_Glay.z)) / 20;
+			color.w += std::abs((StageBG_Blue.a - StageBG_Glay.a)) / 20;
+		}
+		else//変更後の値以上になったら
+		{
+			color.x = StageBG_Glay.x;
+			color.y = StageBG_Glay.y;
+			color.z = StageBG_Glay.z;
+			color.w = StageBG_Glay.a;
+		}
+	}
+
+
+
+	background.SetColor(color.x, color.y, color.z, color.w);
+
 	return 0;
 }
 
 int StageScene::Draw()
 {
+	background.Draw();
 	//ブロックを表示
 	for (int x = 0; x < STAGE_X; x++)
 	{
@@ -259,6 +411,7 @@ int StageScene::Draw()
 		
 		blocks[i]->Draw();
 	}
+	coin.Draw();
 	ball.Draw();
 	optionButton.Draw();
 
@@ -312,7 +465,9 @@ void StageScene::ReadFile()
 	{
 		//cout << "ファイルの読み込みに失敗しました" << endl;
 		//読み込めなかった場合、ウィンドウを表示
-		MessageBoxA(NULL, "ファイルの読み込みに失敗しました", "確認", MB_OK);
+		//MessageBoxA(NULL, "ファイルの読み込みに失敗しました", "確認", MB_OK);
+		//MessageBoxA(NULL, "現在制作中", "確認", MB_OK);
+
 	}
 
 	//BlockBaseに対応する形に変換

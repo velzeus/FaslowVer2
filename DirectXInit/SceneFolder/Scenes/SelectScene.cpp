@@ -109,7 +109,7 @@ int SelectScene::Start()
 	backButton.SetColor(1.0f, 1.0f, 1.0f, 1.0f);
 
 	//背景
-	backGround.Init(L"asset/Background/壁紙_01.png");
+	backGround.Init(L"asset/background/Background_blue.png");
 	//backGround.Init(L"asset/StageSelect/タイトルアニメーション_背景2.gif");
 	backGround.SetPos(0.0f, 0.0f, 0.0f);
 	backGround.SetSize(SCREEN_WIDTH, SCREEN_HEIGHT, 0.0f);
@@ -153,13 +153,13 @@ int SelectScene::Start()
 	startButton.SetColor(1, 1, 1, 1);
 
 	//メニューボタン
-	menuButton.Init(L"asset/UI/ハンバーガーアイコン100x100.png");
+	menuButton.Init(L"asset/UI/Hamburger_icon_100x100.png");
 	menuButton.SetPos(-704.0f, 476.0f, 0.0f);
 	menuButton.SetSize(78.0f, 78.0f, 0.0f);
 	menuButton.SetAngle(0);
 	menuButton.SetColor(1, 1, 1, 1);
 
-
+	stageNum = STAGE1;
 
 	stateNum = WORLDSELECTSCENE;
 
