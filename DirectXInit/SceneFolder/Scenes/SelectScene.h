@@ -4,7 +4,7 @@
 //画面に表示するものの状態
 enum DRAWSTATE
 {
-    WOELDSELECTSCENE = 0,
+    WORLDSELECTSCENE = 0,
     STAGESELECTSCENE,
     SETSTAGE,
 };
@@ -34,15 +34,42 @@ private:
     TS::TS_InputSystem* inputSystem;
 
     //ワールド
-    Object world_image[6];
+    Object selectImage_world[6];
+
+    //Worldの文字
+    Object worldNameImage[6];
+
+    //番号
+    Object numberText[6];
 
     //ステージ
-    Object stage_image[5];
+    Object selectImage_stage[5];
+
+    //Stageの文字
+    Object stageNameImage[5];
     
     //戻るボタン
     Object backButton;
 
     //背景
     Object backGround;
+
+    //ステージ画面
+    Object stageTexture;
+
+    //ステージ名
+    Object stageName;
+
+    //ステージ名の枠
+    Object stageNameFlame;
+
+    //ステージ名の番号
+    Object stageNameNumber;
+
+    //スタートボタン
+    Object startButton;
+
+    //メニューボタン
+    Object menuButton;
 };
 

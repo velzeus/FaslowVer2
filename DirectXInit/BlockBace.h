@@ -29,6 +29,9 @@ class BlockBace :public Object
 private:
 	int index;//ブロックのインデックス
 	GridState blocktype;
+
+	//座標の代入が完了したかを判定するフラグ
+	bool setFlg;
 public:
 	BlockBace();
 	BlockBace(int _index, GridState _blocktype);
@@ -37,4 +40,7 @@ public:
 	
 	//勝手に追加しました by西嶋
 	void SetIndex(int _index);
+	bool GetFlg();
+	void SetFlg(bool _setFlg);
+
 };
