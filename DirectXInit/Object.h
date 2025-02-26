@@ -1,6 +1,7 @@
 #pragma once
 #include "direct3d.h"
-#include "WICTextureLoader.h"
+//#include "WICTextureLoader.h"
+#include"TextureManager.h"//テクスチャを管理する
 
 typedef enum
 {
@@ -36,7 +37,11 @@ protected:
 	// 頂点バッファ
 	ID3D11Buffer* m_pVertexBuffer;
 	//テクスチャ用変数
-	ID3D11ShaderResourceView* m_pTextureView;
+	Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> m_pTextureView;
+
+	//シングルトン方式のテクスチャマネージャー
+	TextureManager* textureManager;
+
 
 	//テクスチャが縦横に何分割されているか
 	int splitX = 1;
