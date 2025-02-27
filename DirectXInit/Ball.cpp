@@ -46,23 +46,23 @@ void Ball::SetrotDir(bool _rotdir)
 
 void Ball::Setborder()
 {
-	if (pos.x > 1410)//右端
+	if (pos.x > 1000)//右端
 	{
-		pos.x = (pos.x * -1) + 50;
+		pos.x = (pos.x * -1);
 	}
 
-	if (pos.x < -1410)//左端
+	if (pos.x < -1000)//左端
 	{
-		pos.x = (pos.x * -1) - 50;
+		pos.x = (pos.x * -1) ;
 	}
 
 	if (pos.y > 850)//上端
 	{
-		pos.y = (pos.y * -1) - 50;
+		pos.y = (pos.y * -1) ;
 	}
 
 	if (pos.y < -850)//下端
 	{
-		pos.y = (pos.y * -1) + 50;
+		pos.y = (pos.y * -1) ;
 	}
 }
