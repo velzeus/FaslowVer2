@@ -117,9 +117,10 @@ int StageScene::Update()
 	{
 		CheckSurroundingCollisions();//あたり判定
 		UpdateMoveDir();//ボールの方向を変える
-		ball.Setborder();//端に行った時
 
 	}
+
+	ball.Setborder();//端に行った時
 
 	//色をつける
 	for (int x = 0; x < STAGE_X; x++)
