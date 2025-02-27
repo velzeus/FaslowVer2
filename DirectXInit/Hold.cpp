@@ -1,66 +1,41 @@
 #include "Hold.h"
-#include <algorithm> // std::min, std::max
-#include <iostream>
 
+// コンストラクタ
 Hold::Hold()
-    : isSelecting(false), currentSaveIndex(0) {}
+{
+    // 初期化：保存されたエリアがない状態
+    savedAreas.clear();
+}
 
-void Hold::Update(MouseInput& mouseInput) {
-    POINT currentMousePos;
-
-    if (mouseInput.IsLeftButtonDown()) {
-        GetCursorPos(&currentMousePos);
-        ScreenToClient(GetActiveWindow(), &currentMousePos);
-
-        if (!isSelecting) {
-            isSelecting = true;
-            startSelection = currentMousePos;
-        }
-
-        // 選択中の終点を更新
-        endSelection = currentMousePos;
+// エリアを保存する
+void Hold::SaveArea(int startX, int startY, int endX, int endY) {
+    if (savedAreas.size() >= maxSavedAreas) {
+        savedAreas.erase(savedAreas.begin());  // 古いデータを削除
     }
-    else {
-        if (isSelecting) {
-            if (currentSaveIndex < 5) {
-                selectedAreas[currentSaveIndex] = std::make_pair(startSelection, endSelection);
-                std::cout << "Area saved at index " << currentSaveIndex << std::endl;
-                currentSaveIndex++;
-            }
-            isSelecting = false;
+
+    Area newArea;
+    newArea.startX = startX;
+    newArea.startY = startY;
+    newArea.endX = endX;
+    newArea.endY = endY;
+
+    // 3x3 のブロック情報を保存
+    newArea.gridData.resize(3, std::vector<int>(3, NULLBLOCK));
+    for (int x = 0; x < 3; x++) {
+        for (int y = 0; y < 3; y++) {
+            newArea.gridData[x][y] = world->GetGridData(startX + x, startY + y);
         }
     }
+
+    savedAreas.push_back(newArea);
 }
 
-void Hold::Render() {
-    // 保存されたエリアを描画するための仮のコード
-    for (size_t i = 0; i < currentSaveIndex; ++i) {
-        std::cout << "Saved Area " << i << ": "
-            << "Start: (" << selectedAreas[i].first.x << ", " << selectedAreas[i].first.y << ") "
-            << "End: (" << selectedAreas[i].second.x << ", " << selectedAreas[i].second.y << ")\n";
+
+// 指定したインデックスのエリアを取得する関数
+Hold::Area Hold::GetSavedArea(int index) const
+{
+    if (index >= 0 && index < savedAreas.size()) {
+        return savedAreas[index];
     }
+    return { 0, 0, 0, 0 };
 }
-
-void Hold::SelectAreaAtPosition(POINT pos) {
-    // クリックした位置で、保存されたエリアを選択する
-    for (size_t i = 0; i < currentSaveIndex; ++i) {
-        const auto& area = selectedAreas[i];
-        if (pos.x >= area.first.x && pos.x <= area.second.x &&
-            pos.y >= area.first.y && pos.y <= area.second.y) {
-            currentSaveIndex = i;  // クリックした位置に対応するエリアのインデックスをセット
-            std::cout << "Selected saved area at index " << i << std::endl;
-            break;
-        }
-    }
-}
-
-const std::array<std::pair<POINT, POINT>, 5>& Hold::GetSelectedAreas() const {
-    return selectedAreas;
-}
-
-void Hold::ResetSelection() {
-    currentSaveIndex = 0;
-}
-
-
-
