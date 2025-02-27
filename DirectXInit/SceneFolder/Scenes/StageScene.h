@@ -84,7 +84,7 @@ private:
 
     std::vector<std::vector<VECTOR2>> read_blockPositionList;//ブロックの座標を保存する
 
-    Object grids[STAGE_X][STAGE_Y];
+    //Object grids[STAGE_X][STAGE_Y];
 
 	int gridData[STAGE_X][STAGE_Y];
 

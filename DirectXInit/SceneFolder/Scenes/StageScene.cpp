@@ -53,9 +53,9 @@ int StageScene::Start()
 	{
 		for (int y = 0; y < STAGE_Y; y++)
 		{
-			grids[x][y].Init(L"asset/block.png");//ブロックを初期化
-			grids[x][y].SetPos(read_blockPositionList[y][x].x, read_blockPositionList[y][x].y, 0.0f);//位置を設定
-			grids[x][y].SetSize(BLOCKSIZE_X, BLOCKSIZE_Y, 0.0f);//大きさを設定
+			//grids[x][y].Init(L"asset/block.png");//ブロックを初期化
+			//grids[x][y].SetPos(read_blockPositionList[y][x].x, read_blockPositionList[y][x].y, 0.0f);//位置を設定
+			//grids[x][y].SetSize(BLOCKSIZE_X, BLOCKSIZE_Y, 0.0f);//大きさを設定
 
 			//マスの状態を代入
 			gridData[x][y] = read_gridStateList[y][x];
@@ -113,8 +113,21 @@ int StageScene::Start()
 				if ((idx1 == y && idx2 == x) && blocks[n]->GetFlg()==false)
 
 				{
-					//座標を代入
-					blocks[n]->Init(L"asset/Blocks/STICKY_BLOCK_GREEN.png");
+					//ブロックの状態ごとにテクスチャをあてがう
+					switch (blocks[n]->GetBlockType())
+					{
+					case STICKY_BLOCK:
+						blocks[n]->Init(L"asset/Blocks/STICKY_BLOCK_GREEN.png");
+						break;
+					case SLIP_BLOCK:
+						blocks[n]->Init(L"asset/Blocks/ice.png");
+						break;
+					case UNBREAK_BLOCK:
+						blocks[n]->Init(L"asset/block.png");
+						break;
+					}
+
+					//座標等を代入
 					blocks[n]->SetPos(read_blockPositionList[idx1][idx2].x, read_blockPositionList[idx1][idx2].y, 0.0f);
 					blocks[n]->SetSize(BLOCKSIZE_X, BLOCKSIZE_Y, 0.0f);
 					blocks[n]->SetIndex(n);
@@ -185,44 +198,44 @@ int StageScene::Update()
 		//cout << "実行" << endl;
 	}
 
-	//色をつける
-	for (int x = 0; x < STAGE_X; x++)
-	{
-		for (int y = 0; y < STAGE_Y; y++)
-		{
-			switch (gridData[x][y])
-			{
-			case NULLBLOCK://空白
-				grids[x][y].SetColor(1.0f, 1.0f, 1.0f, 0.0f);
-				break;
-			case BOLL://ボール
-				grids[x][y].SetColor(1.0f, 1.0f, 1.0f, 1.0f);
-				break;
-			case GORL://ゴール
-				grids[x][y].SetColor(1.0f, 0.0f, 0.0f, 1.0f);
-				break;
-			case COIN://コイン
-				grids[x][y].SetColor(1.0f, 1.0f, 0.0f, 1.0f);
-				break;
-			case STICKY_BLOCK://粘着ブロック
-				grids[x][y].SetColor(0.0f, 1.0f, 0.0f, 1.0f);
-				break;
-			case SLIP_BLOCK://滑るブロック
-				grids[x][y].SetColor(0.0f, 1.0f, 1.0f, 1.0f);
-				break;
-			case UNBREAK_BLOCK://破壊不可ブロック
-				grids[x][y].SetColor(0.0f, 0.0f, 0.0f, 1.0f);
-				break;
-			}
-		}
-	}
+	////色をつける
+	//for (int x = 0; x < STAGE_X; x++)
+	//{
+	//	for (int y = 0; y < STAGE_Y; y++)
+	//	{
+	//		switch (gridData[x][y])
+	//		{
+	//		case NULLBLOCK://空白
+	//			grids[x][y].SetColor(1.0f, 1.0f, 1.0f, 0.0f);
+	//			break;
+	//		case BOLL://ボール
+	//			grids[x][y].SetColor(1.0f, 1.0f, 1.0f, 1.0f);
+	//			break;
+	//		case GORL://ゴール
+	//			grids[x][y].SetColor(1.0f, 0.0f, 0.0f, 1.0f);
+	//			break;
+	//		case COIN://コイン
+	//			grids[x][y].SetColor(1.0f, 1.0f, 0.0f, 1.0f);
+	//			break;
+	//		case STICKY_BLOCK://粘着ブロック
+	//			grids[x][y].SetColor(0.0f, 1.0f, 0.0f, 1.0f);
+	//			break;
+	//		case SLIP_BLOCK://滑るブロック
+	//			grids[x][y].SetColor(0.0f, 1.0f, 1.0f, 1.0f);
+	//			break;
+	//		case UNBREAK_BLOCK://破壊不可ブロック
+	//			grids[x][y].SetColor(0.0f, 0.0f, 0.0f, 1.0f);
+	//			break;
+	//		}
+	//	}
+	//}
 
 	
 	//ゴールの判定
 	bool tmpGorlFlg=false;
 	if (tmpGorlFlg == true)
 	{
-		//リザルトシーンに戻る
+		//リザルトシーンに
 		SceneManager::GetInstance()->ChangeScene(RESULT);
 	}
 
@@ -252,7 +265,6 @@ int StageScene::Update()
 
 
 		//ゴールした判定(動作確認用)
-
 		//クリックされたx座標が内側にあったら
 		if (inputSystem->GetClickPosition().x - SCREEN_WIDTH / 2 > (gorl.GetPos().x - gorl.GetSize().x / 2) &&
 			inputSystem->GetClickPosition().x - SCREEN_WIDTH / 2 < (gorl.GetPos().x + gorl.GetSize().x / 2))
@@ -266,7 +278,7 @@ int StageScene::Update()
 				//SceneManager::GetInstance()->SetStageNumber(NOTDONE_STAGE);
 
 
-				//リザルトシーンに戻る
+				//リザルトシーンに
 				SceneManager::GetInstance()->ChangeScene(RESULT);
 			}
 
@@ -291,6 +303,7 @@ int StageScene::Update()
 				//SceneManager::GetInstance()->ChangeScene(STAGE);
 				End();//vector型配列をリセットさせる
 				Start();
+				return 0;
 			}
 
 		}
@@ -349,7 +362,7 @@ int StageScene::Update()
 			color.z > StageBG_Blue.z ||
 			color.w > StageBG_Blue.a)
 		{
-			//変更前-変更後の差の絶対値 / 変化に要するフレーム数
+			//(変更前-変更後)の差の絶対値 / 変化に要するフレーム数
 			color.x -= std::abs((StageBG_Glay.x - StageBG_Blue.x)) / 20;
 			color.y -= std::abs((StageBG_Glay.y - StageBG_Blue.y)) / 20;
 			color.z -= std::abs((StageBG_Glay.z - StageBG_Blue.z)) / 20;
@@ -372,7 +385,7 @@ int StageScene::Update()
 			color.z < StageBG_Glay.z ||
 			color.w < StageBG_Glay.a)
 		{
-			//変更前-変更後の差の絶対値 / 変化に要するフレーム数
+			//(変更前-変更後)の差の絶対値 / 変化に要するフレーム数
 			color.x += std::abs((StageBG_Blue.x - StageBG_Glay.x)) / 20;
 			color.y += std::abs((StageBG_Blue.y - StageBG_Glay.y)) / 20;
 			color.z += std::abs((StageBG_Blue.z - StageBG_Glay.z)) / 20;
@@ -397,14 +410,14 @@ int StageScene::Update()
 int StageScene::Draw()
 {
 	background.Draw();
-	//ブロックを表示
-	for (int x = 0; x < STAGE_X; x++)
-	{
-		for (int y = 0; y < STAGE_Y; y++)
-		{
-			grids[x][y].Draw();
-		}
-	}
+	////ブロックを表示
+	//for (int x = 0; x < STAGE_X; x++)
+	//{
+	//	for (int y = 0; y < STAGE_Y; y++)
+	//	{
+	//		grids[x][y].Draw();
+	//	}
+	//}
 
 	for (int i = 0; i < blocks.size(); i++)
 	{
@@ -429,7 +442,7 @@ int StageScene::End()
 	{
 		delete blocks[i];
 	}
-	ball.Uninit();
+	//ball.Uninit();
 	blocks.clear();
 	return 0;
 }
@@ -471,11 +484,11 @@ void StageScene::ReadFile()
 	}
 
 	//BlockBaseに対応する形に変換
-
 	for (int i = 0; i < read_gridStateList.size(); i++)//縦方向
 	{
 		for (int j = 0; j < read_gridStateList[i].size(); j++)//横方向
 		{
+			//index番号を求めてBlockBaceに代入
 			switch (read_gridStateList[i][j])
 			{
 			case STICKY_BLOCK: //粘着ブロック
@@ -496,11 +509,6 @@ void StageScene::ReadFile()
 			}
 		}
 	}
-
-
-
-
-
 
 }
 
