@@ -10,12 +10,16 @@
 #include <unordered_map>
 using namespace std;
 
+
+
 #define STAGE_X (32)//横のマス数
 #define STAGE_Y (18)//縦のマス数
 
 //ブロックのサイズ
 #define BLOCKSIZE_X (40)
 #define BLOCKSIZE_Y (40)
+
+
 
 //GridStateはBlockBaceに移しました
 
@@ -80,7 +84,7 @@ private:
 
     std::vector<std::vector<VECTOR2>> read_blockPositionList;//ブロックの座標を保存する
 
-    Object grids[STAGE_X][STAGE_Y];
+    //Object grids[STAGE_X][STAGE_Y];
 
 	int gridData[STAGE_X][STAGE_Y];
 
@@ -97,6 +101,18 @@ private:
 	//ゴール（仮）
 	Object gorl;
 
+	//背景
+	Object background;
+
+	//コイン
+	Object coin;
+
+	//色を変えるフラグ
+	bool accelerationFlg;
+
+	bool triggerFlg_O;
+	bool triggerFlg_N;
+	bool triggerFlg_T;
 
 };
 

@@ -30,33 +30,41 @@ void Object::Init(const wchar_t* imgname, int sx, int sy)
 
 	HRESULT hr = g_pDevice->CreateBuffer(&bufferDesc, &subResourceData, &m_pVertexBuffer);
 	if (FAILED(hr)) return ;
-	
-	//テクスチャ読込
-	hr = DirectX::CreateWICTextureFromFile(g_pDevice,imgname, NULL, &m_pTextureView);
-	if (FAILED(hr))
-	{
-		if (FAILED(hr))
-		{
-			char errorMsg[256];
-			sprintf_s(errorMsg, "テクスチャ読込失敗, HRESULT: 0x%08X", hr);
-			std::cout << errorMsg << std::endl;
-			MessageBoxA(NULL, errorMsg, "エラー", MB_ICONERROR | MB_OK);
-		}
-		
-		if (!std::ifstream(imgname)) {
-			std::cout << "指定されたファイルが存在しません" << std::endl;
-			MessageBoxA(NULL, "指定されたファイルが存在しません", "エラー", MB_ICONERROR | MB_OK);
-			
-		}
-	
-		if (g_pDevice == nullptr) {
-			MessageBoxA(NULL, "グローバルデバイスがnullptrです", "エラー", MB_ICONERROR | MB_OK);
-			
-		}
 
-		MessageBoxA(NULL, "テクスチャ読込失敗", "エラー", MB_ICONERROR | MB_OK);
-		return ;
-	}
+	//インスタンス取得
+	textureManager = TextureManager::GetInstance();
+
+	//テクスチャ読み込み
+	//ComPtrの場合
+	m_pTextureView = textureManager->LoadTexture(g_pDevice, g_pDeviceContext, imgname);
+
+	
+	////テクスチャ読込
+	//hr = DirectX::CreateWICTextureFromFile(g_pDevice,imgname, NULL, &m_pTextureView);
+	//if (FAILED(hr))
+	//{
+	//	if (FAILED(hr))
+	//	{
+	//		char errorMsg[256];
+	//		sprintf_s(errorMsg, "テクスチャ読込失敗, HRESULT: 0x%08X", hr);
+	//		std::cout << errorMsg << std::endl;
+	//		MessageBoxA(NULL, errorMsg, "エラー", MB_ICONERROR | MB_OK);
+	//	}
+	//	
+	//	if (!std::ifstream(imgname)) {
+	//		std::cout << "指定されたファイルが存在しません" << std::endl;
+	//		MessageBoxA(NULL, "指定されたファイルが存在しません", "エラー", MB_ICONERROR | MB_OK);
+	//		
+	//	}
+	//
+	//	if (g_pDevice == nullptr) {
+	//		MessageBoxA(NULL, "グローバルデバイスがnullptrです", "エラー", MB_ICONERROR | MB_OK);
+	//		
+	//	}
+
+	//	MessageBoxA(NULL, "テクスチャ読込失敗", "エラー", MB_ICONERROR | MB_OK);
+	//	return ;
+	//}
 }
 
 void Object::Draw()
@@ -67,7 +75,9 @@ void Object::Draw()
 	g_pDeviceContext->IASetVertexBuffers(0, 1, &m_pVertexBuffer, &strides, &offsets);
 
 	//テクスチャをピクセルシェーダーに渡す
-	g_pDeviceContext->PSSetShaderResources(0, 1, &m_pTextureView);
+	/*g_pDeviceContext->PSSetShaderResources(0, 1, &m_pTextureView);*/
+	//ComPtrを用いる場合
+	g_pDeviceContext->PSSetShaderResources(0, 1, m_pTextureView.GetAddressOf());
 
 	//定数バッファを更新
 	ConstBuffer cb;
@@ -100,7 +110,7 @@ void Object::Uninit()
 {
 	//開放処理
 	SAFE_RELEASE(m_pVertexBuffer);
-	SAFE_RELEASE(m_pTextureView);
+	//SAFE_RELEASE(m_pTextureView);
 }
 
 void Object::SetPos(float x, float y, float z)

@@ -163,6 +163,7 @@
     <ClCompile Include="SceneFolder\Scenes\WorldSelectScene.cpp" />
     <ClCompile Include="sound.cpp" />
     <ClCompile Include="SceneFolder\Scenes\StageScene.cpp" />
+    <ClCompile Include="TextureManager.cpp" />
     <ClCompile Include="WICTextureLoader.cpp" />
     <ClCompile Include="Word1_Stage.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
@@ -209,6 +210,7 @@
     <ClInclude Include="json.hpp" />
     <ClInclude Include="main.h" />
     <ClInclude Include="MouseInput.h" />
+    <ClInclude Include="Object.h" />
     <ClInclude Include="Reposition.h" />
     <ClInclude Include="SceneFolder\Scene.h" />
     <ClInclude Include="SceneFolder\SceneManager.h" />
@@ -219,6 +221,7 @@
     <ClInclude Include="sound.h" />
     <ClInclude Include="SceneFolder\Scenes\StageScene.h" />
     <ClInclude Include="CreateStageJson.h" />
+    <ClInclude Include="TextureManager.h" />
     <ClInclude Include="WICTextureLoader.h" />
     <ClInclude Include="Word1_Stage.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
