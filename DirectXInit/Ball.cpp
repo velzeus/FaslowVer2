@@ -48,21 +48,25 @@ void Ball::Setborder()
 {
 	if (pos.x > 1000)//右端
 	{
-		pos.x = (pos.x * -1);
+		pos.x = -971.0f;
+		boder = true;
 	}
 
 	if (pos.x < -1000)//左端
 	{
-		pos.x = (pos.x * -1) ;
+		pos.x = 991.0f;
+		boder = true;
 	}
 
-	if (pos.y > 850)//上端
+	if (pos.y > 550)//上端
 	{
-		pos.y = (pos.y * -1) ;
+		pos.y = -491.0f;
+		boder = true;
 	}
 
-	if (pos.y < -850)//下端
+	if (pos.y < -550)//下端
 	{
-		pos.y = (pos.y * -1) ;
+		pos.y = 511.0f; ;
+		boder = true;
 	}
 }

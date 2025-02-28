@@ -35,4 +35,6 @@ public:
 
 	float vel_x = 1.0f;//‰¡‚ÌˆÚ“®—Ê
 	float vel_y = 1.0f;//c‚ÌˆÚ“®—Ê
+
+	bool boder = false;
 };
