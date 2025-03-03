@@ -1,6 +1,36 @@
 #include "Scene.h"
 
 
+DirectX::XMFLOAT3 Scene::RotateVector(DirectX::XMFLOAT3 _target, DirectX::XMFLOAT3 _base)
+{
+	//方向ベクトル
+	DirectX::XMFLOAT3 direction;
+
+	//目標-基準でのベクトル
+	direction.x = _target.x - _base.x;
+	direction.y = _target.y - _base.y;
+
+	return direction;
+}
+
+float Scene::VectorLength(DirectX::XMFLOAT3 _direction)
+{
+	float length = std::sqrt((_direction.x * _direction.x) + (_direction.y * _direction.y));
+	return length;
+}
+
+DirectX::XMFLOAT3 Scene::NormalizedRotateVector(DirectX::XMFLOAT3 _direction)
+{
+	DirectX::XMFLOAT3 normalizedDirection
+	{
+		_direction.x / VectorLength(_direction),
+		_direction.y / VectorLength(_direction),
+		0
+	};
+
+	return normalizedDirection;
+}
+
 //コンストラクタ
 Scene::Scene(SCENENAME _sceneName):sceneName(_sceneName){
 	//初期化

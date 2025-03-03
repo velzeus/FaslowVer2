@@ -11,7 +11,7 @@
 #include <unordered_map>
 #include <functional>
 #include<iostream>
-#include"../Object.h"
+//#include"../Object.h"
 
 // �O���錾
 class Scene;

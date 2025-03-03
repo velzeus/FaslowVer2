@@ -1,7 +1,7 @@
-﻿  StageScene.cpp
-C:\Users\richs\Documents\GitHub\FaslowVer2\DirectXInit\SceneFolder\Scenes\StageScene.cpp(1,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+﻿  SelectScene.cpp
 C:\Users\richs\Documents\GitHub\FaslowVer2\DirectXInit\SceneFolder\SceneManager.h(1,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
-C:\Users\richs\Documents\GitHub\FaslowVer2\DirectXInit\SceneFolder\Scenes\StageScene.cpp(510,4): warning C4102: 'defalt': ラベルは 1 度も参照されません。
+C:\Users\richs\Documents\GitHub\FaslowVer2\DirectXInit\SceneFolder\Scenes\SelectScene.cpp(46,26): warning C4244: '=': 'int' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\richs\Documents\GitHub\FaslowVer2\DirectXInit\SceneFolder\Scenes\SelectScene.cpp(321,32): warning C4244: '=': 'int' から 'float' への変換です。データが失われる可能性があります。
   main.cpp
 C:\Users\richs\Documents\GitHub\FaslowVer2\DirectXInit\SceneFolder\Scenes\TitleScene.h(1,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
 C:\Users\richs\Documents\GitHub\FaslowVer2\DirectXInit\SceneFolder\SceneManager.h(1,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。

@@ -123,7 +123,8 @@ int StageScene::Start()
 						blocks[n]->Init(L"asset/Blocks/ice.png");
 						break;
 					case UNBREAK_BLOCK:
-						blocks[n]->Init(L"asset/block.png");
+						blocks[n]->Init(L"asset/Blocks/STICKY_BLOCK_GREEN.png");
+						blocks[n]->SetColor(0, 0, 0, 1);
 						break;
 					}
 
@@ -231,14 +232,14 @@ int StageScene::Update()
 	//}
 
 	
-	//ゴールの判定
-	bool tmpGorlFlg=false;
-	if (tmpGorlFlg == true)
+	////ゴールの判定
+	//bool tmpGorlFlg=false;
+	//if (tmpGorlFlg == true&& (hitBlockType[0] == GORL))//ボールの前にゴールブロックがあれば
 
-	{
-		//リザルトシーンに
-		SceneManager::GetInstance()->ChangeScene(RESULT);
-	}
+	//{
+	//	//リザルトシーンに
+	//	SceneManager::GetInstance()->ChangeScene(RESULT);
+	//}
 
 
 	//左クリック
@@ -427,6 +428,8 @@ int StageScene::Draw()
 	}
 	coin.Draw();
 	ball.Draw();
+
+
 	optionButton.Draw();
 
 	gorl.Draw();
@@ -471,12 +474,12 @@ void StageScene::ReadFile()
 		string stageName = read_json["stage_name"];
 
 		read_gridStateList = read_json["blockState"].get<vector<vector<int>>>();
-		//左上から右下へ
+		//左上から右下へ見ている
 
 		read_blockPositionList = read_json["blockPosition"].get<vector<vector<VECTOR2>>>();
-		//左下から右上へ
+		//左下から右上へ見ている
 
-		//read_blockPositionListの並び順に合わせる
+		//read_blockPositionListの並び順（左下から右上へ）に合わせる
 		std::reverse(read_gridStateList.begin(), read_gridStateList.end());
 	}
 	else
@@ -504,9 +507,9 @@ void StageScene::ReadFile()
 			case SLIP_BLOCK: //滑るブロック
 				blocks.emplace_back(new BlockBace((STAGE_X * i + j), SLIP_BLOCK));
 				break;
-			//case UNBREAK_BLOCK: //破壊不可ブロック
-			//	blocks[j][i] = new BlockBace((STAGE_X * i + j), UNBREAK);
-			//	break;
+			case UNBREAK_BLOCK: //破壊不可ブロック
+				blocks.emplace_back(new BlockBace((STAGE_X * i + j), UNBREAK_BLOCK));
+				break;
 			defalt:  //その他の状態
 
 				//blocks[j][i] = new BlockBace((STAGE_X * i + j), EMPTY);

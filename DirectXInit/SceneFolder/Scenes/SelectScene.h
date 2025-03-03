@@ -92,10 +92,13 @@ private:
     float deltaScale;
 
     //目標地点の座標
-    DirectX::XMFLOAT3 targetPos;
+    //DirectX::XMFLOAT3 targetPos;
 
-    //目標の大きさ
-    DirectX::XMFLOAT3 targetScale;
+    //移動処理をしたフレーム数
+    int moveCount;
+
+    ////目標の大きさ
+    //DirectX::XMFLOAT3 targetScale;
     //方向ベクトル
     //DirectX::XMFLOAT3 direction;
 

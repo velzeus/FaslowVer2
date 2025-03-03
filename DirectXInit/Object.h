@@ -75,4 +75,5 @@ public:
 
 
 	void Animation(int fps = 10, Direction direct = front); //オブジェクトのアニメーション(引数：何秒に1回切り替えるか）
+
 };
