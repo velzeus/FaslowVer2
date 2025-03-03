@@ -455,7 +455,7 @@ void StageScene::ReadFile()
 	string number_stage = to_string(manager->GetStageNumber());
 
 	//読み込むファイルの名前を作成
-	string fileName = "StageFolder/New_Stage" + number_world + "-" + number_stage + ".json";
+	string fileName = "StageFolder/Stage" + number_world + "-" + number_stage + ".json";
 	//"StageFolder/New_Stage"
 
 	ifstream fin(fileName.c_str());
@@ -471,9 +471,13 @@ void StageScene::ReadFile()
 		string stageName = read_json["stage_name"];
 
 		read_gridStateList = read_json["blockState"].get<vector<vector<int>>>();
+		//左上から右下へ
 
 		read_blockPositionList = read_json["blockPosition"].get<vector<vector<VECTOR2>>>();
+		//左下から右上へ
 
+		//read_blockPositionListの並び順に合わせる
+		std::reverse(read_gridStateList.begin(), read_gridStateList.end());
 	}
 	else
 	{

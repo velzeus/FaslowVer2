@@ -159,13 +159,22 @@ int SelectScene::Start()
 	menuButton.SetAngle(0);
 	menuButton.SetColor(1, 1, 1, 1);
 
+	//動かす用の枠
+	moveFlame.Init(L"asset/UI/Flame2.png");
+	moveFlame.SetAngle(0);
+	moveFlame.SetColor(1, 1, 1, 1);
+
 	stageNum = STAGE1;
 
 	stateNum = WORLDSELECTSCENE;
 
-	return 0;
+	normalizedDirection = {};
+	targetPos = {};
+	targetScale = {};
 
-	
+	moveSpeed = 0;
+
+	return 0;
 }
 
 int SelectScene::Update()
@@ -201,7 +210,7 @@ int SelectScene::Update()
 						{
 						case 0:
 							worldNum = WORLD1;
-							stateNum = STAGESELECTSCENE;
+							//stateNum = STAGESELECTSCENE;
 							break;
 						case 1:
 							//制作されていない旨を表示
@@ -231,6 +240,59 @@ int SelectScene::Update()
 						}
 						
 						//stateNum = STAGESELECTSCENE;
+
+						if (i == 0)
+						{
+							//目標の座標とスケールを取得
+							targetPos = { stageNameFlame.GetPos().x ,stageNameFlame.GetPos().y, stageNameFlame.GetPos().z };
+							targetScale = { stageNameFlame.GetSize().x,stageNameFlame.GetSize().y, stageNameFlame.GetSize().z };
+
+							//動かす用の枠の座標とサイズの初期値を設定
+							moveFlame.SetPos(selectImage_world[i].GetPos().x, selectImage_world[i].GetPos().y, selectImage_world[i].GetPos().z);
+							moveFlame.SetSize(selectImage_world[i].GetSize().x, selectImage_world[i].GetSize().y, selectImage_world[i].GetSize().z);
+
+							//座標の方向ベクトル
+							DirectX::XMFLOAT3 direction;
+							//目標までの方向ベクトルを求める
+							direction.x = targetPos.x - moveFlame.GetPos().x;
+							direction.y = targetPos.y - moveFlame.GetPos().y;
+
+							//ベクトルの長さを求める
+							float length = std::sqrt((direction.x * direction.x) + (direction.y * direction.y));
+
+							//移動速度を求める
+							moveSpeed = length / FLAMENUM;
+
+							//正規化した座標用方向ベクトルを求めて代入
+							normalizedDirection =
+							{
+								direction.x / length,
+								direction.y / length,
+								0
+							};
+
+							//--------------------------------------------------------------------------------------------------------
+
+							//大きさの方向ベクトルを求める
+							direction.x = targetScale.x - moveFlame.GetSize().x;
+							direction.y = targetScale.y - moveFlame.GetSize().y;
+
+							//ベクトルの長さを求める
+							length = std::sqrt((direction.x * direction.x) + (direction.y * direction.y));
+
+							//大きさの変化量
+							deltaScale = length / FLAMENUM;
+
+							//正規化した大きさ用方向ベクトルを求めて代入
+							normalizedScaleVector =
+							{
+								direction.x / length,
+								direction.y / length,
+								0
+							};
+
+							stateNum = MOVEFLAME;
+						}
 
 					}
 				}
@@ -302,11 +364,28 @@ int SelectScene::Update()
 
 		//ワールド番号とステージ番号をセット
 		//SceneManager::GetInstance()->SetWorldNumber(worldNum);
-		SceneManager::GetInstance()->SetWorldNumber(WORLD2);
+		SceneManager::GetInstance()->SetWorldNumber(worldNum);
 		SceneManager::GetInstance()->SetStageNumber(stageNum);
 
 		//SceneManager::GetInstance()->AddScene(SCENENAME::STAGE, std::make_unique<StageScene>());
 		SceneManager::GetInstance()->ChangeScene(STAGE);
+
+		break;
+	case MOVEFLAME:
+
+		bool arrivedPosFlg= MoveFlame();
+
+		//到着していたら(World->Stageの場合)
+		if (arrivedPosFlg == true && worldNum != NOTDONE_WORLD)
+		{
+			stateNum = STAGESELECTSCENE;
+		}
+		//(Stage->Worldの場合)
+		else if (arrivedPosFlg == true && worldNum == NOTDONE_WORLD)
+		{
+			stateNum = WORLDSELECTSCENE;
+		}
+		
 
 		break;
 	}
@@ -328,8 +407,59 @@ int SelectScene::Update()
 					SceneManager::GetInstance()->ChangeScene(TITLE);
 					break;
 				case STAGESELECTSCENE: //ワールドセレクトに戻る
-					stateNum = WORLDSELECTSCENE;
-					worldNum = NOTDONE_WORLD;
+
+					//目標の座標とスケールを取得
+					targetPos = { selectImage_world[worldNum - 1].GetPos().x, selectImage_world[worldNum - 1].GetPos().y, selectImage_world[worldNum - 1].GetPos().z };
+					targetScale = { selectImage_world[worldNum - 1].GetSize().x, selectImage_world[worldNum - 1].GetSize().y, selectImage_world[worldNum - 1].GetSize().z };
+
+					//動かす用の枠の座標とサイズの初期値を設定
+					moveFlame.SetPos(stageNameFlame.GetPos().x, stageNameFlame.GetPos().y, stageNameFlame.GetPos().z);
+					moveFlame.SetSize(stageNameFlame.GetSize().x, stageNameFlame.GetSize().y, stageNameFlame.GetSize().z);
+
+					//座標の方向ベクトル
+					DirectX::XMFLOAT3 direction;
+					//目標までの方向ベクトルを求める
+					direction.x = targetPos.x - moveFlame.GetPos().x;
+					direction.y = targetPos.y - moveFlame.GetPos().y;
+
+					//ベクトルの長さを求める
+					float length = std::sqrt((direction.x * direction.x) + (direction.y * direction.y));
+
+					//移動速度を求める
+					moveSpeed = length / FLAMENUM;
+
+					//正規化した座標用方向ベクトルを求めて代入
+					normalizedDirection =
+					{
+						direction.x / length,
+						direction.y / length,
+						0
+					};
+
+					//--------------------------------------------------------------------------------------------------------
+
+					//大きさの方向ベクトルを求める
+					direction.x = targetScale.x - moveFlame.GetSize().x;
+					direction.y = targetScale.y - moveFlame.GetSize().y;
+
+					//ベクトルの長さを求める
+					length = std::sqrt((direction.x * direction.x) + (direction.y * direction.y));
+
+					//大きさの変化量
+					deltaScale = length / FLAMENUM;
+
+					//正規化した大きさ用方向ベクトルを求めて代入
+					normalizedScaleVector =
+					{
+						direction.x / length,
+						direction.y / length,
+						0
+					};
+
+					stateNum = MOVEFLAME;
+
+					//stateNum = WORLDSELECTSCENE;
+					worldNum = NOTDONE_WORLD;//選択の状態をリセット
 					break;
 				}
 			}
@@ -380,6 +510,9 @@ int SelectScene::Draw()
 		break;
 	case SETSTAGE:
 		break;
+	case MOVEFLAME:
+		moveFlame.Draw();
+		break;
 	}
 
 	
@@ -397,4 +530,34 @@ int SelectScene::End()
 {
 	//selectImage_world[0].Uninit();
 	return 0;
+}
+
+bool SelectScene::MoveFlame()
+{
+	DirectX::XMFLOAT3 pos = moveFlame.GetPos();
+	DirectX::XMFLOAT3 scale = moveFlame.GetSize();
+
+	//目標地点へ向かって移動
+	pos.x += normalizedDirection.x * moveSpeed;
+	pos.y += normalizedDirection.y * moveSpeed;
+
+	//目標の大きさに向かって変化
+	scale.x += normalizedScaleVector.x * deltaScale;
+	scale.y += normalizedScaleVector.y * deltaScale;
+
+	moveFlame.SetPos(pos.x, pos.y, pos.z);
+	moveFlame.SetSize(scale.x, scale.y, scale.z);
+
+	//目標地点に近づいたら
+	if (pos.x <= targetPos.x + moveSpeed &&
+		pos.x >= targetPos.x - moveSpeed &&
+		pos.y <= targetPos.y + moveSpeed &&
+		pos.y >= targetPos.y - moveSpeed)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
 }

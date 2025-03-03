@@ -7,7 +7,10 @@ enum DRAWSTATE
     WORLDSELECTSCENE = 0,
     STAGESELECTSCENE,
     SETSTAGE,
+    MOVEFLAME,
 };
+
+#define FLAMENUM (20)
 
 class SelectScene :
     public Scene
@@ -23,7 +26,6 @@ public:
 
 private:
     
-
     WORLDNUMBER worldNum;
     STAGENUMBER stageNum;
 
@@ -71,5 +73,33 @@ private:
 
     //メニューボタン
     Object menuButton;
+
+    //動かす用の枠
+    Object moveFlame;
+
+    //枠を動かす
+    bool MoveFlame();
+
+    //正規化した方向ベクトル
+    DirectX::XMFLOAT3 normalizedDirection;
+
+    DirectX::XMFLOAT3 normalizedScaleVector;
+
+    //移動する速度
+    float moveSpeed;
+
+    //大きさの変化量
+    float deltaScale;
+
+    //目標地点の座標
+    DirectX::XMFLOAT3 targetPos;
+
+    //目標の大きさ
+    DirectX::XMFLOAT3 targetScale;
+    //方向ベクトル
+    //DirectX::XMFLOAT3 direction;
+
+    //ベクトルの長さ
+
 };
 
