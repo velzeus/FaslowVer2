@@ -8,6 +8,7 @@
 #include <utility> // std::pair ‚ðŽg‚¤‚½‚ß
 #include<iostream>
 #include <unordered_map>
+#include<algorithm>
 using namespace std;
 
 
