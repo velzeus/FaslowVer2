@@ -99,6 +99,9 @@ int StageScene::Start()
 				coin.SetColor(1.0f, 1.0f, 1.0f, 1.0f);
 				gridData[x][y] = NULLBLOCK;
 				break;
+			case CANNON:
+
+				break;
 			}
 
 			//ブロック
@@ -123,7 +126,8 @@ int StageScene::Start()
 						blocks[n]->Init(L"asset/Blocks/ice.png");
 						break;
 					case UNBREAK_BLOCK:
-						blocks[n]->Init(L"asset/block.png");
+						blocks[n]->Init(L"asset/Blocks/STICKY_BLOCK_GREEN.png");
+						blocks[n]->SetColor(0, 0, 0, 1);
 						break;
 					}
 
@@ -231,14 +235,14 @@ int StageScene::Update()
 	//}
 
 	
-	//ゴールの判定
-	bool tmpGorlFlg=false;
-	if (tmpGorlFlg == true)
+	////ゴールの判定
+	//bool tmpGorlFlg=false;
+	//if (tmpGorlFlg == true&& (hitBlockType[0] == GORL))//ボールの前にゴールブロックがあれば
 
-	{
-		//リザルトシーンに
-		SceneManager::GetInstance()->ChangeScene(RESULT);
-	}
+	//{
+	//	//リザルトシーンに
+	//	SceneManager::GetInstance()->ChangeScene(RESULT);
+	//}
 
 
 	//左クリック
@@ -427,6 +431,8 @@ int StageScene::Draw()
 	}
 	coin.Draw();
 	ball.Draw();
+
+
 	optionButton.Draw();
 
 	gorl.Draw();
@@ -443,8 +449,15 @@ int StageScene::End()
 	{
 		delete blocks[i];
 	}
+
+	for (auto n : cannons)
+	{
+		delete n;
+	}
 	//ball.Uninit();
 	blocks.clear();
+
+	cannons.clear();
 	return 0;
 }
 
@@ -471,12 +484,12 @@ void StageScene::ReadFile()
 		string stageName = read_json["stage_name"];
 
 		read_gridStateList = read_json["blockState"].get<vector<vector<int>>>();
-		//左上から右下へ
+		//左上から右下へ見ている
 
 		read_blockPositionList = read_json["blockPosition"].get<vector<vector<VECTOR2>>>();
-		//左下から右上へ
+		//左下から右上へ見ている
 
-		//read_blockPositionListの並び順に合わせる
+		//read_blockPositionListの並び順（左下から右上へ）に合わせる
 		std::reverse(read_gridStateList.begin(), read_gridStateList.end());
 	}
 	else
@@ -487,6 +500,8 @@ void StageScene::ReadFile()
 		//MessageBoxA(NULL, "現在制作中", "確認", MB_OK);
 
 	}
+
+	int cannnonNum = 0;
 
 	//BlockBaseに対応する形に変換
 	for (int i = 0; i < read_gridStateList.size(); i++)//縦方向
@@ -504,9 +519,13 @@ void StageScene::ReadFile()
 			case SLIP_BLOCK: //滑るブロック
 				blocks.emplace_back(new BlockBace((STAGE_X * i + j), SLIP_BLOCK));
 				break;
-			//case UNBREAK_BLOCK: //破壊不可ブロック
-			//	blocks[j][i] = new BlockBace((STAGE_X * i + j), UNBREAK);
-			//	break;
+			case UNBREAK_BLOCK: //破壊不可ブロック
+				blocks.emplace_back(new BlockBace((STAGE_X * i + j), UNBREAK_BLOCK));
+				break;
+			case CANNON:
+				cannons.emplace_back(new Cannon(manager->GetWorldNumber(), manager->GetStageNumber(), cannnonNum));
+				cannnonNum++;
+				break;
 			defalt:  //その他の状態
 
 				//blocks[j][i] = new BlockBace((STAGE_X * i + j), EMPTY);
@@ -688,6 +707,16 @@ void StageScene::CheckSurroundingCollisions()
 			}
 		}
 	}
+}
+
+void StageScene::SetGridStateList(std::vector<std::vector<int>> _gridStateList)
+{
+	read_gridStateList = _gridStateList;
+}
+
+std::vector<std::vector<int>> StageScene::GetGridStateList()
+{
+	return read_gridStateList;
 }
 
 //１対１のあたり判定
