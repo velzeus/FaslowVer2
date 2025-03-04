@@ -27,7 +27,7 @@ public:
 private:
     std::vector<Area> savedAreas;  // 保存されたエリアのリスト
     static const int maxSavedAreas = 5;  // 保存する最大数
-    World1_Stage* world;
+    StageScene* stagescene;
 };
 
 

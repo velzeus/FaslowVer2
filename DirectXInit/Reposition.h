@@ -7,12 +7,12 @@
 
 class Reposition {
 public:
-    Reposition(Hold* holdInstance, World1_Stage* worldInstance);
+    Reposition(Hold* holdInstance, StageScene* stagesceneInstance);
     void PlaceArea(int holdIndex, int targetX, int targetY);  // 保存エリアを配置
 
 private:
     Hold* hold;
-    World1_Stage* world;
+    StageScene* stagescene;
     int selectedIndex = -1;
 };
 

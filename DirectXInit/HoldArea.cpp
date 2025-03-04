@@ -64,7 +64,7 @@ void HoldArea::Draw()
                 // 範囲内のブロックのみ描画
                 if (area.startX + x <= area.endX && area.startY + y <= area.endY)
                 {
-                    int blockType = world->GetGridData(area.startX + x, area.startY + y);  // エリアのブロック情報を取得
+                    int blockType = area.gridData[x][y];  // 保存されたエリアのブロック情報を直接取得
 
                     if (blockType != NULLBLOCK)
                     {
@@ -82,4 +82,5 @@ void HoldArea::Draw()
         }
     }
 }
+
 

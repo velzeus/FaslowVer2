@@ -21,14 +21,20 @@ void Hold::SaveArea(int startX, int startY, int endX, int endY) {
 
     // 3x3 のブロック情報を保存
     newArea.gridData.resize(3, std::vector<int>(3, NULLBLOCK));
+
+    // 現在のグリッド状態を取得
+    std::vector<std::vector<int>> gridStateList = stagescene->GetGridStateList();
+
+    // 3x3 のブロック情報を格納
     for (int x = 0; x < 3; x++) {
         for (int y = 0; y < 3; y++) {
-            newArea.gridData[x][y] = world->GetGridData(startX + x, startY + y);
+            newArea.gridData[x][y] = gridStateList[startY + y][startX + x];
         }
     }
 
     savedAreas.push_back(newArea);
 }
+
 
 
 // 指定したインデックスのエリアを取得する関数
