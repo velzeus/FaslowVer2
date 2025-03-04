@@ -8,7 +8,7 @@ class HoldArea
 private:
     Hold* hold;
     Object holdBlocks[5][3][3];  // 5つの3×3ブロック
-    World1_Stage* world;
+    StageScene* stagescene;
     int selectedIndex = -1;  // 選択されたエリアのインデックス
 public:
     HoldArea(Hold* holdInstance);
