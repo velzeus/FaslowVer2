@@ -2,15 +2,16 @@
 #include "Word1_Stage.h"  
 #include"MouseInput.h"
 #include<Windows.h>
-#include <algorithm>// std::min, std::max を使うために必要
+#include <algorithm>
+#include"hold.h"
 
-class CUT {
+class CUT 
+{
 private:
     World1_Stage* world;  // World1_Stage クラスのポインタを保持
-
+   
 public:
     CUT(World1_Stage* worldInstance);  // コンストラクタでインスタンスを渡す
-
     // マウス選択エリアを基にグリッドデータを更新
     void UpdateSelection(const POINT& clickPosition, const POINT& releasePosition);
 
