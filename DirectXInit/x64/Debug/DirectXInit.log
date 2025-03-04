@@ -1,13 +1,16 @@
-﻿  SelectScene.cpp
+﻿  Cannon.cpp
+C:\Users\richs\Documents\GitHub\FaslowVer2\DirectXInit\Cannon.cpp(150,4): warning C4065: switch 文に 'default' はありますが 'case' ラベルがありません。
+C:\Users\richs\Documents\GitHub\FaslowVer2\DirectXInit\Cannon.cpp(158,4): warning C4065: switch 文に 'default' はありますが 'case' ラベルがありません。
+  StageScene.cpp
+C:\Users\richs\Documents\GitHub\FaslowVer2\DirectXInit\SceneFolder\Scenes\StageScene.cpp(1,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
 C:\Users\richs\Documents\GitHub\FaslowVer2\DirectXInit\SceneFolder\SceneManager.h(1,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
-C:\Users\richs\Documents\GitHub\FaslowVer2\DirectXInit\SceneFolder\Scenes\SelectScene.cpp(46,26): warning C4244: '=': 'int' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\richs\Documents\GitHub\FaslowVer2\DirectXInit\SceneFolder\Scenes\SelectScene.cpp(321,32): warning C4244: '=': 'int' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\richs\Documents\GitHub\FaslowVer2\DirectXInit\SceneFolder\Scenes\StageScene.cpp(526,4): warning C4102: 'defalt': ラベルは 1 度も参照されません。
   main.cpp
 C:\Users\richs\Documents\GitHub\FaslowVer2\DirectXInit\SceneFolder\Scenes\TitleScene.h(1,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
 C:\Users\richs\Documents\GitHub\FaslowVer2\DirectXInit\SceneFolder\SceneManager.h(1,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
 C:\Users\richs\Documents\GitHub\FaslowVer2\DirectXInit\Game.h(6,1): warning C4005: 'STAGE_X': マクロが再定義されました。
-C:\Users\richs\Documents\GitHub\FaslowVer2\DirectXInit\SceneFolder\Scenes\StageScene.h(16,1): message : 'STAGE_X' の以前の定義を確認してください
+C:\Users\richs\Documents\GitHub\FaslowVer2\DirectXInit\SceneFolder\Scenes\StageScene.h(17,1): message : 'STAGE_X' の以前の定義を確認してください
 C:\Users\richs\Documents\GitHub\FaslowVer2\DirectXInit\Game.h(7,1): warning C4005: 'STAGE_Y': マクロが再定義されました。
-C:\Users\richs\Documents\GitHub\FaslowVer2\DirectXInit\SceneFolder\Scenes\StageScene.h(17,1): message : 'STAGE_Y' の以前の定義を確認してください
+C:\Users\richs\Documents\GitHub\FaslowVer2\DirectXInit\SceneFolder\Scenes\StageScene.h(18,1): message : 'STAGE_Y' の以前の定義を確認してください
   コードを生成中...
   DirectXInit.vcxproj -> C:\Users\richs\Documents\GitHub\FaslowVer2\x64\Debug\DirectXInit.exe

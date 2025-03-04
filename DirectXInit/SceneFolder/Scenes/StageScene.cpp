@@ -99,6 +99,9 @@ int StageScene::Start()
 				coin.SetColor(1.0f, 1.0f, 1.0f, 1.0f);
 				gridData[x][y] = NULLBLOCK;
 				break;
+			case CANNON:
+
+				break;
 			}
 
 			//ブロック
@@ -446,8 +449,15 @@ int StageScene::End()
 	{
 		delete blocks[i];
 	}
+
+	for (auto n : cannons)
+	{
+		delete n;
+	}
 	//ball.Uninit();
 	blocks.clear();
+
+	cannons.clear();
 	return 0;
 }
 
@@ -491,6 +501,8 @@ void StageScene::ReadFile()
 
 	}
 
+	int cannnonNum = 0;
+
 	//BlockBaseに対応する形に変換
 	for (int i = 0; i < read_gridStateList.size(); i++)//縦方向
 	{
@@ -509,6 +521,10 @@ void StageScene::ReadFile()
 				break;
 			case UNBREAK_BLOCK: //破壊不可ブロック
 				blocks.emplace_back(new BlockBace((STAGE_X * i + j), UNBREAK_BLOCK));
+				break;
+			case CANNON:
+				cannons.emplace_back(new Cannon(manager->GetWorldNumber(), manager->GetStageNumber(), cannnonNum));
+				cannnonNum++;
 				break;
 			defalt:  //その他の状態
 
@@ -691,6 +707,16 @@ void StageScene::CheckSurroundingCollisions()
 			}
 		}
 	}
+}
+
+void StageScene::SetGridStateList(std::vector<std::vector<int>> _gridStateList)
+{
+	read_gridStateList = _gridStateList;
+}
+
+std::vector<std::vector<int>> StageScene::GetGridStateList()
+{
+	return read_gridStateList;
 }
 
 //１対１のあたり判定

@@ -4,6 +4,7 @@
 #include "../Scene.h"
 #include"../../BlockBace.h"
 #include"../../Ball.h"
+#include"../../Cannon.h"
 #include <vector>
 #include <utility> // std::pair を使うため
 #include<iostream>
@@ -74,6 +75,10 @@ public:
 
 	DIRECTION _moveDir;
 
+
+	void SetGridStateList(std::vector<std::vector<int>> _gridStateList);
+	std::vector<std::vector<int>> GetGridStateList();
+
 private:
     SceneManager* manager;
 
@@ -92,6 +97,8 @@ private:
 	//BlockBaseで仮置き
 	//BlockBace* blocks[STAGE_X][STAGE_Y];
 	std::vector<BlockBace*> blocks;
+
+	std::vector<Cannon*> cannons;
 
 	//オプションボタン
 	Object optionButton;
