@@ -36,7 +36,7 @@ class StageScene :
 {
 public:
 
-	Ball* ball;
+	Ball ball;
     StageScene();
     ~StageScene() override;
 

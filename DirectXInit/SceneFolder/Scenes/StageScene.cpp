@@ -86,8 +86,7 @@ int StageScene::Start()
 				gridData[x][y] = NULLBLOCK;
 				break;
 			case BOLL:
-				ball = new Ball();
-				ball->SetPos(read_blockPositionList[y][x].x, read_blockPositionList[y][x].y, 0);
+				ball.SetPos(read_blockPositionList[y][x].x, read_blockPositionList[y][x].y, 0);
 				gridData[x][y] = NULLBLOCK;
 				break;
 			case COIN:
@@ -209,8 +208,8 @@ int StageScene::Start()
 	}
 
 	//ボールの向きを設定
-	center = ball->GetPos();
-	prvpos = ball->GetPos();
+	center = ball.GetPos();
+	prvpos = ball.GetPos();
 	CheckSurroundingCollisions();
 	UpdateMoveDir();
 
@@ -265,7 +264,7 @@ int StageScene::Update()
 			o->SetAnimationCount(0);
 
 			//当たっている大砲の単位ベクトルを渡してボールの移動をする
-			ball->Move_Cannon(cannons[cannonIndex]->GetNormalizedDirection());
+			ball.Move_Cannon(cannons[cannonIndex]->GetNormalizedDirection());
 		}
 		//else
 		//{
@@ -292,13 +291,13 @@ int StageScene::Update()
 		if (cannons[cannonIndex]->GetCannonModeFlg() == true)
 		{
 			//当たっている大砲の単位ベクトルを渡してボールの移動をする
-			ball->Move_Cannon(cannons[cannonIndex]->GetNormalizedDirection());
-			ball->SetColor(1, 1, 1, 1);
+			ball.Move_Cannon(cannons[cannonIndex]->GetNormalizedDirection());
+			ball.SetColor(1, 1, 1, 1);
 
 		}
 		else
 		{
-			ball->SetColor(1, 1, 1, 0);
+			ball.SetColor(1, 1, 1, 0);
 		}
 
 		
@@ -338,10 +337,10 @@ int StageScene::Update()
 	}
 	else
 	{
-		ball->Move();//移動
+		ball.Move();//移動
 	}
 
-	center = ball->GetPos();//ボールの位置を取得
+	center = ball.GetPos();//ボールの位置を取得
 
 
 	if (abs(center.x - prvpos.x) == 40 || abs(center.y - prvpos.y) == 40)
@@ -433,7 +432,7 @@ int StageScene::Update()
 					{
 						if (o->GetBlockType() == STICKY_BLOCK)
 						{
-							ball->SetPos(o->GetPos().x + (center.x - v.x), o->GetPos().y + (center.y - v.y), ball->GetPos().z);
+							ball.SetPos(o->GetPos().x + (center.x - v.x), o->GetPos().y + (center.y - v.y), ball.GetPos().z);
 							cannons[cannonIndex]->SetCannnonModeFlg(false);
 							cannonFlg = false;
 						}
@@ -446,7 +445,7 @@ int StageScene::Update()
 	}
 
 	
-  	ball->Setborder();//端に行った時
+  	ball.Setborder();//端に行った時
 
 	////色をつける
 	//for (int x = 0; x < STAGE_X; x++)
@@ -676,7 +675,7 @@ int StageScene::Draw()
 		blocks[i]->Draw();
 	}
 	coin.Draw();
-	ball->Draw();
+	ball.Draw();
 
 	for (auto& o : cannons)
 	{
@@ -704,7 +703,6 @@ int StageScene::End()
 	{
 		delete o;
 	}
-	delete ball;
 	blocks.clear();
 
 	cannons.clear();
@@ -813,18 +811,18 @@ void StageScene::UpdateMoveDir()
 
 	if (hitBlockType[0] != NULLBLOCK && hitBlockType[1] != NULLBLOCK && hitBlockType[2] != NULLBLOCK && hitBlockType[3] != NULLBLOCK) {//四方にブロックがあれば
 		// すべて true の場合の処理
-		ball->SetMoveDir(STOP);
+		ball.SetMoveDir(STOP);
 	}
 	else
 	{
 		//跳ね返り
 		if (hitBlockType[0] == SLIP_BLOCK || hitBlockType[0] == UNBREAK_BLOCK)
 		{
-			ball->SetrotDir(ball->GetrotDir() == true ? false : true);
-			if (_moveDir == RIGHT) { ball->SetMoveDir(LEFT); }
-			else if (_moveDir == LEFT) { ball->SetMoveDir(RIGHT); }
-			else if (_moveDir == UP) { ball->SetMoveDir(DOWN); }
-			else if (_moveDir == DOWN) { ball->SetMoveDir(UP); }
+			ball.SetrotDir(ball.GetrotDir() == true ? false : true);
+			if (_moveDir == RIGHT) { ball.SetMoveDir(LEFT); }
+			else if (_moveDir == LEFT) { ball.SetMoveDir(RIGHT); }
+			else if (_moveDir == UP) { ball.SetMoveDir(DOWN); }
+			else if (_moveDir == DOWN) { ball.SetMoveDir(UP); }
 
 			for (int i = 0; i < 4; i++)
 			{
@@ -843,7 +841,7 @@ void StageScene::UpdateMoveDir()
 				if (hitBlockType[0] == NULLBLOCK)//前にブロックがなければ
 				{
 					prv_index = -1;
-					ball->Move();
+					ball.Move();
 				}
 			}
 
@@ -854,11 +852,11 @@ void StageScene::UpdateMoveDir()
 				{
 					if (hitBlockType[2] != NULLBLOCK)//左にブロックがある
 					{
-						ball->SetrotDir(ball->GetrotDir() == true ? false : true);
-						if (_moveDir == RIGHT) { ball->SetMoveDir(LEFT); }
-						else if (_moveDir == LEFT) { ball->SetMoveDir(RIGHT); }
-						else if (_moveDir == UP) { ball->SetMoveDir(DOWN); }
-						else if (_moveDir == DOWN) { ball->SetMoveDir(UP); }
+						ball.SetrotDir(ball.GetrotDir() == true ? false : true);
+						if (_moveDir == RIGHT) { ball.SetMoveDir(LEFT); }
+						else if (_moveDir == LEFT) { ball.SetMoveDir(RIGHT); }
+						else if (_moveDir == UP) { ball.SetMoveDir(DOWN); }
+						else if (_moveDir == DOWN) { ball.SetMoveDir(UP); }
 
 						for (int i = 0; i < 4; i++)
 						{
@@ -869,10 +867,10 @@ void StageScene::UpdateMoveDir()
 						UpdateMoveDir();
 					}
 					else if (_moveDir == RIGHT || _moveDir == LEFT) {
-						ball->SetMoveDir((center.y > blocks[hitSafe[3]]->GetPos().y) ? UP : DOWN);
+						ball.SetMoveDir((center.y > blocks[hitSafe[3]]->GetPos().y) ? UP : DOWN);
 					}
 					else {
-						ball->SetMoveDir((center.x > blocks[hitSafe[3]]->GetPos().x) ? RIGHT : LEFT);
+						ball.SetMoveDir((center.x > blocks[hitSafe[3]]->GetPos().x) ? RIGHT : LEFT);
 					}
 
 				}
@@ -881,17 +879,17 @@ void StageScene::UpdateMoveDir()
 		else//右にブロックがない
 		{
 
-			bool _rotdir = ball->GetrotDir();
+			bool _rotdir = ball.GetrotDir();
 			//ボールが右回りなら
 			if (_rotdir)
 			{
 				if (prv_index >= 0 && hitBlockType[2] == NULLBLOCK)
 				{
 					if (_moveDir == RIGHT || _moveDir == LEFT) {
-						ball->SetMoveDir((center.x > blocks[prv_index]->GetPos().x) ? DOWN : UP);
+						ball.SetMoveDir((center.x > blocks[prv_index]->GetPos().x) ? DOWN : UP);
 					}
 					else {
-						ball->SetMoveDir((center.y > blocks[prv_index]->GetPos().y) ? RIGHT : LEFT);
+						ball.SetMoveDir((center.y > blocks[prv_index]->GetPos().y) ? RIGHT : LEFT);
 					}
 				}
 			}
@@ -900,10 +898,10 @@ void StageScene::UpdateMoveDir()
 				if (prv_index >= 0 && hitBlockType[2] == NULLBLOCK)
 				{
 					if (_moveDir == RIGHT || _moveDir == LEFT) {
-						ball->SetMoveDir((center.x > blocks[prv_index]->GetPos().x) ? UP : DOWN);
+						ball.SetMoveDir((center.x > blocks[prv_index]->GetPos().x) ? UP : DOWN);
 					}
 					else {
-						ball->SetMoveDir((center.y > blocks[prv_index]->GetPos().y) ? LEFT : RIGHT);
+						ball.SetMoveDir((center.y > blocks[prv_index]->GetPos().y) ? LEFT : RIGHT);
 					}
 				}
 			}
@@ -933,7 +931,7 @@ void StageScene::CheckSurroundingCollisions()
 		hitBlockType[i] = NULLBLOCK;
 	}
 
-	_moveDir = ball->GetMoveDir();
+	_moveDir = ball.GetMoveDir();
 
 	// あたり判定の上下左右指定
 	if (_moveDir == RIGHT) { hitIndex[0] = 4; hitIndex[1] = 3; hitIndex[2] = 1; hitIndex[3] = 6; } // front = 4, back = 3,left = 1,right = 6
