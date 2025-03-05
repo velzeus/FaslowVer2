@@ -1,5 +1,5 @@
 #pragma once
-#include "Word1_Stage.h" 
+#include"SceneFolder/Scenes/StageScene.h"  
 #include "HoldArea.h"
 #include"Hold.h"
 #include <iostream>

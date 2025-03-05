@@ -1,7 +1,7 @@
 #pragma once
 #include "Hold.h"
 #include "Object.h"
-#include"Word1_Stage.h"
+#include"SceneFolder/Scenes/StageScene.h"  
 
 class HoldArea 
 {
