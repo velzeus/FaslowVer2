@@ -122,5 +122,8 @@ private:
 	bool triggerFlg_N;
 	bool triggerFlg_T;
 
+	int cannonIndex;
+
+	bool cannonFlg;
 };
 
