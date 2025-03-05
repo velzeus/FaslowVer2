@@ -1,25 +1,33 @@
 #pragma once
-#include <array>
-#include <utility> // std::pair
-#include "MouseInput.h"
-
-class Hold {
-private:
-    POINT startSelection; // 選択の開始点
-    POINT endSelection;   // 選択の終了点
-    bool isSelecting;     // 選択中かどうか
-
-    // 配列でエリアを保存（最大5回）
-    std::array<std::pair<POINT, POINT>, 5> selectedAreas;
-    size_t currentSaveIndex; // 現在選択したインデックス
-
+#include <vector>
+#include "CUT.h"
+#include"Word1_Stage.h"
+class Hold
+{
 public:
-    Hold();
+    // 1つの選択エリアを保持する構造体
+    struct Area
+    {
+        int startX, startY, endX, endY; // 選択範囲の開始・終了座標
+        std::vector<std::vector<int>> gridData;
+    };
 
-    void Update(MouseInput& mouseInput); // マウス入力に基づいて選択状態を更新
-    void Render(); // 保存したエリアを描画する
-    const std::array<std::pair<POINT, POINT>, 5>& GetSelectedAreas() const; // 選択されたエリアを取得
-    void ResetSelection(); // 選択状態をリセット
-    void SelectAreaAtPosition(POINT pos); // クリックした位置でエリア選択
+    Hold();  // コンストラクタ
+
+    // エリアを保存する関数（最大5つ）
+    void SaveArea(const int startX, const int startY, const int endX, const int endY);
+
+    // 保存したエリアを描画する関数
+   // void DrawSavedAreas();
+    const std::vector<Area>& GetHoldData() const { return savedAreas; }
+    // 指定したインデックスのエリアを取得する関数
+    Area GetSavedArea(int index) const;
+   
+
+private:
+    std::vector<Area> savedAreas;  // 保存されたエリアのリスト
+    static const int maxSavedAreas = 5;  // 保存する最大数
+    StageScene* stagescene;
 };
+
 

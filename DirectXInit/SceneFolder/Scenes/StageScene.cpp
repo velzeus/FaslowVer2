@@ -208,6 +208,7 @@ int StageScene::Start()
 	}
 
 	//ボールの向きを設定
+	ball.SetPos(-330, 430, 0);
 	center = ball.GetPos();
 	prvpos = ball.GetPos();
 	CheckSurroundingCollisions();
@@ -251,6 +252,7 @@ int StageScene::Start()
 
 int StageScene::Update()
 {
+
 	//大砲と当たっている判定があったら　
 	for (auto& o : cannons)
 	{
@@ -340,6 +342,10 @@ int StageScene::Update()
 		ball.Move();//移動
 	}
 
+
+	ball.Setborder();//端に行った時
+	//ball.Move();//移動
+
 	center = ball.GetPos();//ボールの位置を取得
 
 
@@ -350,6 +356,7 @@ int StageScene::Update()
 		UpdateMoveDir();//ボールの方向を変える
 
 	}
+
 
 	//大砲による移動をしている場合での当たり判定
 	if (cannonFlg == true)
@@ -445,7 +452,15 @@ int StageScene::Update()
 	}
 
 	
-  	ball.Setborder();//端に行った時
+  	//ball.Setborder();//端に行った時
+
+	if (ball.boder)
+	{
+		prvpos = ball.GetPos();
+		ball.boder = false;
+	}
+  	
+
 
 	////色をつける
 	//for (int x = 0; x < STAGE_X; x++)
@@ -895,7 +910,16 @@ void StageScene::UpdateMoveDir()
 			}
 			else//ボールが左回りなら
 			{
-				if (prv_index >= 0 && hitBlockType[2] == NULLBLOCK)
+				if (prv_index >= 0 && hitBlockType[2] != NULLBLOCK && hitBlockType[0] != NULLBLOCK)
+				{
+					if (_moveDir == RIGHT || _moveDir == LEFT) {
+						ball.SetMoveDir((center.x > blocks[prv_index]->GetPos().x) ? UP : DOWN);
+					}
+					else {
+						ball.SetMoveDir((center.y > blocks[prv_index]->GetPos().y) ? LEFT : RIGHT);
+					}
+				}
+				else if (prv_index >= 0 && hitBlockType[2] == NULLBLOCK)
 				{
 					if (_moveDir == RIGHT || _moveDir == LEFT) {
 						ball.SetMoveDir((center.x > blocks[prv_index]->GetPos().x) ? UP : DOWN);

@@ -1,19 +1,20 @@
 #pragma once
-#include <array>
-#include "Hold.h"
-#include "MouseInput.h"
+#include "Word1_Stage.h" 
+#include "HoldArea.h"
+#include"Hold.h"
+#include <iostream>
+#include"MouseInput.h"
 
 class Reposition {
-private:
-    Hold& hold;  // Holdのインスタンス
-    std::array<RECT, 5> positions; // 5つの配置位置
-    size_t currentSaveIndex; // 現在選択するインデックス
-
 public:
-    Reposition(Hold& hold);
+    Reposition(Hold* holdInstance, StageScene* stagesceneInstance);
+    void PlaceArea(int holdIndex, int targetX, int targetY);  // 保存エリアを配置
 
-    void Update(MouseInput& mouseInput); // マウス入力を処理
-    void Render(); // 再配置エリアを描画するための関数
+private:
+    Hold* hold;
+    StageScene* stagescene;
+    int selectedIndex = -1;
 };
+
 
                                         
