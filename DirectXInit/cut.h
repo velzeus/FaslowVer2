@@ -17,6 +17,7 @@ public:
 
     // 選択範囲のマスを更新する
     void ClearSelectedArea(int startX, int startY, int endX, int endY);
+    void Update();
 };
 
 
