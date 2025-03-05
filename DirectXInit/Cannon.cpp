@@ -1,10 +1,11 @@
 #include "Cannon.h"
 
-Cannon::Cannon(int _worldNum, int _stageNum, int _index)
+Cannon::Cannon(int _worldNum, int _stageNum, int _index, int _cannonNum)
 {
 	//ワールド、ステージ、大砲の番号ごとに直接処理を行う
 	//ない場所は何もしない
 	index = _index;
+	cannonNum = _cannonNum;
 	//大砲があるワールドだけを処理する
 	switch (_worldNum)
 	{
@@ -14,7 +15,7 @@ Cannon::Cannon(int _worldNum, int _stageNum, int _index)
 		{
 		case 1:
 			//左下から右上方向へ向かって何番目の大砲か
-			switch (_index)
+			switch (_cannonNum)
 			{
 			case 0:
 				rotation = TOWARD_RIGHT;
@@ -29,7 +30,7 @@ Cannon::Cannon(int _worldNum, int _stageNum, int _index)
 			break;
 		case 2:
 			//左下から右上方向へ向かって何番目の大砲か
-			switch (_index)
+			switch (_cannonNum)
 			{
 			case 0:
 				rotation = TOWARD_RIGHTUP;
@@ -46,7 +47,7 @@ Cannon::Cannon(int _worldNum, int _stageNum, int _index)
 			break;
 		case 3:
 			//左下から右上方向へ向かって何番目の大砲か
-			switch (_index)
+			switch (_cannonNum)
 			{
 			case 0:
 				rotation = TOWARD_RIGHTUP;
@@ -57,7 +58,7 @@ Cannon::Cannon(int _worldNum, int _stageNum, int _index)
 			break;
 		case 4:
 			//左下から右上方向へ向かって何番目の大砲か
-			switch (_index)
+			switch (_cannonNum)
 			{
 			case 0:
 				rotation = TOWARD_RIGHTDOWN;
@@ -71,7 +72,7 @@ Cannon::Cannon(int _worldNum, int _stageNum, int _index)
 			break;
 		case 5:
 			//左下から右上方向へ向かって何番目の大砲か
-			switch (_index)
+			switch (_cannonNum)
 			{
 			case 0:
 				rotation = TOWARD_DOWN;
@@ -91,7 +92,7 @@ Cannon::Cannon(int _worldNum, int _stageNum, int _index)
 		{
 		case 1:
 			//左下から右上方向へ向かって何番目の大砲か
-			switch (_index)
+			switch (_cannonNum)
 			{
 			case 0:
 				rotation = TOWARD_UP;
@@ -103,7 +104,7 @@ Cannon::Cannon(int _worldNum, int _stageNum, int _index)
 			break;
 		case 2:
 			//左下から右上方向へ向かって何番目の大砲か
-			switch (_index)
+			switch (_cannonNum)
 			{
 			case 0:
 				rotation = TOWARD_RIGHTUP;
@@ -117,7 +118,7 @@ Cannon::Cannon(int _worldNum, int _stageNum, int _index)
 			break;
 		case 3:
 			//左下から右上方向へ向かって何番目の大砲か
-			switch (_index)
+			switch (_cannonNum)
 			{
 			case 0:
 				rotation = TOWARD_UP;
@@ -143,7 +144,7 @@ Cannon::Cannon(int _worldNum, int _stageNum, int _index)
 			break;
 		case 4:
 			//左下から右上方向へ向かって何番目の大砲か
-			switch (_index)
+			switch (_cannonNum)
 			{
 			default:
 				break;
@@ -151,7 +152,7 @@ Cannon::Cannon(int _worldNum, int _stageNum, int _index)
 			break;
 		case 5:
 			//左下から右上方向へ向かって何番目の大砲か
-			switch (_index)
+			switch (_cannonNum)
 			{
 			default:
 				break;
@@ -166,6 +167,7 @@ Cannon::Cannon(int _worldNum, int _stageNum, int _index)
 	}
 
 	cannonModeFlg = false;
+	animationCount = 0;
 }
 
 void Cannon::SetCannnonModeFlg(bool _cannnonModeFlg)
@@ -178,6 +180,16 @@ bool Cannon::GetCannonModeFlg()
 	return cannonModeFlg;
 }
 
+void Cannon::SetPosFlg(bool _setPosFlg)
+{
+	setPosFlg = _setPosFlg;
+}
+
+bool Cannon::GetPosFlg()
+{
+	return setPosFlg;
+}
+
 void Cannon::SetNormalizedDirection(DirectX::XMFLOAT3 _normalizedDirection)
 {
 	normalizedDirection = _normalizedDirection;
@@ -186,4 +198,53 @@ void Cannon::SetNormalizedDirection(DirectX::XMFLOAT3 _normalizedDirection)
 DirectX::XMFLOAT3 Cannon::GetNormalizedDirection()
 {
 	return normalizedDirection;
+}
+
+int Cannon::GetRotateCannon()
+{
+	return rotation;
+}
+
+int Cannon::GetIndex()
+{
+	return index;
+}
+
+int Cannon::GetCannonNum()
+{
+	return cannonNum;
+}
+
+void Cannon::SetAnimationCount(int _count)
+{
+	animationCount = _count;
+}
+
+int Cannon::GetAnimationCount()
+{
+	return animationCount;
+}
+
+void Cannon::SetCollisionPos(float _x, float _y, float _z)
+{
+	collisionPos.x = _x;
+	collisionPos.y = _y;
+	collisionPos.z = _z;
+}
+
+DirectX::XMFLOAT3 Cannon::GetCollisionPos()
+{
+	return collisionPos;
+}
+
+void Cannon::SetCollisionScale(float _x, float _y, float _z)
+{
+	collisionScale.x = _x;
+	collisionScale.y = _y;
+	collisionScale.z = _z;
+}
+
+DirectX::XMFLOAT3 Cannon::GetCollisionScale()
+{
+	return collisionScale;
 }

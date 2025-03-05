@@ -82,12 +82,12 @@ int StageScene::Start()
 				gorl.SetPos(read_blockPositionList[y][x].x, read_blockPositionList[y][x].y, 0.0f);
 				gorl.SetSize(BLOCKSIZE_X, BLOCKSIZE_Y, 0.0f);
 				gorl.SetAngle(0.0f);
-				gorl.SetAngle(0.0f);
 				gorl.SetColor(1.0f, 1.0f, 1.0f, 1.0f);
 				gridData[x][y] = NULLBLOCK;
 				break;
 			case BOLL:
-				ball.SetPos(read_blockPositionList[y][x].x, read_blockPositionList[y][x].y, 0);
+				ball = new Ball();
+				ball->SetPos(read_blockPositionList[y][x].x, read_blockPositionList[y][x].y, 0);
 				gridData[x][y] = NULLBLOCK;
 				break;
 			case COIN:
@@ -95,12 +95,72 @@ int StageScene::Start()
 				coin.SetPos(read_blockPositionList[y][x].x, read_blockPositionList[y][x].y, 0.0f);
 				coin.SetSize(BLOCKSIZE_X, BLOCKSIZE_Y, 0.0f);
 				coin.SetAngle(0.0f);
-				coin.SetAngle(0.0f);
 				coin.SetColor(1.0f, 1.0f, 1.0f, 1.0f);
 				gridData[x][y] = NULLBLOCK;
 				break;
 			case CANNON:
+				for (auto& o : cannons)
+				{
+					//座標がセットされていない
+					if (o->GetPosFlg() == false&&o->GetIndex()==(STAGE_X * y + x))
+					{
+						//向いている方向に向かって1マス分ずらす
+						DirectX::XMFLOAT3 deltaPos = {};
+						switch (o->GetRotateCannon())
+						{
+						case TOWARD_UP:
+							deltaPos = { 0,BLOCKSIZE_Y,0 };
+							break;
+						case TOWARD_RIGHTUP:
+							deltaPos = { BLOCKSIZE_X,BLOCKSIZE_Y,0 };
+							break;
+						case TOWARD_RIGHT:
+							deltaPos = { BLOCKSIZE_X,0,0 };
+							break;
+						case TOWARD_RIGHTDOWN:
+							deltaPos = { BLOCKSIZE_X,-BLOCKSIZE_Y,0 };
+							break;
+						case TOWARD_DOWN:
+							deltaPos = { 0,-BLOCKSIZE_Y,0 };
+							break;
+						case TOWARD_LEFTDOWN:
+							deltaPos = { -BLOCKSIZE_X,-BLOCKSIZE_Y,0 };
+							break;
+						case TOWARD_LEFT:
+							deltaPos = { -BLOCKSIZE_X,0,0 };
+							break;
+						case TOWARD_LEFTUP:
+							deltaPos = { -BLOCKSIZE_X,BLOCKSIZE_Y,0 };
+							break;
+						}
 
+						//初期化
+						o->Init(L"asset/Sprite/CannonAndEffect.png", 5, 4);
+						
+						//描画用の座標情報
+						o->SetPos(read_blockPositionList[y][x].x + deltaPos.x, read_blockPositionList[y][x].y + deltaPos.y, 0.0f);
+						o->SetSize(BLOCKSIZE_X * 2, BLOCKSIZE_Y * 4, 0);
+						
+						//当たり判定用の座標情報
+						o->SetCollisionPos(read_blockPositionList[y][x].x, read_blockPositionList[y][x].y, 0.0f);
+						o->SetCollisionScale(BLOCKSIZE_X, BLOCKSIZE_Y, 0);
+						o->SetAngle(-45 * o->GetRotateCannon());
+						o->SetColor(1, 1, 1, 1);
+						o->numU = 0; o->numV = 0;
+
+						//セット完了
+						o->SetPosFlg(true);
+
+						//単位ベクトルを求める
+						//目標地点の座標(基準から10マスぐらい先にする)
+						DirectX::XMFLOAT3 target = { o->GetCollisionPos().x + deltaPos.x * 10,o->GetCollisionPos().y + deltaPos.y * 10,0 };
+
+						//単位ベクトルを求めてセット
+						//o->SetNormalizedDirection();
+						o->SetNormalizedDirection(NormalizedRotateVector(RotateVector(target, o->GetPos())));
+						break;
+					}
+				}
 				break;
 			}
 
@@ -149,8 +209,8 @@ int StageScene::Start()
 	}
 
 	//ボールの向きを設定
-	center = ball.GetPos();
-	prvpos = ball.GetPos();
+	center = ball->GetPos();
+	prvpos = ball->GetPos();
 	CheckSurroundingCollisions();
 	UpdateMoveDir();
 
@@ -183,13 +243,105 @@ int StageScene::Start()
 	triggerFlg_O = false;
 	triggerFlg_T = false;
 
+	cannonIndex = -1;
+
+	cannonFlg = false;
+
 	return 0;
 }
 
 int StageScene::Update()
 {
-	ball.Move();//移動
-	center = ball.GetPos();//ボールの位置を取得
+	//大砲と当たっている判定があったら　
+	for (auto& o : cannons)
+	{
+		//ボールと大砲が重なったら
+		if (center.x == o->GetCollisionPos().x &&
+			center.y == o->GetCollisionPos().y)
+		{
+			//o->SetCannnonModeFlg(true);
+			cannonIndex = o->GetCannonNum();
+			cannonFlg = true;
+			o->SetAnimationCount(0);
+
+			//当たっている大砲の単位ベクトルを渡してボールの移動をする
+			ball->Move_Cannon(cannons[cannonIndex]->GetNormalizedDirection());
+		}
+		//else
+		//{
+		//	//o->SetCannnonModeFlg(false);
+		//}
+
+		//if (o->GetCannonModeFlg() == false&&cannonFlg==true)
+		//{
+		//	//当たっている大砲の番号を渡す
+		//	cannonIndex = o->GetCannonNum();
+		//	break;
+		//}
+	}
+
+	//大砲と当たっている
+	if (cannonFlg == true)
+	{
+		/*if (cannons[cannonIndex]->GetAnimationCount() >= 30)
+		{
+			cannons[cannonIndex]->SetCannnonModeFlg(true);
+		}*/
+
+		//発射する条件を満たしている
+		if (cannons[cannonIndex]->GetCannonModeFlg() == true)
+		{
+			//当たっている大砲の単位ベクトルを渡してボールの移動をする
+			ball->Move_Cannon(cannons[cannonIndex]->GetNormalizedDirection());
+			ball->SetColor(1, 1, 1, 1);
+
+		}
+		else
+		{
+			ball->SetColor(1, 1, 1, 0);
+		}
+
+		
+		//アニメーションカウントが24で割り切れるときかつ、アニメーションカウントがゼロより大きいとき
+		if (cannons[cannonIndex]->GetAnimationCount() % 24 == 0&& cannons[cannonIndex]->GetAnimationCount() > 0)
+		{
+			//縦方向のUVを更新
+			cannons[cannonIndex]->numV++;
+			cannons[cannonIndex]->numU=0;
+			cannons[cannonIndex]->SetAnimationCount(cannons[cannonIndex]->GetAnimationCount() + 1);
+
+			cannons[cannonIndex]->SetCannnonModeFlg(true);
+		}
+		else 
+		{
+			//表示している画像番号が17番より下かつ、アニメーションカウントが全部回った後の値より少ないとき
+			if (5 * cannons[cannonIndex]->numV + cannons[cannonIndex]->numU < 17 && cannons[cannonIndex]->GetAnimationCount() < 17 * 5)
+			{
+				//カウントを上げる
+				cannons[cannonIndex]->SetAnimationCount(cannons[cannonIndex]->GetAnimationCount() + 1);
+
+				//アニメーションカウント%5が4のときかつ、numUが4未満のとき
+				if (cannons[cannonIndex]->GetAnimationCount() % 5 == 4&& cannons[cannonIndex]->numU<4)
+				{
+					cannons[cannonIndex]->numU++;
+				}
+			}
+			else
+			{
+				//UVの値を0に戻す
+				cannons[cannonIndex]->numV = 0;
+				cannons[cannonIndex]->numU = 0;
+			}
+			
+		}
+		
+	}
+	else
+	{
+		ball->Move();//移動
+	}
+
+	center = ball->GetPos();//ボールの位置を取得
 
 
 	if (abs(center.x - prvpos.x) == 40 || abs(center.y - prvpos.y) == 40)
@@ -199,8 +351,102 @@ int StageScene::Update()
 		UpdateMoveDir();//ボールの方向を変える
 
 	}
-  
-  	ball.Setborder();//端に行った時
+
+	//大砲による移動をしている場合での当たり判定
+	if (cannonFlg == true)
+	{
+		if (cannons[cannonIndex]->GetCannonModeFlg() == true)
+		{
+			//進む方向のブロックの座標を代入(斜めは上下の判定が先に入る)
+			std::vector<DirectX::XMFLOAT3> forwardCenter;
+			DirectX::XMFLOAT3 tmp = {};
+			switch (cannons[cannonIndex]->GetRotateCannon())
+			{
+			case TOWARD_UP:
+				//y軸
+				tmp = { center.x, center.y + BLOCKSIZE_Y, center.z };
+				forwardCenter.emplace_back(tmp);
+				break;
+			case TOWARD_RIGHTUP:
+				//y軸
+				tmp = { center.x, center.y + BLOCKSIZE_Y, center.z };
+				forwardCenter.emplace_back(tmp);
+
+				//x軸
+				tmp = { center.x + BLOCKSIZE_X, center.y, center.z };
+				forwardCenter.emplace_back(tmp);
+				break;
+			case TOWARD_RIGHT:
+				//x軸
+				tmp = { center.x + BLOCKSIZE_X, center.y, center.z };
+				forwardCenter.emplace_back(tmp);
+				break;
+			case TOWARD_RIGHTDOWN:
+				//y軸
+				tmp = { center.x, center.y - BLOCKSIZE_Y, center.z };
+				forwardCenter.emplace_back(tmp);
+
+				//x軸
+				tmp = { center.x + BLOCKSIZE_X, center.y, center.z };
+				forwardCenter.emplace_back(tmp);
+				break;
+			case TOWARD_DOWN:
+				//y軸
+				tmp = { center.x, center.y - BLOCKSIZE_Y, center.z };
+				forwardCenter.emplace_back(tmp);
+				break;
+			case TOWARD_LEFTDOWN:
+				//y軸
+				tmp = { center.x, center.y - BLOCKSIZE_Y, center.z };
+				forwardCenter.emplace_back(tmp);
+
+				//x軸
+				tmp = { center.x - BLOCKSIZE_X, center.y, center.z };
+				forwardCenter.emplace_back(tmp);
+				break;
+			case TOWARD_LEFT:
+				//x軸
+				tmp = { center.x - BLOCKSIZE_X, center.y, center.z };
+				forwardCenter.emplace_back(tmp);
+				break;
+			case TOWARD_LEFTUP:
+				//y軸
+				tmp = { center.x, center.y + BLOCKSIZE_Y, center.z };
+				forwardCenter.emplace_back(tmp);
+
+				//x軸
+				tmp = { center.x - BLOCKSIZE_X, center.y, center.z };
+				forwardCenter.emplace_back(tmp);
+				break;
+			}
+
+			//進行方向のブロック座標にブロックがあるかを確認する
+			for (auto& v : forwardCenter)
+			{
+				for (auto& o : blocks)
+				{
+					//判定を取っている場所に粘着ブロックがあったら
+					if (v.x >= o->GetPos().x - o->GetSize().x / 4 &&
+						v.x <= o->GetPos().x + o->GetSize().x / 4 &&
+						v.y >= o->GetPos().y - o->GetSize().y / 4 &&
+						v.y <= o->GetPos().y + o->GetSize().y / 4)
+					{
+						if (o->GetBlockType() == STICKY_BLOCK)
+						{
+							ball->SetPos(o->GetPos().x + (center.x - v.x), o->GetPos().y + (center.y - v.y), ball->GetPos().z);
+							cannons[cannonIndex]->SetCannnonModeFlg(false);
+							cannonFlg = false;
+						}
+					}
+				}
+			}
+
+
+		}
+	}
+
+	
+  	ball->Setborder();//端に行った時
 
 	////色をつける
 	//for (int x = 0; x < STAGE_X; x++)
@@ -430,8 +676,12 @@ int StageScene::Draw()
 		blocks[i]->Draw();
 	}
 	coin.Draw();
-	ball.Draw();
+	ball->Draw();
 
+	for (auto& o : cannons)
+	{
+		o->Draw();
+	}
 
 	optionButton.Draw();
 
@@ -450,11 +700,11 @@ int StageScene::End()
 		delete blocks[i];
 	}
 
-	for (auto n : cannons)
+	for (auto& o : cannons)
 	{
-		delete n;
+		delete o;
 	}
-	//ball.Uninit();
+	delete ball;
 	blocks.clear();
 
 	cannons.clear();
@@ -501,7 +751,7 @@ void StageScene::ReadFile()
 
 	}
 
-	int cannnonNum = 0;
+	int cannonNum = 0;
 
 	//BlockBaseに対応する形に変換
 	for (int i = 0; i < read_gridStateList.size(); i++)//縦方向
@@ -523,8 +773,8 @@ void StageScene::ReadFile()
 				blocks.emplace_back(new BlockBace((STAGE_X * i + j), UNBREAK_BLOCK));
 				break;
 			case CANNON:
-				cannons.emplace_back(new Cannon(manager->GetWorldNumber(), manager->GetStageNumber(), cannnonNum));
-				cannnonNum++;
+				cannons.emplace_back(new Cannon(manager->GetWorldNumber(), manager->GetStageNumber(), (STAGE_X * i + j), cannonNum));
+				cannonNum++;
 				break;
 			defalt:  //その他の状態
 
@@ -563,18 +813,18 @@ void StageScene::UpdateMoveDir()
 
 	if (hitBlockType[0] != NULLBLOCK && hitBlockType[1] != NULLBLOCK && hitBlockType[2] != NULLBLOCK && hitBlockType[3] != NULLBLOCK) {//四方にブロックがあれば
 		// すべて true の場合の処理
-		ball.SetMoveDir(STOP);
+		ball->SetMoveDir(STOP);
 	}
 	else
 	{
 		//跳ね返り
 		if (hitBlockType[0] == SLIP_BLOCK || hitBlockType[0] == UNBREAK_BLOCK)
 		{
-			ball.SetrotDir(ball.GetrotDir() == true ? false : true);
-			if (_moveDir == RIGHT) { ball.SetMoveDir(LEFT); }
-			else if (_moveDir == LEFT) { ball.SetMoveDir(RIGHT); }
-			else if (_moveDir == UP) { ball.SetMoveDir(DOWN); }
-			else if (_moveDir == DOWN) { ball.SetMoveDir(UP); }
+			ball->SetrotDir(ball->GetrotDir() == true ? false : true);
+			if (_moveDir == RIGHT) { ball->SetMoveDir(LEFT); }
+			else if (_moveDir == LEFT) { ball->SetMoveDir(RIGHT); }
+			else if (_moveDir == UP) { ball->SetMoveDir(DOWN); }
+			else if (_moveDir == DOWN) { ball->SetMoveDir(UP); }
 
 			for (int i = 0; i < 4; i++)
 			{
@@ -593,7 +843,7 @@ void StageScene::UpdateMoveDir()
 				if (hitBlockType[0] == NULLBLOCK)//前にブロックがなければ
 				{
 					prv_index = -1;
-					ball.Move();
+					ball->Move();
 				}
 			}
 
@@ -604,11 +854,11 @@ void StageScene::UpdateMoveDir()
 				{
 					if (hitBlockType[2] != NULLBLOCK)//左にブロックがある
 					{
-						ball.SetrotDir(ball.GetrotDir() == true ? false : true);
-						if (_moveDir == RIGHT) { ball.SetMoveDir(LEFT); }
-						else if (_moveDir == LEFT) { ball.SetMoveDir(RIGHT); }
-						else if (_moveDir == UP) { ball.SetMoveDir(DOWN); }
-						else if (_moveDir == DOWN) { ball.SetMoveDir(UP); }
+						ball->SetrotDir(ball->GetrotDir() == true ? false : true);
+						if (_moveDir == RIGHT) { ball->SetMoveDir(LEFT); }
+						else if (_moveDir == LEFT) { ball->SetMoveDir(RIGHT); }
+						else if (_moveDir == UP) { ball->SetMoveDir(DOWN); }
+						else if (_moveDir == DOWN) { ball->SetMoveDir(UP); }
 
 						for (int i = 0; i < 4; i++)
 						{
@@ -619,10 +869,10 @@ void StageScene::UpdateMoveDir()
 						UpdateMoveDir();
 					}
 					else if (_moveDir == RIGHT || _moveDir == LEFT) {
-						ball.SetMoveDir((center.y > blocks[hitSafe[3]]->GetPos().y) ? UP : DOWN);
+						ball->SetMoveDir((center.y > blocks[hitSafe[3]]->GetPos().y) ? UP : DOWN);
 					}
 					else {
-						ball.SetMoveDir((center.x > blocks[hitSafe[3]]->GetPos().x) ? RIGHT : LEFT);
+						ball->SetMoveDir((center.x > blocks[hitSafe[3]]->GetPos().x) ? RIGHT : LEFT);
 					}
 
 				}
@@ -631,17 +881,17 @@ void StageScene::UpdateMoveDir()
 		else//右にブロックがない
 		{
 
-			bool _rotdir = ball.GetrotDir();
+			bool _rotdir = ball->GetrotDir();
 			//ボールが右回りなら
 			if (_rotdir)
 			{
 				if (prv_index >= 0 && hitBlockType[2] == NULLBLOCK)
 				{
 					if (_moveDir == RIGHT || _moveDir == LEFT) {
-						ball.SetMoveDir((center.x > blocks[prv_index]->GetPos().x) ? DOWN : UP);
+						ball->SetMoveDir((center.x > blocks[prv_index]->GetPos().x) ? DOWN : UP);
 					}
 					else {
-						ball.SetMoveDir((center.y > blocks[prv_index]->GetPos().y) ? RIGHT : LEFT);
+						ball->SetMoveDir((center.y > blocks[prv_index]->GetPos().y) ? RIGHT : LEFT);
 					}
 				}
 			}
@@ -650,10 +900,10 @@ void StageScene::UpdateMoveDir()
 				if (prv_index >= 0 && hitBlockType[2] == NULLBLOCK)
 				{
 					if (_moveDir == RIGHT || _moveDir == LEFT) {
-						ball.SetMoveDir((center.x > blocks[prv_index]->GetPos().x) ? UP : DOWN);
+						ball->SetMoveDir((center.x > blocks[prv_index]->GetPos().x) ? UP : DOWN);
 					}
 					else {
-						ball.SetMoveDir((center.y > blocks[prv_index]->GetPos().y) ? LEFT : RIGHT);
+						ball->SetMoveDir((center.y > blocks[prv_index]->GetPos().y) ? LEFT : RIGHT);
 					}
 				}
 			}
@@ -683,7 +933,7 @@ void StageScene::CheckSurroundingCollisions()
 		hitBlockType[i] = NULLBLOCK;
 	}
 
-	_moveDir = ball.GetMoveDir();
+	_moveDir = ball->GetMoveDir();
 
 	// あたり判定の上下左右指定
 	if (_moveDir == RIGHT) { hitIndex[0] = 4; hitIndex[1] = 3; hitIndex[2] = 1; hitIndex[3] = 6; } // front = 4, back = 3,left = 1,right = 6

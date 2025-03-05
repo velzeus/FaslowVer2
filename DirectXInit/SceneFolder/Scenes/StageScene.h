@@ -36,7 +36,7 @@ class StageScene :
 {
 public:
 
-	Ball ball;
+	Ball* ball;
     StageScene();
     ~StageScene() override;
 
@@ -122,5 +122,8 @@ private:
 	bool triggerFlg_N;
 	bool triggerFlg_T;
 
+	int cannonIndex;
+
+	bool cannonFlg;
 };
 

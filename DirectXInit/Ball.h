@@ -28,6 +28,8 @@ public:
 	void SetMoveDir(DIRECTION dir);//進行方向のセッター
 	void Move();//移動
 
+	void Move_Cannon(DirectX::XMFLOAT3 _normalizedDirection);
+
 	bool GetrotDir();//回転方向のゲッター
 	void SetrotDir(bool _rotdir);//回転方向のセッター
 
