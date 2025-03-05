@@ -18,7 +18,7 @@ private:
 	bool rotDirection = true;//回転方向の指定 true:右　false:左
 	DIRECTION crntDrct;//ボールがくっついている辺
 	DIRECTION precDrct;//ボールがくっついていた辺
-	DIRECTION moveDir = LEFT; // ボールの移動方向 (新しく追加)
+	DIRECTION moveDir = UP; // ボールの移動方向 (新しく追加)
 
 public:
 	Ball();
