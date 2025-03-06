@@ -35,6 +35,7 @@ private:
 public:
 	BlockBace();
 	BlockBace(int _index, GridState _blocktype);
+	void SetBlockType(GridState _blockType);
 	GridState GetBlockType();
 	int GetIndex();//インデックスを取得
 	

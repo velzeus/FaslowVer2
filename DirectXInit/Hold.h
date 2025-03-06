@@ -1,7 +1,6 @@
 #pragma once
 #include <vector>
 #include "CUT.h"
-#include"Word1_Stage.h"
 class Hold
 {
 public:

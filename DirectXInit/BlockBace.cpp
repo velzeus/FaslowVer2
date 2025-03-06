@@ -10,6 +10,11 @@ BlockBace::BlockBace(int _index, GridState _blocktype) :index(_index), blocktype
 
 }
 
+void BlockBace::SetBlockType(GridState _blockType)
+{
+    blocktype = _blockType;
+}
+
 GridState BlockBace::GetBlockType()
 {
     return blocktype;

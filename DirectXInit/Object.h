@@ -12,6 +12,12 @@ typedef enum
 	
 }Direction;
 
+//À•W‚ğæ“¾‚·‚é‚½‚ß‚Ì\‘¢‘Ì
+struct VECTOR2
+{
+	float x, y;
+};
+
 class Object
 {
 protected:
