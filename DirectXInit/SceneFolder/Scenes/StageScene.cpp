@@ -280,6 +280,7 @@ int StageScene::Start()
 	cannonIndex = -1;
 
 	cannonFlg = false;
+	rpid = false;
 
 	cutAndPaste.SetCutModeFlg(false);
 	animCount = 0;
@@ -299,7 +300,7 @@ int StageScene::Update()
 	}
 
 	
-
+	ball.Setborder();//端に行った時
 	//大砲と当たっている判定があったら　
 	for (auto& o : cannons)
 	{
@@ -344,6 +345,7 @@ int StageScene::Update()
 			//当たっている大砲の単位ベクトルを渡してボールの移動をする
 			ball.Move_Cannon(cannons[cannonIndex]->GetNormalizedDirection());
 			ball.SetColor(1, 1, 1, 1);
+			
 
 		}
 		else
@@ -388,7 +390,6 @@ int StageScene::Update()
 	}
 	else
 	{
-		ball.Setborder();//端に行った時
 		ball.Move();//移動
 	}
 
@@ -403,16 +404,10 @@ int StageScene::Update()
 
 	if (abs(center.x - prvpos.x) == 40 || abs(center.y - prvpos.y) == 40)
 	{
-		
-		
-
-
 		if(rpid)
 		{
-			
 			ball.vel_x = 20.0f;
 			ball.vel_y = 20.0f;
-
 		}
 		else 
 		{
@@ -518,6 +513,7 @@ int StageScene::Update()
 
 
 		}
+		CheckSurroundingCollisions();//あたり判定
 	}
 
 	
