@@ -42,9 +42,6 @@
     <ClCompile Include="sound.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Word1_Stage.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="Hold.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
@@ -81,9 +78,6 @@
     <ClCompile Include="input.cpp">
       <Filter>InputSystem</Filter>
     </ClCompile>
-    <ClCompile Include="ClassA.cpp">
-      <Filter>SceneFolder\Scenes</Filter>
-    </ClCompile>
     <ClCompile Include="Ball.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
@@ -97,6 +91,15 @@
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Cannon.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="CutAndPaste.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="HoldArea.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Area.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
@@ -115,9 +118,6 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="sound.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Word1_Stage.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Hold.h">
@@ -159,9 +159,6 @@
     <ClInclude Include="MouseInput.h">
       <Filter>InputSystem</Filter>
     </ClInclude>
-    <ClInclude Include="ClassA.h">
-      <Filter>SceneFolder\Scenes</Filter>
-    </ClInclude>
     <ClInclude Include="CreateStageJson.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -184,6 +181,15 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Cannon.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="CutAndPaste.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="HoldArea.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Area.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

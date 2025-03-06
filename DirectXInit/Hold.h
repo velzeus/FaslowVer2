@@ -1,32 +1,34 @@
 #pragma once
 #include <vector>
 #include "CUT.h"
+
 #include"SceneFolder/Scenes/StageScene.h"  
+
 class Hold
 {
 public:
-    // 1‚Â‚Ì‘I‘ğƒGƒŠƒA‚ğ•Û‚·‚é\‘¢‘Ì
+    // 1ã¤ã®é¸æŠã‚¨ãƒªã‚¢ã‚’ä¿æŒã™ã‚‹æ§‹é€ ä½“
     struct Area
     {
-        int startX, startY, endX, endY; // ‘I‘ğ”ÍˆÍ‚ÌŠJnEI—¹À•W
+        int startX, startY, endX, endY; // é¸æŠç¯„å›²ã®é–‹å§‹ãƒ»çµ‚äº†åº§æ¨™
         std::vector<std::vector<int>> gridData;
     };
 
-    Hold();  // ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+    Hold();  // ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 
-    // ƒGƒŠƒA‚ğ•Û‘¶‚·‚éŠÖ”iÅ‘å5‚Âj
+    // ã‚¨ãƒªã‚¢ã‚’ä¿å­˜ã™ã‚‹é–¢æ•°ï¼ˆæœ€å¤§5ã¤ï¼‰
     void SaveArea(const int startX, const int startY, const int endX, const int endY);
 
-    // •Û‘¶‚µ‚½ƒGƒŠƒA‚ğ•`‰æ‚·‚éŠÖ”
+    // ä¿å­˜ã—ãŸã‚¨ãƒªã‚¢ã‚’æç”»ã™ã‚‹é–¢æ•°
    // void DrawSavedAreas();
     const std::vector<Area>& GetHoldData() const { return savedAreas; }
-    // w’è‚µ‚½ƒCƒ“ƒfƒbƒNƒX‚ÌƒGƒŠƒA‚ğæ“¾‚·‚éŠÖ”
+    // æŒ‡å®šã—ãŸã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ã®ã‚¨ãƒªã‚¢ã‚’å–å¾—ã™ã‚‹é–¢æ•°
     Area GetSavedArea(int index) const;
    
 
 private:
-    std::vector<Area> savedAreas;  // •Û‘¶‚³‚ê‚½ƒGƒŠƒA‚ÌƒŠƒXƒg
-    static const int maxSavedAreas = 5;  // •Û‘¶‚·‚éÅ‘å”
+    std::vector<Area> savedAreas;  // ä¿å­˜ã•ã‚ŒãŸã‚¨ãƒªã‚¢ã®ãƒªã‚¹ãƒˆ
+    static const int maxSavedAreas = 5;  // ä¿å­˜ã™ã‚‹æœ€å¤§æ•°
     StageScene* stagescene;
 };
 

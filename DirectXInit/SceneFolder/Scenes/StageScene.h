@@ -5,6 +5,7 @@
 #include"../../BlockBace.h"
 #include"../../Ball.h"
 #include"../../Cannon.h"
+#include"../../CutAndPaste.h"
 #include <vector>
 #include <utility> // std::pair を使うため
 #include<iostream>
@@ -25,11 +26,7 @@ using namespace std;
 
 //GridStateはBlockBaceに移しました
 
-//座標を取得するための構造体
-struct VECTOR2
-{
-    float x, y;
-};
+
 
 class StageScene :
     public Scene
@@ -116,6 +113,14 @@ private:
 	//コイン
 	Object coin;
 
+	//カットボタン
+	Object cutButton;
+
+	//
+	Object holdAreaFlame;
+
+
+
 	//色を変えるフラグ
 	bool accelerationFlg;
 
@@ -126,5 +131,19 @@ private:
 	int cannonIndex;
 
 	bool cannonFlg;
+
+
+	CutAndPaste cutAndPaste;
+
+	//Area area;
+
+	std::vector<Area*> holdAreas;
+
+	int gridIndex_X[2] = {};
+	int gridIndex_Y[2] = {};
+
+	int animCount;
+
+	bool addFlg;
 };
 

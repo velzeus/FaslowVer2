@@ -136,20 +136,19 @@
     </FxCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Area.cpp" />
     <ClCompile Include="Ball.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="BlockBace.cpp" />
     <ClCompile Include="Cannon.cpp" />
-    <ClCompile Include="ClassA.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClCompile>
+    <ClCompile Include="CutAndPaste.cpp" />
     <ClCompile Include="DebugConsorl.cpp" />
     <ClCompile Include="direct3d.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Hold.cpp" />
+    <ClCompile Include="HoldArea.cpp" />
     <ClCompile Include="input.cpp" />
     <ClCompile Include="InputSystem\TS_InputSystem.cpp" />
     <ClCompile Include="main.cpp" />
@@ -166,10 +165,6 @@
     <ClCompile Include="SceneFolder\Scenes\StageScene.cpp" />
     <ClCompile Include="TextureManager.cpp" />
     <ClCompile Include="WICTextureLoader.cpp" />
-    <ClCompile Include="Word1_Stage.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="PixelShader.hlsl">
@@ -196,17 +191,16 @@
     </FxCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Area.h" />
     <ClInclude Include="Ball.h" />
     <ClInclude Include="BlockBace.h" />
     <ClInclude Include="Cannon.h" />
-    <ClInclude Include="ClassA.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClInclude>
+    <ClInclude Include="CutAndPaste.h" />
     <ClInclude Include="DebugConsorl.h" />
     <ClInclude Include="direct3d.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Hold.h" />
+    <ClInclude Include="HoldArea.h" />
     <ClInclude Include="input.h" />
     <ClInclude Include="InputSystem\TS_InputSystem.h" />
     <ClInclude Include="json.hpp" />
@@ -225,10 +219,6 @@
     <ClInclude Include="CreateStageJson.h" />
     <ClInclude Include="TextureManager.h" />
     <ClInclude Include="WICTextureLoader.h" />
-    <ClInclude Include="Word1_Stage.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClInclude>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

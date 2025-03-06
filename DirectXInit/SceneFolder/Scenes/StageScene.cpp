@@ -215,7 +215,7 @@ int StageScene::Start()
 
 	//オプションボタン　　440
 	optionButton.Init(L"asset/UI/back.png");
-	optionButton.SetPos(-860.0f, 440.0f, 0.0f);
+	optionButton.SetPos(-900.0f, 470.0f, 0.0f);
 	optionButton.SetSize(50.0f, 50.0f, 0.0f);
 	optionButton.SetAngle(0.0f);
 	optionButton.SetColor(1.0f, 1.0f, 1.0f, 1.0f);
@@ -223,7 +223,7 @@ int StageScene::Start()
 	//リトライボタン
 	retryButton.Init(L"asset/UI/Hamburger_icon_100x100.png");
 	//retryButton.Init(L"asset/block.png");
-	retryButton.SetPos(-860.0f, -440.0f, 0.0f);
+	retryButton.SetPos(-800.0f, 470.0f, 0.0f);
 	retryButton.SetSize(50.0f, 50.0f, 0);
 	retryButton.SetAngle(0);
 	retryButton.SetColor(1, 1, 1, 1);
@@ -235,6 +235,41 @@ int StageScene::Start()
 	background.SetAngle(0);
 	background.SetColor(StageBG_Glay.x, StageBG_Glay.y, StageBG_Glay.z, StageBG_Glay.a);
 
+	//切り取りの枠
+	cutAndPaste.Init(L"asset/UI/orange_flame.png");
+	cutAndPaste.SetPos(0, 0, 0);
+	cutAndPaste.SetSize(BLOCKSIZE_X*3, BLOCKSIZE_Y*3, 0);
+	cutAndPaste.SetAngle(0);
+	cutAndPaste.SetColor(1, 1, 1, 0);
+
+	//切り取りボタン
+	cutButton.Init(L"asset/UI/Flame2.png");
+	cutButton.SetPos(-700, 470, 0);
+	cutButton.SetSize(50, 50, 0);
+	cutButton.SetAngle(0);
+	cutButton.SetColor(1, 1, 1, 1);
+
+	//保存する場所の枠
+	holdAreaFlame.Init(L"asset/UI/Folder.png");
+	holdAreaFlame.SetPos(-190, -310 - BLOCKSIZE_Y * 3, 0);
+	holdAreaFlame.SetSize(1280, BLOCKSIZE_Y * 4, 0);
+	holdAreaFlame.SetAngle(0);
+	holdAreaFlame.SetColor(1, 1, 1, 1);
+
+
+	//保存する用の場所
+	for (int i = 0; i < 5; i++)
+	{
+		holdAreas.emplace_back(new Area());
+		holdAreas[i]->Init(L"asset/UI/orange_flame.png");
+		holdAreas[i]->SetPos(-700+ (BLOCKSIZE_X * 6+15)*i, -310 - BLOCKSIZE_Y * 3, 0);
+		holdAreas[i]->SetSize(BLOCKSIZE_X * 3, BLOCKSIZE_Y * 3, 0);
+		holdAreas[i]->SetAngle(0);
+		holdAreas[i]->SetColor(1, 1, 1, 1);
+		holdAreas[i]->SetIndex(i);
+
+		
+	}
 	
 	accelerationFlg = false;
 
@@ -246,11 +281,22 @@ int StageScene::Start()
 
 	cannonFlg = false;
 
+	cutAndPaste.SetCutModeFlg(false);
+	animCount = 0;
+	addFlg = false;
+
 	return 0;
 }
 
 int StageScene::Update()
 {
+	//ゴールの判定
+	if (center.x == gorl.GetPos().x &&
+		center.y == gorl.GetPos().y)
+	{
+		//リザルトシーンに
+		SceneManager::GetInstance()->ChangeScene(RESULT);
+	}
 
 	
 
@@ -281,6 +327,8 @@ int StageScene::Update()
 		//	break;
 		//}
 	}
+
+	ball.Setborder();//端に行った時
 
 	//大砲と当たっている
 	if (cannonFlg == true)
@@ -518,12 +566,14 @@ int StageScene::Update()
 	
 	////ゴールの判定
 	//bool tmpGorlFlg=false;
-	//if (tmpGorlFlg == true&& (hitBlockType[0] == GORL))//ボールの前にゴールブロックがあれば
+	if ((hitBlockType[0] == GORL))//ボールの前にゴールブロックがあれば
+	{
+		//リザルトシーンに
+		SceneManager::GetInstance()->ChangeScene(RESULT);
+	}
 
-	//{
-	//	//リザルトシーンに
-	//	SceneManager::GetInstance()->ChangeScene(RESULT);
-	//}
+
+	
 
 
 	//左クリック
@@ -577,8 +627,8 @@ int StageScene::Update()
 			inputSystem->GetClickPosition().x - SCREEN_WIDTH / 2 < (retryButton.GetPos().x + retryButton.GetSize().x / 2))
 		{
 			//タスクバーを勘案して-部分だけ40上にずらして考える
-			if ((inputSystem->GetClickPosition().y - SCREEN_HEIGHT / 2 + 40) * -1 > (retryButton.GetPos().y - retryButton.GetSize().y / 2) &&
-				(inputSystem->GetClickPosition().y - SCREEN_HEIGHT / 2 + 40) * -1 < (retryButton.GetPos().y + retryButton.GetSize().y / 2))
+			if ((inputSystem->GetClickPosition().y - SCREEN_HEIGHT / 2) * -1 > (retryButton.GetPos().y - retryButton.GetSize().y / 2) &&
+				(inputSystem->GetClickPosition().y - SCREEN_HEIGHT / 2) * -1 < (retryButton.GetPos().y + retryButton.GetSize().y / 2))
 			{
 				//決定されてない状態に戻す
 				//SceneManager::GetInstance()->SetWorldNumber(NOTDONE_WORLD);
@@ -595,7 +645,388 @@ int StageScene::Update()
 		}
 
 
+
+		//切り取り
+		//------------------------------------------------------------
+		//どのブロックの内側にあるかを判定する
+		/*int clickBlockIndex_X = 0;
+		int clickBlockIndex_Y = 0;*/
+		bool cutFlg[2] = { false,false };
+		if (cutAndPaste.GetCutModeFlg() == false)
+		{
+			for (int i = 0; i < read_blockPositionList[0].size(); i++)
+			{
+				//x軸で内側にあったら
+				if (inputSystem->GetClickPosition().x - SCREEN_WIDTH / 2 > (read_blockPositionList[0][i].x - BLOCKSIZE_X / 2) &&
+					inputSystem->GetClickPosition().x - SCREEN_WIDTH / 2 < (read_blockPositionList[0][i].x + BLOCKSIZE_X / 2))
+				{
+					gridIndex_X[0] = i;
+					cutFlg[0] = true;
+					break;
+				}
+			}
+
+			for (int i = 0; i < read_blockPositionList.size(); i++)
+			{
+				//y軸で内側にあったら
+				if ((inputSystem->GetClickPosition().y - SCREEN_HEIGHT / 2 + BLOCKSIZE_X / 2) * -1 > (read_blockPositionList[i][0].y - BLOCKSIZE_Y / 2) &&
+					(inputSystem->GetClickPosition().y - SCREEN_HEIGHT / 2 + BLOCKSIZE_Y / 2) * -1 < (read_blockPositionList[i][0].y + BLOCKSIZE_Y / 2))
+				{
+					gridIndex_Y[0] = i;
+					cutFlg[1] = true;
+					break;
+				}
+			}
+		}
+
+		//カットモードがtrueなら
+		if ((cutFlg[0] == true && cutFlg[1] == true)&&cutAndPaste.GetCutModeFlg()==false)
+		{
+			//配列の位置を渡す
+			cutAndPaste.SetClickIndex(gridIndex_X[0], gridIndex_Y[0]);
+
+			cutAndPaste.SetCutModeFlg(true);
+
+			//座標と透明度を再設定
+			cutAndPaste.SetPos(
+				read_blockPositionList[gridIndex_Y[0]][gridIndex_X[0]].x, 
+				read_blockPositionList[gridIndex_Y[0]][gridIndex_X[0]].y, 0);
+
+			cutAndPaste.SetColor(1, 1, 1, 1);
+		}
+		else
+		{
+			//切り取りボタンの内側
+			if (inputSystem->GetClickPosition().x - SCREEN_WIDTH / 2 > (cutButton.GetPos().x - cutButton.GetSize().x / 2) &&
+				inputSystem->GetClickPosition().x - SCREEN_WIDTH / 2 < (cutButton.GetPos().x + cutButton.GetSize().x / 2) &&
+				(inputSystem->GetClickPosition().y - SCREEN_HEIGHT / 2 ) * -1 > (cutButton.GetPos().y - cutButton.GetSize().y / 2) &&
+				(inputSystem->GetClickPosition().y - SCREEN_HEIGHT / 2 ) * -1 < (cutButton.GetPos().y + cutButton.GetSize().y / 2))
+			{
+				//切り取り処理
+				cutAndPaste.CutBlocks(read_gridStateList);
+
+				int changeCount = 0;
+				int setAreaCount = -1;
+				int indexX = 0;
+				int indexY=0;
+				std::vector<std::vector<int>> tmpBlockIndex;
+
+				tmpBlockIndex.emplace_back();
+				tmpBlockIndex.emplace_back();
+				tmpBlockIndex.emplace_back();
+
+				tmpBlockIndex[0].resize(3, 9999);
+				tmpBlockIndex[1].resize(3, 9999);
+				tmpBlockIndex[2].resize(3, 9999);
+
+				//ブロックの座標の設定
+				for (auto& o : blocks)
+				{
+					if (o->GetBlockType() == STICKY_BLOCK ||
+						o->GetBlockType() == SLIP_BLOCK)
+					{
+						//y座標
+						for (int n_y = cutAndPaste.GetClickIndex(1) - 1; n_y <= cutAndPaste.GetClickIndex(1) + 1; n_y++)
+						{
+							//ループを抜けるフラグ
+							bool flg_break = false;
+
+							//x座標
+							for (int n_x = cutAndPaste.GetClickIndex(0) - 1; n_x <= cutAndPaste.GetClickIndex(0) + 1; n_x++)
+							{
+								//選択中のブロックが要素番号が示している配列の場所の値と同じか
+								if (o->GetPos().x == read_blockPositionList[n_y][n_x].x &&
+									o->GetPos().y == read_blockPositionList[n_y][n_x].y)
+								{
+									//状態を空に置き換える
+									//o->SetBlockType(NULLBLOCK);
+									//o->SetColor(1, 1, 1, 0);
+
+									for (int i = 0; i < holdAreas.size(); i++)
+									{
+										if (holdAreas[i]->GetSetBlockFlg() == false)
+										{
+											setAreaCount = i;
+											//切り取ったブロックを移動させる
+											//holdAreas[i]->SetSetBlockFlg(true);
+											o->SetPos(
+												holdAreas[i]->GetPos().x - (cutAndPaste.GetClickIndex(0) - n_x) * BLOCKSIZE_X,
+												holdAreas[i]->GetPos().y - (cutAndPaste.GetClickIndex(1) - n_y) * BLOCKSIZE_Y, 0);
+
+											//配列の中の値が3個になったら
+											/*if (tmpBlockIndex[indexY].size() == 3||indexY-1)
+											{
+												indexY++;
+											}*/
+
+											indexX = -(cutAndPaste.GetClickIndex(0) - n_x) + 1;
+											indexY = -(cutAndPaste.GetClickIndex(1) - n_y) + 1;
+
+											//移動させたブロックの番号を格納
+											tmpBlockIndex[indexY][indexX]=(o->GetIndex());
+											
+											changeCount++;
+											//flg_break = true;
+											break;
+										}
+									}
+
+									if (flg_break == true)
+									{
+										break;
+									}
+									
+								}
+								else
+								{
+									/*indexY = -(cutAndPaste.GetClickIndex(1) - n_y) + 1;
+									if (tmpBlockIndex[indexY].size() < 3)
+									{
+										
+										tmpBlockIndex[indexY].emplace_back();
+									}*/
+								}
+							}
+
+							if (flg_break == true)
+							{
+								break;
+							}
+						}
+
+					}
+
+					//変更された個数が9個以上ならループを抜ける
+					if (changeCount >= 9)
+					{
+						break;
+					}
+
+				}
+
+				//ブロックが格納されたなら（要素番号が0以上なら格納された）
+				if (setAreaCount >= 0)
+				{
+					//格納されている状態と格納されたブロックの番号を渡す
+					holdAreas[setAreaCount]->SetSetBlockFlg(true);
+					holdAreas[setAreaCount]->SetBlockIndex(tmpBlockIndex);
+				}
+				
+
+				//カットの状態を戻して枠を非表示にする
+				cutAndPaste.SetCutModeFlg(false);
+				cutAndPaste.SetColor(1, 1, 1, 0);
+
+			}
+			else
+			{
+				//保存されているブロックの場所
+				for (auto& o : holdAreas)
+				{
+					//ブロックが入っている枠を選んでいるとき
+					if (o->GetSetBlockFlg() == true && cutAndPaste.GetCutModeFlg() == true &&
+						inputSystem->GetClickPosition().x - SCREEN_WIDTH / 2 > (o->GetPos().x - o->GetSize().x / 2) &&
+						inputSystem->GetClickPosition().x - SCREEN_WIDTH / 2 < (o->GetPos().x + o->GetSize().x / 2) &&
+						(inputSystem->GetClickPosition().y - SCREEN_HEIGHT / 2) * -1 > (o->GetPos().y - o->GetSize().y / 2) &&
+						(inputSystem->GetClickPosition().y - SCREEN_HEIGHT / 2) * -1 < (o->GetPos().y + o->GetSize().y / 2))
+					{
+						std::vector<std::vector<int>> tmpBlockIndex=o->GetBlockIndex();
+
+						bool changeFlg = true;
+						
+						//y座標
+						for (int n_y = cutAndPaste.GetClickIndex(1) - 1; n_y <= cutAndPaste.GetClickIndex(1) + 1; n_y++)
+						{
+							//x座標
+							for (int n_x = cutAndPaste.GetClickIndex(0) - 1; n_x <= cutAndPaste.GetClickIndex(0) + 1; n_x++)
+							{
+								//保存されている場所の要素があるとき
+								if (tmpBlockIndex[-(cutAndPaste.GetClickIndex(1) - n_y) + 1].size() > 0)
+								{
+									//枠の中が全て空だったら
+									if (read_gridStateList[n_y][n_x] != NULLBLOCK)
+									{
+										changeFlg = false;
+									}
+								}
+								
+							}
+						}
+						
+						if (changeFlg == true)
+						{
+							//カットの枠に保存されたブロックを置く
+						//y座標
+							for (int n_y = cutAndPaste.GetClickIndex(1) - 1; n_y <= cutAndPaste.GetClickIndex(1) + 1; n_y++)
+							{
+								bool flg_break = false;
+								//x座標
+								for (int n_x = cutAndPaste.GetClickIndex(0) - 1; n_x <= cutAndPaste.GetClickIndex(0) + 1; n_x++)
+								{
+									//vectorの要素数内かつ、値が入っている段か
+									if (tmpBlockIndex[-(cutAndPaste.GetClickIndex(1) - n_y) + 1][-(cutAndPaste.GetClickIndex(0) - n_x)+1]!=9999)
+									{
+										//座標の再設定
+										blocks[tmpBlockIndex[-(cutAndPaste.GetClickIndex(1) - n_y) + 1][-(cutAndPaste.GetClickIndex(0) - n_x) + 1]]->
+											SetPos(
+												cutAndPaste.GetPos().x + BLOCKSIZE_X * (-(cutAndPaste.GetClickIndex(0) - n_x)),
+												cutAndPaste.GetPos().y + BLOCKSIZE_X * (-(cutAndPaste.GetClickIndex(1) - n_y)), 0);
+
+										read_gridStateList[n_y][n_x] =
+											blocks[tmpBlockIndex[-(cutAndPaste.GetClickIndex(1) - n_y) + 1][-(cutAndPaste.GetClickIndex(0) - n_x) + 1]]->GetBlockType();
+
+									}
+									else
+									{
+										read_gridStateList[n_y][n_x] = NULLBLOCK;
+									}
+
+
+								}
+
+							}
+
+							//格納されていない状態にする
+							o->SetSetBlockFlg(false);
+							tmpBlockIndex.clear();
+							o->SetBlockIndex(tmpBlockIndex);
+						}
+						
+						
+						
+					}
+					
+
+
+				}
+
+				cutAndPaste.SetCutModeFlg(false);
+				cutAndPaste.SetColor(1, 1, 1, 0);
+			}
+		}
+
+		//------------------------------------------------------------
+
+
 	}
+
+	for (auto& o : holdAreas)
+	{
+		if (o->GetSetBlockFlg() == true)
+		{
+			o->SetColor(1, 1, 1, ((float)animCount / 60.0f));
+		}
+		else
+		{
+			o->SetColor(1, 1, 1, 0);
+		}
+	}
+	
+	if (animCount >= 60 && addFlg == true)
+	{
+		addFlg = false;
+	}
+	else if (animCount <= 0 && addFlg == false)
+	{
+		addFlg = true;
+	}
+
+	if (addFlg == true)
+	{
+		animCount++;
+	}
+	else
+	{
+		animCount--;
+	}
+
+
+	//クリックが離されたらの処理
+	//-----------------------------------------
+	//カットモードがture
+	if (cutAndPaste.GetCutModeFlg() == true)
+	{
+		//for (int i = 0; i < read_blockPositionList[0].size(); i++)
+		//{
+		//	//x軸で内側にあったら
+		//	if (inputSystem->GetReleasePosition().x - SCREEN_WIDTH / 2 > (read_blockPositionList[0][i].x - BLOCKSIZE_X / 2) &&
+		//		inputSystem->GetReleasePosition().x - SCREEN_WIDTH / 2 < (read_blockPositionList[0][i].x + BLOCKSIZE_X / 2))
+		//	{
+		//		gridIndex_X[1] = i;
+		//		break;
+		//	}
+		//}
+
+		//for (int i = 0; i < read_blockPositionList.size(); i++)
+		//{
+		//	//y軸で内側にあったら
+		//	if ((inputSystem->GetReleasePosition().y - SCREEN_HEIGHT / 2) * -1 > (read_blockPositionList[i][0].y - BLOCKSIZE_Y / 2) &&
+		//		(inputSystem->GetReleasePosition().y - SCREEN_HEIGHT / 2) * -1 < (read_blockPositionList[i][0].y + BLOCKSIZE_Y / 2))
+		//	{
+		//		gridIndex_Y[1] = i;
+		//		break;
+		//	}
+		//}
+
+		//cutAndPaste.SetPos(
+		//	read_blockPositionList[gridIndex_Y[1]][gridIndex_X[1]].x,
+		//	read_blockPositionList[gridIndex_Y[1]][gridIndex_X[1]].y, 0);
+
+
+
+
+		if (inputSystem->GetRelease(MK_LEFT))
+		{
+			/*int clickBlockIndex_X[2] = 0;
+			int clickBlockIndex_Y[2] = 0;*/
+
+			
+
+
+
+			////範囲を3*3で納める
+			////x軸
+			//if (std::abs(gridIndex_X[0] - gridIndex_X[1]) > 3)
+			//{
+			//	if (gridIndex_X[0] - gridIndex_X[1] > 0)
+			//	{
+			//		gridIndex_X[1] = gridIndex_X[0] + 3;
+			//	}
+			//	else
+			//	{
+			//		gridIndex_X[1] = gridIndex_X[0] - 3;
+			//	}
+
+			//}
+
+			////y軸
+			//if (std::abs(gridIndex_Y[0] - gridIndex_Y[1]) > 3)
+			//{
+			//	if (gridIndex_Y[0] - gridIndex_Y[1] > 0)
+			//	{
+			//		gridIndex_Y[1] = gridIndex_Y[0] + 3;
+			//	}
+			//	else
+			//	{
+			//		gridIndex_Y[1] = gridIndex_Y[0] - 3;
+			//	}
+
+			//}
+
+			//cutAndPaste.SetReleaseIndex(gridIndex_X[1], gridIndex_Y[1]);
+
+			
+
+
+			
+
+		}
+
+		
+	}
+
+	//------------------------------------------
+
 
 	//トリガー更新
 	triggerFlg_O = triggerFlg_N;
@@ -705,6 +1136,8 @@ int StageScene::Draw()
 	//	}
 	//}
 
+	holdAreaFlame.Draw();
+
 	for (int i = 0; i < blocks.size(); i++)
 	{
 		
@@ -722,7 +1155,18 @@ int StageScene::Draw()
 
 	gorl.Draw();
 
+	if (cutAndPaste.GetCutModeFlg() == true)
+	{
+		cutAndPaste.Draw();
+		cutButton.Draw();
+	}
+
 	retryButton.Draw();
+
+	for (auto& o : holdAreas)
+	{
+		o->Draw();
+	}
 
 	return 0;
 }
@@ -739,9 +1183,18 @@ int StageScene::End()
 	{
 		delete o;
 	}
+
+	for (auto& o : holdAreas)
+	{
+		delete o;
+	}
+
 	blocks.clear();
 
 	cannons.clear();
+
+	holdAreas.clear();
+	//holdAreas.resize(5,nullptr);
 	return 0;
 }
 
