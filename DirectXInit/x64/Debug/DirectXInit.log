@@ -1,17 +1,1 @@
-﻿  Area.cpp
-  CutAndPaste.cpp
-  HoldArea.cpp
-C:\Users\richs\Documents\GitHub\FaslowVer2\DirectXInit\SceneFolder\SceneManager.h(1,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
-C:\Users\richs\Documents\GitHub\FaslowVer2\DirectXInit\HoldArea.cpp(35,44): warning C4267: '初期化中': 'size_t' から 'int' に変換しました。データが失われているかもしれません。
-C:\Users\richs\Documents\GitHub\FaslowVer2\DirectXInit\HoldArea.cpp(43,30): warning C4267: '=': 'size_t' から 'int' に変換しました。データが失われているかもしれません。
-C:\Users\richs\Documents\GitHub\FaslowVer2\DirectXInit\HoldArea.cpp(75,33): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\richs\Documents\GitHub\FaslowVer2\DirectXInit\HoldArea.cpp(74,53): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
-  StageScene.cpp
-C:\Users\richs\Documents\GitHub\FaslowVer2\DirectXInit\SceneFolder\Scenes\StageScene.cpp(1,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
-C:\Users\richs\Documents\GitHub\FaslowVer2\DirectXInit\SceneFolder\SceneManager.h(1,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
-C:\Users\richs\Documents\GitHub\FaslowVer2\DirectXInit\SceneFolder\Scenes\StageScene.cpp(146,23): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\richs\Documents\GitHub\FaslowVer2\DirectXInit\SceneFolder\Scenes\StageScene.cpp(266,28): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\richs\Documents\GitHub\FaslowVer2\DirectXInit\SceneFolder\Scenes\StageScene.cpp(943,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
-C:\Users\richs\Documents\GitHub\FaslowVer2\DirectXInit\SceneFolder\Scenes\StageScene.cpp(1245,4): warning C4102: 'defalt': ラベルは 1 度も参照されません。
-  コードを生成中...
-  DirectXInit.vcxproj -> C:\Users\richs\Documents\GitHub\FaslowVer2\x64\Debug\DirectXInit.exe
+﻿  DirectXInit.vcxproj -> C:\Users\richs\Documents\GitHub\FaslowVer2\x64\Debug\DirectXInit.exe
