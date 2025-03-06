@@ -53,7 +53,7 @@ void Ball::SetrotDir(bool _rotdir)
 
 void Ball::Setborder()
 {
-	if (pos.x > 470)//右端
+	if (pos.x > 430)//右端
 	{
 		pos.x = -810.0f - vel_x;
 		boder = true;
@@ -61,7 +61,7 @@ void Ball::Setborder()
 
 	if (pos.x < -850)//左端
 	{
-		pos.x = 430.0 + vel_x;
+		pos.x = 390.0 + vel_x;
 		boder = true;
 	}
 
