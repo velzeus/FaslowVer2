@@ -75,6 +75,7 @@ public:
 
 	void SetGridStateList(std::vector<std::vector<int>> _gridStateList);
 	std::vector<std::vector<int>> GetGridStateList();
+	bool rpid = false;
 
 private:
     SceneManager* manager;

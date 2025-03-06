@@ -8,6 +8,7 @@ CUT::CUT(StageScene* stagesceneInstance)
 // マウス選択エリアを基にグリッドデータを更新
 void CUT::UpdateSelection(const POINT& clickPosition, const POINT& releasePosition)
 {
+    
     // クリックされた位置から離された位置をもとに、選択範囲の左上と右下のマスを決定
     int startX = std::min<int>(clickPosition.x, releasePosition.x);
     int startY = std::min<int>(clickPosition.y, releasePosition.y);
@@ -67,4 +68,20 @@ void CUT::ClearSelectedArea(int startX, int startY, int endX, int endY)
     // 更新したデータを SetGridStateList で適用
     stagescene->SetGridStateList(gridStateList);
 }
+
+void CUT::Update()
+{
+    MouseInput* mouse = MouseInput::GetInstance();
+
+    // 左クリックが離されたら選択範囲を処理
+    if (!mouse->IsLeftButtonDown())
+    {
+        POINT clickPos = mouse->GetClickPosition();
+        POINT releasePos = mouse->GetReleasePosition();
+
+        // 範囲をクリアする処理
+        UpdateSelection(clickPos, releasePos);
+    }
+}
+
 

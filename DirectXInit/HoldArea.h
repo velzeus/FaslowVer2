@@ -2,20 +2,22 @@
 #include "Hold.h"
 #include "Object.h"
 
+#include"SceneFolder/Scenes/StageScene.h"  
+
 
 class HoldArea 
 {
 private:
     Hold* hold;
-    Object holdBlocks[5][3][3];  // 5‚Â‚Ì3~3ƒuƒƒbƒN
+    Object holdBlocks[5][3][3];  // 5ã¤ã®3Ã—3ãƒ–ãƒ­ãƒƒã‚¯
     StageScene* stagescene;
-    int selectedIndex = -1;  // ‘I‘ğ‚³‚ê‚½ƒGƒŠƒA‚ÌƒCƒ“ƒfƒbƒNƒX
+    int selectedIndex = -1;  // é¸æŠã•ã‚ŒãŸã‚¨ãƒªã‚¢ã®ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹
 public:
     HoldArea(Hold* holdInstance);
 
-    // •`‰æ—p‚ÌƒZƒbƒgƒAƒbƒv
+    // æç”»ç”¨ã®ã‚»ãƒƒãƒˆã‚¢ãƒƒãƒ—
     void Init();
     void Update();
-    // •Û‘¶ƒf[ƒ^‚Ì•\¦
+    // ä¿å­˜ãƒ‡ãƒ¼ã‚¿ã®è¡¨ç¤º
     void Draw();
 };

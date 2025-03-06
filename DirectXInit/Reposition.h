@@ -1,4 +1,7 @@
 #pragma once
+
+#include"SceneFolder/Scenes/StageScene.h"  
+
 #include "HoldArea.h"
 #include"Hold.h"
 #include <iostream>
@@ -7,7 +10,7 @@
 class Reposition {
 public:
     Reposition(Hold* holdInstance, StageScene* stagesceneInstance);
-    void PlaceArea(int holdIndex, int targetX, int targetY);  // •Û‘¶ƒGƒŠƒA‚ğ”z’u
+    void PlaceArea(int holdIndex, int targetX, int targetY);  // â€¢Ã›â€˜Â¶Æ’GÆ’Å Æ’Aâ€šÃ°â€zâ€™u
 
 private:
     Hold* hold;

@@ -208,7 +208,6 @@ int StageScene::Start()
 	}
 
 	//ボールの向きを設定
-	//ball.SetPos(-330, 430, 0);
 	center = ball.GetPos();
 	prvpos = ball.GetPos();
 	CheckSurroundingCollisions();
@@ -299,6 +298,8 @@ int StageScene::Update()
 		SceneManager::GetInstance()->ChangeScene(RESULT);
 	}
 
+	
+
 	//大砲と当たっている判定があったら　
 	for (auto& o : cannons)
 	{
@@ -387,18 +388,38 @@ int StageScene::Update()
 	}
 	else
 	{
+		ball.Setborder();//端に行った時
 		ball.Move();//移動
 	}
 
-
-	
-	//ball.Move();//移動
-
 	center = ball.GetPos();//ボールの位置を取得
 
+	if (inputSystem->GetTrigger(MK_RIGHT))
+	{
+		if (rpid == true) { rpid = false; }
+		else { rpid = true; }
+
+	}
 
 	if (abs(center.x - prvpos.x) == 40 || abs(center.y - prvpos.y) == 40)
 	{
+		
+		
+
+
+		if(rpid)
+		{
+			
+			ball.vel_x = 20.0f;
+			ball.vel_y = 20.0f;
+
+		}
+		else 
+		{
+			ball.vel_x = 1.0f;
+			ball.vel_y = 1.0f;
+		}
+
 		prvpos = center;
 		CheckSurroundingCollisions();//あたり判定
 		UpdateMoveDir();//ボールの方向を変える
@@ -500,7 +521,7 @@ int StageScene::Update()
 	}
 
 	
-  	//ball.Setborder();//端に行った時
+  	
 
 	if (ball.boder)
 	{
