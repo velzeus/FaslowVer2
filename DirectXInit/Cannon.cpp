@@ -225,6 +225,16 @@ int Cannon::GetAnimationCount()
 	return animationCount;
 }
 
+void Cannon::SetAnimFlg(bool _animFlg)
+{
+	animFlg = _animFlg;
+}
+
+bool Cannon::GetAnimFlg()
+{
+	return animFlg;
+}
+
 void Cannon::SetCollisionPos(float _x, float _y, float _z)
 {
 	collisionPos.x = _x;

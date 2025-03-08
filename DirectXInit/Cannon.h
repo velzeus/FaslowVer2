@@ -38,6 +38,9 @@ public:
     void SetAnimationCount(int _count);
     int GetAnimationCount();
 
+    void SetAnimFlg(bool _animFlg);
+    bool GetAnimFlg();
+
     void SetCollisionPos(float _x, float _y, float _z);
     DirectX::XMFLOAT3 GetCollisionPos();
 
@@ -56,6 +59,8 @@ private:
     int cannonNum;
 
     int animationCount;
+
+    bool animFlg;
 
     bool cannonModeFlg;
 

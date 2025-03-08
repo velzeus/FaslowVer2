@@ -22,7 +22,7 @@ using namespace std;
 #define BLOCKSIZE_X (40)
 #define BLOCKSIZE_Y (40)
 
-
+#define UNSET (9999)
 
 //GridState‚ÍBlockBace‚ÉˆÚ‚µ‚Ü‚µ‚½
 
@@ -145,5 +145,7 @@ private:
 	int animCount;
 
 	bool addFlg;
+
+	bool cannonAnimFlg;
 };
 

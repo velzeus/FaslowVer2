@@ -87,6 +87,8 @@ int StageScene::Start()
 				break;
 			case BOLL:
 				ball.SetPos(read_blockPositionList[y][x].x, read_blockPositionList[y][x].y, 0);
+				ball.SetColor(1, 1, 1, 1);
+				ball.SetMoveDir(RIGHT);
 				gridData[x][y] = NULLBLOCK;
 				break;
 			case COIN:
@@ -286,6 +288,11 @@ int StageScene::Start()
 	animCount = 0;
 	addFlg = false;
 
+	cannonAnimFlg=false;
+
+	rpid = false;
+
+
 	return 0;
 }
 
@@ -311,7 +318,9 @@ int StageScene::Update()
 			//o->SetCannnonModeFlg(true);
 			cannonIndex = o->GetCannonNum();
 			cannonFlg = true;
+			cannonAnimFlg = true;
 			o->SetAnimationCount(0);
+			o->SetAnimFlg(true);
 
 			//当たっている大砲の単位ベクトルを渡してボールの移動をする
 			ball.Move_Cannon(cannons[cannonIndex]->GetNormalizedDirection());
@@ -327,6 +336,49 @@ int StageScene::Update()
 		//	cannonIndex = o->GetCannonNum();
 		//	break;
 		//}
+
+		if (o->GetAnimFlg() == true)
+		{
+			//アニメーションカウントが24で割り切れるときかつ、アニメーションカウントがゼロより大きいとき
+			if (o->GetAnimationCount() % 24 == 0 && cannons[cannonIndex]->GetAnimationCount() > 0)
+			{
+				//縦方向のUVを更新
+				o->numV++;
+				o->numU = 0;
+				o->SetAnimationCount(o->GetAnimationCount() + 1);
+
+			}
+			else
+			{
+				//表示している画像番号が17番より下かつ、アニメーションカウントが全部回った後の値より少ないとき
+				if (5 * o->numV + o->numU < 17 && o->GetAnimationCount() < 17 * 5)
+				{
+					//カウントを上げる
+					o->SetAnimationCount(o->GetAnimationCount() + 1);
+
+					//アニメーションカウント%5が4のときかつ、numUが4未満のとき
+					if (o->GetAnimationCount() % 5 == 4 && o->numU < 4)
+					{
+						o->numU++;
+					}
+
+					if (o->numU == 2 && o->numV == 1)
+					{
+						o->SetCannnonModeFlg(true);
+					}
+				}
+				else
+				{
+					//UVの値を0に戻す
+					o->numV = 0;
+					o->numU = 0;
+					o->SetAnimFlg(false);
+					o->SetAnimationCount(0);
+				}
+
+			}
+		}
+		
 	}
 
 	ball.Setborder();//端に行った時
@@ -353,45 +405,14 @@ int StageScene::Update()
 			ball.SetColor(1, 1, 1, 0);
 		}
 
-		
-		//アニメーションカウントが24で割り切れるときかつ、アニメーションカウントがゼロより大きいとき
-		if (cannons[cannonIndex]->GetAnimationCount() % 24 == 0&& cannons[cannonIndex]->GetAnimationCount() > 0)
-		{
-			//縦方向のUVを更新
-			cannons[cannonIndex]->numV++;
-			cannons[cannonIndex]->numU=0;
-			cannons[cannonIndex]->SetAnimationCount(cannons[cannonIndex]->GetAnimationCount() + 1);
-
-			cannons[cannonIndex]->SetCannnonModeFlg(true);
-		}
-		else 
-		{
-			//表示している画像番号が17番より下かつ、アニメーションカウントが全部回った後の値より少ないとき
-			if (5 * cannons[cannonIndex]->numV + cannons[cannonIndex]->numU < 17 && cannons[cannonIndex]->GetAnimationCount() < 17 * 5)
-			{
-				//カウントを上げる
-				cannons[cannonIndex]->SetAnimationCount(cannons[cannonIndex]->GetAnimationCount() + 1);
-
-				//アニメーションカウント%5が4のときかつ、numUが4未満のとき
-				if (cannons[cannonIndex]->GetAnimationCount() % 5 == 4&& cannons[cannonIndex]->numU<4)
-				{
-					cannons[cannonIndex]->numU++;
-				}
-			}
-			else
-			{
-				//UVの値を0に戻す
-				cannons[cannonIndex]->numV = 0;
-				cannons[cannonIndex]->numU = 0;
-			}
-			
-		}
-		
 	}
 	else
 	{
 		ball.Move();//移動
 	}
+
+	
+
 
 	center = ball.GetPos();//ボールの位置を取得
 
@@ -496,10 +517,10 @@ int StageScene::Update()
 				for (auto& o : blocks)
 				{
 					//判定を取っている場所に粘着ブロックがあったら
-					if (v.x >= o->GetPos().x - o->GetSize().x / 4 &&
-						v.x <= o->GetPos().x + o->GetSize().x / 4 &&
-						v.y >= o->GetPos().y - o->GetSize().y / 4 &&
-						v.y <= o->GetPos().y + o->GetSize().y / 4)
+					if (v.x >= o->GetPos().x - o->GetSize().x / 2 &&
+						v.x <= o->GetPos().x + o->GetSize().x / 2 &&
+						v.y >= o->GetPos().y - o->GetSize().y / 2 &&
+						v.y <= o->GetPos().y + o->GetSize().y / 2)
 					{
 						if (o->GetBlockType() == STICKY_BLOCK)
 						{
@@ -711,9 +732,9 @@ int StageScene::Update()
 				tmpBlockIndex.emplace_back();
 				tmpBlockIndex.emplace_back();
 
-				tmpBlockIndex[0].resize(3, 9999);
-				tmpBlockIndex[1].resize(3, 9999);
-				tmpBlockIndex[2].resize(3, 9999);
+				tmpBlockIndex[0].resize(3, UNSET);
+				tmpBlockIndex[1].resize(3, UNSET);
+				tmpBlockIndex[2].resize(3, UNSET);
 
 				//ブロックの座標の設定
 				for (auto& o : blocks)
@@ -826,7 +847,7 @@ int StageScene::Update()
 						(inputSystem->GetClickPosition().y - SCREEN_HEIGHT / 2) * -1 > (o->GetPos().y - o->GetSize().y / 2) &&
 						(inputSystem->GetClickPosition().y - SCREEN_HEIGHT / 2) * -1 < (o->GetPos().y + o->GetSize().y / 2))
 					{
-						std::vector<std::vector<int>> tmpBlockIndex=o->GetBlockIndex();
+						std::vector<std::vector<int>> tmpBlockIndex = o->GetBlockIndex();
 
 						bool changeFlg = true;
 						
@@ -840,7 +861,8 @@ int StageScene::Update()
 								if (tmpBlockIndex[-(cutAndPaste.GetClickIndex(1) - n_y) + 1].size() > 0)
 								{
 									//枠の中が全て空だったら
-									if (read_gridStateList[n_y][n_x] != NULLBLOCK)
+									if (tmpBlockIndex[-(cutAndPaste.GetClickIndex(1) - n_y) + 1][-(cutAndPaste.GetClickIndex(0) - n_x) + 1]!= UNSET &&
+										read_gridStateList[n_y][n_x] != NULLBLOCK)
 									{
 										changeFlg = false;
 									}
@@ -860,7 +882,7 @@ int StageScene::Update()
 								for (int n_x = cutAndPaste.GetClickIndex(0) - 1; n_x <= cutAndPaste.GetClickIndex(0) + 1; n_x++)
 								{
 									//vectorの要素数内かつ、値が入っている段か
-									if (tmpBlockIndex[-(cutAndPaste.GetClickIndex(1) - n_y) + 1][-(cutAndPaste.GetClickIndex(0) - n_x)+1]!=9999)
+									if (tmpBlockIndex[-(cutAndPaste.GetClickIndex(1) - n_y) + 1][-(cutAndPaste.GetClickIndex(0) - n_x)+1]!=UNSET)
 									{
 										//座標の再設定
 										blocks[tmpBlockIndex[-(cutAndPaste.GetClickIndex(1) - n_y) + 1][-(cutAndPaste.GetClickIndex(0) - n_x) + 1]]->
