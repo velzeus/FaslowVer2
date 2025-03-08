@@ -36,7 +36,7 @@ void Ball::Move()
 
 void Ball::Move_Cannon(DirectX::XMFLOAT3 _normalizedDirection)
 {
-	SetPos(GetPos().x + vel_x * _normalizedDirection.x, GetPos().y + vel_y * _normalizedDirection.y, GetPos().z);
+	SetPos(GetPos().x + 20.0f * _normalizedDirection.x, GetPos().y + 20.0f * _normalizedDirection.y, GetPos().z);
 
 	
 }

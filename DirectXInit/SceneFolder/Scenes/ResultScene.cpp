@@ -61,7 +61,7 @@ int ResultScene::Update()
                 (inputSystem->GetClickPosition().y - SCREEN_HEIGHT / 2) * -1 < (nextStage.GetPos().y + nextStage.GetSize().y / 2))
             {
                 //次のワールドとステージを指定
-                SceneManager::GetInstance()->SetWorldNumber(WORLD2);
+                SceneManager::GetInstance()->SetWorldNumber(SceneManager::GetInstance()->GetWorldNumber());
 
                 STAGENUMBER stageNum = SceneManager::GetInstance()->GetStageNumber();
 
